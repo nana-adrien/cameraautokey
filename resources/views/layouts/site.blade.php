@@ -14,7 +14,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800;900&family=Barlow+Condensed:wght@600;700;800;900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     @stack('head')
-    <link rel="stylesheet" href="{{ asset('css/site.css') }}?v=17">
+    <link rel="stylesheet" href="{{ asset('css/site.css') }}?v=18">
     <link rel="icon" type="image/png" href="{{ asset('images/favicon-64.png') }}">
     <link rel="apple-touch-icon" href="{{ asset('images/logo-camer-auto-key-160.png') }}">
 </head>
@@ -201,7 +201,7 @@
     </div>
     <div class="ft-trust">
         <span><i class="fas fa-shield-alt"></i>Techniciens assurés</span>
-        <span><i class="fas fa-map-marker-alt"></i>Boutique et garage à Douala — interventions dans tout le Cameroun</span>
+        <span><i class="fas fa-map-marker-alt"></i>Boutique à Akwa · garage à Ndogsimbi — interventions dans tout le Cameroun</span>
         <span><i class="fas fa-star"></i>Clients satisfaits à Douala</span>
     </div>
     <div class="ft-copy">© Copyright {{ date('Y') }} {{ $settings['company_name'] }} — Tous droits réservés · <a href="{{ route('legal') }}">Mentions légales</a></div>

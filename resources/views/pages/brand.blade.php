@@ -9,7 +9,7 @@
     'title' => 'Reproduction clé '.$brand->name,
     'titleHtml' => 'Votre clé <em>'.e($brand->name).'</em><br>refaite à Douala',
     'subtitle' => e($brand->description).' <strong>Copie, remplacement, télécommande ou clé mains libres.</strong>',
-    'badges' => ['🔑 Copie de clé '.$brand->name, '💻 Codage sur place', '📍 Boutique à Douala'],
+    'badges' => ['🔑 Copie de clé '.$brand->name, '💻 Codage sur place', '📍 Boutique à Akwa'],
     'crumb' => 'Marques › '.$brand->name,
 ])
 @include('partials.service-body', [

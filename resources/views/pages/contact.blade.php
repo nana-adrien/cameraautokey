@@ -30,29 +30,48 @@
     <div class="container">
         <div class="section-title" style="margin-bottom:28px">
             <span class="sub-title">Nous trouver</span>
-            <h2 class="main-title">Venez nous voir à Douala</h2>
+            <h2 class="main-title">Nos deux adresses à Douala</h2>
         </div>
-        <div class="locations-grid">
-            @include('partials.location-card', [
-                'name' => $settings['company_name'],
-                'logo' => asset('images/logo-camer-auto-key-160.png'),
-                'address' => $settings['address'],
-                'hours' => $settings['opening_hours'],
-                'phone' => $settings['phone'],
-                'lat' => $settings['shop_lat'],
-                'lng' => $settings['shop_lng'],
-            ])
-            @include('partials.location-card', [
-                'name' => $settings['garage_name'],
-                'logo' => asset('images/logo-3k-auto-services.webp'),
-                'address' => $settings['garage_address'],
-                'hours' => $settings['garage_hours'],
-                'phone' => $settings['garage_phone'],
-                'lat' => $settings['garage_lat'],
-                'lng' => $settings['garage_lng'],
-                'mapsUrl' => $settings['garage_maps_url'],
-            ])
-        </div>
+        @php
+            $sameSite = $settings['shop_lat'] !== '' && $settings['shop_lat'] === $settings['garage_lat'] && $settings['shop_lng'] === $settings['garage_lng'];
+        @endphp
+        @if ($sameSite)
+            <div class="locations-grid single">
+                @include('partials.location-card', [
+                    'name' => $settings['company_name'].' & '.$settings['garage_name'],
+                    'logos' => [asset('images/logo-camer-auto-key-160.png'), asset('images/logo-3k-auto-services.webp')],
+                    'address' => $settings['address'],
+                    'hours' => 'Clés : '.$settings['opening_hours'].' · Garage : '.$settings['garage_hours'],
+                    'phone' => $settings['phone'],
+                    'lat' => $settings['shop_lat'],
+                    'lng' => $settings['shop_lng'],
+                    'mapsUrl' => $settings['garage_maps_url'],
+                ])
+            </div>
+        @else
+            <div class="locations-grid">
+                @include('partials.location-card', [
+                    'name' => $settings['company_name'],
+                    'logo' => asset('images/logo-camer-auto-key-160.png'),
+                    'address' => $settings['address'],
+                    'hours' => $settings['opening_hours'],
+                    'phone' => $settings['phone'],
+                    'lat' => $settings['shop_lat'],
+                    'lng' => $settings['shop_lng'],
+                    'mapsUrl' => $settings['shop_maps_url'],
+                ])
+                @include('partials.location-card', [
+                    'name' => $settings['garage_name'],
+                    'logo' => asset('images/logo-3k-auto-services.webp'),
+                    'address' => $settings['garage_address'],
+                    'hours' => $settings['garage_hours'],
+                    'phone' => $settings['garage_phone'],
+                    'lat' => $settings['garage_lat'],
+                    'lng' => $settings['garage_lng'],
+                    'mapsUrl' => $settings['garage_maps_url'],
+                ])
+            </div>
+        @endif
     </div>
 </section>
 @endsection

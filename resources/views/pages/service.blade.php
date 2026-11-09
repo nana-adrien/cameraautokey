@@ -8,7 +8,7 @@
     'title' => $service->title,
     'titleHtml' => e($service->title).'<br>à <em>Douala</em>',
     'subtitle' => e($service->excerpt).' <strong>Prix confirmé avant de commencer, paiement après essai.</strong>',
-    'badges' => ['🔑 Clé neuve sans l’ancienne', '📍 Boutique à Douala', '📱 Orange Money / MTN MoMo', '🛡️ Garantie 1 mois'],
+    'badges' => ['🔑 Clé neuve sans l’ancienne', '📍 Boutique à Akwa', '📱 Orange Money / MTN MoMo', '🛡️ Garantie 1 mois'],
     'crumb' => $service->title,
 ])
 @include('partials.service-body', [

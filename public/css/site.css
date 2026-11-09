@@ -399,6 +399,9 @@ button { font: inherit; }
 /* ─── LOCALISATION (carte Google + itinéraire) ─── */
 .locations-section { padding: 60px 0 70px; background: #fff; border-top: 1px solid var(--border); }
 .locations-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+.locations-grid.single { grid-template-columns: 1fr; max-width: 900px; margin: 0 auto; }
+.locations-grid.single .location-map { height: 380px; }
+.location-head img + img { margin-left: -6px; }
 .location-card { background: var(--off); border: 1.5px solid var(--border); border-radius: var(--r); padding: 18px; display: flex; flex-direction: column; gap: 14px; }
 .x-sc-flat .location-card, .sc .location-card { background: #fff; border: 0; padding: 0; }
 .location-head { display: flex; gap: 14px; align-items: center; }

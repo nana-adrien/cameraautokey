@@ -1,6 +1,6 @@
 {{--
     Carte de localisation : carte Google Maps intégrée (sans clé d'API) + itinéraire.
-    Variables : $name, $logo (URL), $address, $hours, $phone, $whatsapp, $lat, $lng, $mapsUrl (facultatif)
+    Variables : $name, $logo (URL) ou $logos (liste d'URL), $address, $hours, $phone, $whatsapp, $lat, $lng, $mapsUrl (facultatif)
 --}}
 @php
     $hasCoords = is_numeric($lat ?? null) && is_numeric($lng ?? null);
@@ -11,7 +11,9 @@
 @endphp
 <div class="location-card">
     <div class="location-head">
-        @if (! empty($logo))<img src="{{ $logo }}" alt="Logo {{ $name }}" width="52" height="52" loading="lazy">@endif
+        @foreach (array_filter($logos ?? [$logo ?? null]) as $logoUrl)
+            <img src="{{ $logoUrl }}" alt="" width="52" height="52" loading="lazy">
+        @endforeach
         <div>
             <b>{{ $name }}</b>
             <span><i class="fas fa-map-marker-alt"></i> {{ $address }}</span>

@@ -22,6 +22,7 @@ class SettingController extends Controller
         'garage_whatsapp' => 'WhatsApp du garage (format international, sans +)',
         'shop_lat' => 'Boutique Camer Auto Key — latitude GPS (ex. 4.0614)',
         'shop_lng' => 'Boutique Camer Auto Key — longitude GPS (ex. 9.7347)',
+        'shop_maps_url' => 'Boutique Camer Auto Key — lien de la fiche Google Maps',
         'garage_address' => 'Adresse du garage',
         'garage_hours' => 'Horaires du garage',
         'garage_lat' => 'Garage — latitude GPS',
@@ -53,6 +54,7 @@ class SettingController extends Controller
             $rules[$key] = ['nullable', 'numeric', 'between:-180,180'];
         }
         $rules['garage_maps_url'] = ['nullable', 'url', 'max:300'];
+        $rules['shop_maps_url'] = ['nullable', 'url', 'max:300'];
 
         foreach ($request->validate($rules) as $key => $value) {
             Setting::updateOrCreate(['key' => $key], ['value' => $value]);
