@@ -66,7 +66,7 @@ class DatabaseSeeder extends Seeder
     private function seedBrands(): void
     {
         $brands = [
-            'auto' => ['Alfa Romeo', 'Audi', 'BMW', 'Citroën', 'Cupra', 'Dacia', 'DS Automobiles', 'Fiat', 'Ford', 'Honda', 'Hyundai', 'Jaguar', 'Jeep', 'Kia', 'Land Rover', 'Lexus', 'Mazda', 'Mercedes', 'MG Motor', 'Mini', 'Mitsubishi', 'Nissan', 'Opel', 'Peugeot', 'Porsche', 'Renault', 'Seat', 'Skoda', 'Smart', 'Tesla', 'Toyota', 'Volkswagen', 'Volvo'],
+            'auto' => ['Acura', 'Alfa Romeo', 'Audi', 'Bentley', 'BMW', 'Cadillac', 'Chevrolet', 'Chrysler', 'Citroën', 'Cupra', 'Dacia', 'DS Automobiles', 'Fiat', 'Ford', 'Honda', 'Hyundai', 'Infiniti', 'Jaguar', 'Jeep', 'Kia', 'Land Rover', 'Lexus', 'Maserati', 'Mazda', 'Mercedes', 'MG Motor', 'Mini', 'Mitsubishi', 'Nissan', 'Opel', 'Peugeot', 'Porsche', 'Renault', 'Seat', 'Skoda', 'Smart', 'Subaru', 'Tesla', 'Toyota', 'Volkswagen', 'Volvo'],
             'pl' => ['Scania', 'Renault Trucks', 'Volvo Trucks', 'Mercedes Trucks', 'DAF', 'Iveco', 'MAN'],
             'moto' => ['Honda Moto', 'Yamaha', 'BMW Motorrad', 'Harley Davidson', 'Kawasaki', 'KTM', 'Ducati', 'Suzuki', 'Piaggio'],
         ];

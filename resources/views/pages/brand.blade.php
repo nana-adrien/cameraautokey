@@ -5,6 +5,7 @@
 @section('content')
 @include('partials.page-hero', ['image' => 'photos/cles-toyota-interieur.webp', 
     'alert' => true,
+    'logo' => $brand->logoUrl(),
     'title' => 'Reproduction clé '.$brand->name,
     'titleHtml' => 'Reproduction clé <em>'.e($brand->name).'</em><br>à domicile 24h/24',
     'subtitle' => e($brand->description).' <strong>Double, perte totale, télécommande ou clé mains libres.</strong>',

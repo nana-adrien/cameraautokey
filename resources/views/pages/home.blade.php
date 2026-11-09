@@ -22,11 +22,13 @@
         ['equipe-camer-auto-key.webp', 'L’équipe CAMER AUTO KEY'],
         ['installation-camera-recul.webp', 'Installation d’une caméra de recul 360°'],
         ['cles-toyota-tundra-blanc.webp', 'Nouvelles clés pour Toyota Tundra'],
+        ['facade-camer-auto-key.webp', 'Notre boutique CAMER AUTO KEY'],
+        ['decoupe-cle-machine.webp', 'Taille de clé sur machine'],
+        ['f150-pont-elevateur.webp', 'Ford F-150 sur pont élévateur'],
+        ['cles-acura-rdx.webp', 'Clés Acura RDX devant la boutique'],
         ['atelier-cour.webp', 'Notre atelier'],
         ['vidange-moteur.webp', 'Entretien et vidange'],
-        ['cles-toyota-boutique.webp', 'Clés Toyota livrées devant la boutique'],
         ['diagnostic-tablette.webp', 'Programmation par diagnostic'],
-        ['cle-lexus.webp', 'Nouvelle clé Lexus'],
         ['atelier-camer-auto-key.webp', 'Clés RAM devant notre boutique'],
     ];
     $vehicleImages = ['auto' => 'vehicle-car.svg', 'pl' => 'vehicle-truck.svg', 'moto' => 'vehicle-moto.svg'];
@@ -36,9 +38,15 @@
 {{-- ─── HERO ─── --}}
 <section class="hero-section">
     <div class="hero-slider" aria-hidden="true">
-        @foreach ([['cles-toyota-tacoma.webp', '62% 58%'], ['mecanicien-capot-toyota.webp', '60% 45%'], ['installation-camera-recul.webp', '62% 50%']] as $i => [$photo, $pos])
-            <div class="hero-slide">
-                <img class="hero-slide-img" src="{{ asset('images/photos/'.$photo) }}" alt="" style="object-position:{{ $pos }}" @unless ($i) fetchpriority="high" @endunless>
+        @foreach ([
+            ['cles-toyota-tacoma.webp', '62% 58%'],
+            ['decoupe-cle-machine.webp', '70% 45%'],
+            ['f150-pont-elevateur.webp', '60% 55%'],
+            ['mecanicien-capot-toyota.webp', '60% 45%'],
+            ['installation-camera-recul.webp', '62% 50%'],
+        ] as $i => [$photo, $pos])
+            <div @class(['hero-slide', 'active' => $i === 0])>
+                <img class="hero-slide-img" src="{{ asset('images/photos/'.$photo) }}" alt="" style="object-position:{{ $pos }}" @if ($i) loading="lazy" @else fetchpriority="high" @endif>
             </div>
         @endforeach
     </div>
@@ -309,7 +317,13 @@
 
 {{-- ─── LOGOS DES MARQUES ─── --}}
 <section class="brands-strip">
-    <div class="container"><img src="{{ asset('images/placeholders/brand-logos.svg') }}" alt="Marques automobiles prises en charge" width="1200" height="740" loading="lazy"></div>
+    <div class="container">
+        <div class="brand-grid">
+            @foreach ($brands->flatten()->sortByDesc(fn ($b) => (bool) $b->logoUrl()) as $brand)
+                <x-brand-logo :brand="$brand" />
+            @endforeach
+        </div>
+    </div>
 </section>
 
 {{-- ─── RÉALISATIONS ─── --}}
@@ -451,6 +465,16 @@
             const close = () => { box.hidden = true; img.src = ''; };
             box.addEventListener('click', (e) => { if (e.target === box || e.target.closest('.lightbox-close')) close(); });
             document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !box.hidden) close(); });
+        })();
+        (function () {
+            const slides = document.querySelectorAll('.hero-slide');
+            if (slides.length < 2) return;
+            let i = 0;
+            setInterval(() => {
+                slides[i].classList.remove('active');
+                i = (i + 1) % slides.length;
+                slides[i].classList.add('active');
+            }, 6000);
         })();
         window.PRICING = @json($pricing);
     </script>

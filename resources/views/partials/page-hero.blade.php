@@ -8,6 +8,9 @@
     <img class="svc-hero-bg" src="{{ $heroImg }}" alt="" fetchpriority="high" style="object-position:{{ $position ?? '50% 50%' }}">
     <div class="svc-hero-inner">
     <div class="svc-hero-text">
+        @isset($logo)
+            @if ($logo)<span class="hero-logo"><img src="{{ $logo }}" alt="" width="64" height="64"></span>@endif
+        @endisset
         <h1>{!! $titleHtml ?? e($title) !!}</h1>
         @isset($subtitle)<p>{!! $subtitle !!}</p>@endisset
         @if ($cta ?? true)

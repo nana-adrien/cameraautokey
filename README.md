@@ -42,7 +42,7 @@ Aucun build front n’est nécessaire : le CSS et le JS sont dans `public/css` e
 
 | Fichier | Utilisation |
 |---|---|
-| `cles-toyota-tacoma.webp`, `mecanicien-capot-toyota.webp`, `installation-camera-recul.webp` | Diaporama de l’accueil (pleine largeur) |
+| `cles-toyota-tacoma.webp`, `decoupe-cle-machine.webp`, `f150-pont-elevateur.webp`, `mecanicien-capot-toyota.webp`, `installation-camera-recul.webp` | Diaporama de l’accueil (pleine largeur, rotation toutes les 6 s — liste dans `pages/home.blade.php`) |
 | `equipe-camer-auto-key.webp` | Bandeau et photo de la page À propos |
 | `cles-toyota-tundra-blanc.webp`, `cles-toyota-interieur.webp`, `atelier-cour.webp`, `vidange-moteur.webp`… | Bandeaux des autres pages |
 | 12 photos | Galerie « Nos réalisations » de l’accueil |
@@ -56,7 +56,13 @@ et régénérer sa miniature (`cwebp -q 80 -resize 800 0 photo.webp -o thumbs/ph
 |---|---|---|
 | `logo.svg` / `logo-white.svg` | En-tête, menu mobile | SVG ou PNG transparent, ~190×40 |
 | `placeholders/vehicle-*.svg` | Cartes « Type de véhicule » | PNG transparent 160×80 |
-| `placeholders/brand-logos.svg` | Bandeau des logos de marques | WebP ~2000 px de large |
+
+## Logos des marques
+
+Les logos sont dans `public/images/brands/{slug-de-la-marque}.svg` (source : Simple Icons, licence CC0,
+voir `SOURCE.txt`). Une marque sans fichier logo s’affiche avec son nom en style « wordmark ».
+Pour ajouter ou remplacer un logo, déposer un SVG portant le slug de la marque (visible dans l’admin → Marques).
+Logos encore absents : Alfa Romeo, Cupra, Jaguar, Land Rover, Lexus, Mercedes, Harley-Davidson, Kawasaki, Lancia.
 
 ## Tarification
 

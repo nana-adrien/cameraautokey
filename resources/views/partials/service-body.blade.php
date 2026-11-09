@@ -63,9 +63,9 @@
         @endif
 
         <x-sc num="4" title="Marques couvertes" sub="Automobiles, poids lourds et motos">
-            <div class="chip-cloud">
-                @foreach ($brands as $b)
-                    <a class="chip" href="{{ route('brands.show', $b) }}">{{ $b->name }}</a>
+            <div class="brand-grid compact">
+                @foreach ($brands->sortByDesc(fn ($b) => (bool) $b->logoUrl()) as $b)
+                    <x-brand-logo :brand="$b" size="sm" />
                 @endforeach
             </div>
             <p style="font-size:13px;color:var(--muted);margin-top:14px">Vous ne trouvez pas votre marque ? <a href="tel:{{ $tel }}" style="color:var(--navy);font-weight:700">Appelez-nous</a> : nous vérifions la compatibilité avant de nous déplacer.</p>

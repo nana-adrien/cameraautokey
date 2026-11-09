@@ -30,6 +30,12 @@ class Brand extends Model
         return 'slug';
     }
 
+    /** URL du logo (public/images/brands/{slug}.svg) ou null si aucun logo n'est disponible. */
+    public function logoUrl(): ?string
+    {
+        return is_file(public_path("images/brands/{$this->slug}.svg")) ? asset("images/brands/{$this->slug}.svg") : null;
+    }
+
     public function categoryLabel(): string
     {
         return self::CATEGORIES[$this->category] ?? $this->category;
