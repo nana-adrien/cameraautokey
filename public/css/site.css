@@ -409,6 +409,12 @@ button { font: inherit; }
 .location-head b { display: block; font-family: var(--fb); font-size: 17px; color: var(--navy); margin-bottom: 3px; }
 .location-head span { display: block; font-size: 13.5px; color: var(--muted); line-height: 1.5; }
 .location-head i { color: var(--red); width: 16px; }
+.location-switch { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.location-switch button { display: inline-flex; align-items: center; gap: 6px; background: #fff; border: 1.5px solid var(--border); color: var(--navy); border-radius: 50px; padding: 7px 14px; font-family: var(--fb); font-size: 13px; font-weight: 700; cursor: pointer; transition: all .18s; }
+.location-switch button:hover { border-color: var(--steel); }
+.location-switch button.active { background: var(--navy); border-color: var(--navy); color: #fff; }
+.location-test { margin-left: auto; background: #fff4e0; color: #a35a00; border: 1px solid #f5d199; border-radius: 50px; padding: 4px 10px; font-family: var(--fb); font-size: 11.5px; font-weight: 800; text-transform: uppercase; letter-spacing: .4px; }
+.location-views { position: relative; }
 .location-map { width: 100%; height: 300px; border: 0; border-radius: var(--r-sm); background: var(--border); }
 .location-nomap { height: 300px; border-radius: var(--r-sm); border: 2px dashed var(--border); display: flex; align-items: center; justify-content: center; gap: 10px; text-align: center; padding: 20px; color: var(--muted); font-size: 14px; background: #fff; }
 .location-nomap i { font-size: 22px; color: var(--steel); }

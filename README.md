@@ -76,6 +76,20 @@ Il ne reste plus d’image provisoire sur le site.
 - Paiement affiché : Orange Money, MTN MoMo, espèces, carte.
 - Mentions légales : RCCM, NIU et loi n° 2024/017 sur les données personnelles (à compléter).
 
+## Street View (page Contact et page Garage)
+
+Réglages dans **`config/streetview.php`**, une entrée par adresse (`shop` = boutique d’Akwa, `garage` = 3K à Ndogsimbi) :
+
+- `enabled` : affiche ou masque le bouton « Street View » (bascule avec la carte).
+- `test` : affiche l’étiquette « Vue de test ». La boutique utilise actuellement un **point de test**
+  (photo 360° publique près du boulevard de la Liberté, à ~700 m) : Google n’a pas de Street View devant les deux adresses.
+- `embed_url` : méthode recommandée quand la vraie vue existe — sur Google Maps, ouvrir la vue 360°,
+  *Partager → Intégrer une carte*, copier l’adresse du `src="…"`, puis mettre `test` à `false`.
+- Sinon `lat`, `lng`, `heading` (0 = nord, 90 = est…) et `pitch` : Google affiche le panorama le plus proche.
+
+Le panorama ne se charge qu’au clic sur « Street View ». Pour obtenir une vraie vue, le client peut publier
+une photo 360° devant sa boutique sur sa fiche Google Maps.
+
 ## Logos des marques
 
 Les logos sont dans `public/images/brands/{slug-de-la-marque}.svg` (source : Simple Icons, licence CC0,

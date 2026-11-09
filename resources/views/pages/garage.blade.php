@@ -85,6 +85,7 @@
                 'lat' => $settings['garage_lat'],
                 'lng' => $settings['garage_lng'],
                 'mapsUrl' => $settings['garage_maps_url'],
+                'streetView' => config('streetview.garage'),
             ])
         </x-sc>
 

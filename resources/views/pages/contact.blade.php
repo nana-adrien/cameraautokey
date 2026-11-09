@@ -59,6 +59,7 @@
                     'lat' => $settings['shop_lat'],
                     'lng' => $settings['shop_lng'],
                     'mapsUrl' => $settings['shop_maps_url'],
+                    'streetView' => config('streetview.shop'),
                 ])
                 @include('partials.location-card', [
                     'name' => $settings['garage_name'],
@@ -69,6 +70,7 @@
                     'lat' => $settings['garage_lat'],
                     'lng' => $settings['garage_lng'],
                     'mapsUrl' => $settings['garage_maps_url'],
+                    'streetView' => config('streetview.garage'),
                 ])
             </div>
         @endif
