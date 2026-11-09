@@ -75,6 +75,19 @@
             </div>
         </x-sc>
 
+        <x-sc icon="fas fa-map-marker-alt" title="Accès au garage" sub="{{ $settings['garage_address'] }}">
+            @include('partials.location-card', [
+                'name' => $settings['garage_name'],
+                'logo' => null,
+                'address' => $settings['garage_address'],
+                'hours' => $settings['garage_hours'],
+                'phone' => $settings['garage_phone'],
+                'lat' => $settings['garage_lat'],
+                'lng' => $settings['garage_lng'],
+                'mapsUrl' => $settings['garage_maps_url'],
+            ])
+        </x-sc>
+
         <x-sc num="3" title="Nous recrutons : mécanicien automobile" sub="Rejoignez l’équipe {{ $settings['garage_name'] }}" id="recrutement">
             <div class="recruit">
                 <button type="button" class="gallery-item recruit-flyer" data-full="{{ asset('images/photos/recrutement-mecanicien-3k.webp') }}" data-caption="Recrutement — mécanicien automobile">
@@ -106,8 +119,8 @@
                 @endif
                 <a href="tel:{{ $gTel }}" class="btn-outline"><i class="fas fa-phone-alt"></i> {{ $settings['garage_phone'] }}</a>
                 <div class="trust-list">
-                    <span class="trust-item"><span class="tdot"></span>{{ $settings['address'] }}</span>
-                    <span class="trust-item"><span class="tdot"></span>{{ $settings['opening_hours'] }}</span>
+                    <span class="trust-item"><span class="tdot"></span>{{ $settings['garage_address'] }}</span>
+                    <span class="trust-item"><span class="tdot"></span>{{ $settings['garage_hours'] }}</span>
                     <span class="trust-item"><span class="tdot"></span>Devis avant toute intervention</span>
                 </div>
             </x-sc>

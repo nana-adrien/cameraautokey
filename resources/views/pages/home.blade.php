@@ -27,7 +27,7 @@
         ['cle-lexus.webp', 'Nouvelle clé Lexus'],
     ];
     $gallery = [
-        ['facade-camer-auto-key.webp', 'Notre boutique à Akwa, Douala'],
+        ['facade-camer-auto-key.webp', 'Notre boutique à Douala'],
         ['equipe-camer-auto-key.webp', 'L’équipe CAMER AUTO KEY'],
         ['taille-cle-condor.webp', 'Taille de clé sur machine'],
         ['diagnostic-tablette.webp', 'Programmation par diagnostic'],
@@ -58,7 +58,7 @@
     <div class="hero-bg"></div>
     <div class="hero-content">
         <h1>{{ $settings['hero_title'] }}<br>Une nouvelle clé en <span class="hl">30 minutes</span></h1>
-        <p><strong>Taille, codage et remplacement de clés</strong> pour voitures, camions et deux-roues — atelier à Akwa, interventions à Douala, Yaoundé et dans tout le pays.<br>{{ $settings['hero_subtitle'] }}</p>
+        <p><strong>Taille, codage et remplacement de clés</strong> pour voitures, camions et deux-roues — boutique à Douala, interventions à Yaoundé et dans tout le pays.<br>{{ $settings['hero_subtitle'] }}</p>
         <div class="hero-actions">
             <a href="#form-area" class="hero-cta"><i class="fas fa-key"></i> Refaire ma clé</a>
             @if ($settings['whatsapp'])
@@ -128,7 +128,7 @@
                         <div class="how-it-works-grid">
                             <div class="hiw-card"><span class="hiw-icon"><i class="far fa-calendar-check"></i></span><div><div class="hiw-title">1. Vous décrivez votre clé</div><div class="hiw-desc">Quelques questions sur le véhicule et la clé, <strong>sans paiement</strong> ni engagement.</div></div></div>
                             <div class="hiw-card"><span class="hiw-icon"><i class="fas fa-user-friends"></i></span><div><div class="hiw-title">2. On vous rappelle</div><div class="hiw-desc">Un conseiller confirme le prix et fixe le passage : <strong>tout de suite</strong> ou au moment qui vous arrange.</div></div></div>
-                            <div class="hiw-card"><span class="hiw-icon"><i class="fas fa-tools"></i></span><div><div class="hiw-title">3. On fabrique la clé</div><div class="hiw-desc">À l’atelier d’Akwa ou devant votre véhicule : taille de la lame, codage, essais.</div></div></div>
+                            <div class="hiw-card"><span class="hiw-icon"><i class="fas fa-tools"></i></span><div><div class="hiw-title">3. On fabrique la clé</div><div class="hiw-desc">En boutique ou devant votre véhicule : taille de la lame, codage, essais.</div></div></div>
                             <div class="hiw-card"><span class="hiw-icon"><i class="far fa-check-circle"></i></span><div><div class="hiw-title">4. Vous essayez, puis vous payez</div><div class="hiw-desc">La clé ouvre et démarre ? Vous réglez (Mobile Money, espèces, carte) et recevez <strong>votre facture</strong>.</div></div></div>
                         </div>
                     </div>
@@ -482,8 +482,8 @@
 <section class="seo-section">
     <div class="seo-inner">
         <div class="seo-head">
-            <h2>{{ $settings['company_name'] }}, l’atelier de la clé automobile à Akwa</h2>
-            <p>Depuis notre boutique d’Akwa, nous <strong>taillons, codons et remplaçons</strong> les clés de voitures, de camions et de deux-roues pour les particuliers, les garages et les entreprises de Douala et de tout le Cameroun.</p>
+            <h2>{{ $settings['company_name'] }}, l’atelier de la clé automobile à Douala</h2>
+            <p>Depuis notre boutique de Douala, nous <strong>taillons, codons et remplaçons</strong> les clés de voitures, de camions et de deux-roues pour les particuliers, les garages et les entreprises de Douala et de tout le Cameroun.</p>
         </div>
         <div class="seo-grid">
             <div class="seo-card">
@@ -519,7 +519,7 @@
         </div>
         <div class="seo-cta">
             <h3>Vous avez perdu votre seule clé ?</h3>
-            <p>Ce n’est pas une raison pour remorquer le véhicule chez le concessionnaire : nous créons une <strong>clé neuve sans l’ancienne</strong>, directement à Akwa ou là où se trouve votre véhicule.</p>
+            <p>Ce n’est pas une raison pour remorquer le véhicule chez le concessionnaire : nous créons une <strong>clé neuve sans l’ancienne</strong>, directement en boutique ou là où se trouve votre véhicule.</p>
             <a href="tel:{{ $tel }}" class="btn-white"><i class="fas fa-phone-alt"></i> {{ $settings['phone'] }}</a>
         </div>
 

@@ -65,7 +65,7 @@ class DatabaseSeeder extends Seeder
                 'price_from' => $price,
                 'excerpt' => $excerpt,
                 'position' => $i,
-                'content' => $excerpt."\n\nLe travail se fait à notre boutique d’Akwa (Douala) ou là où se trouve votre véhicule, avec nos machines de taille, nos outils de codage et un stock de clés vierges. Le prix vous est annoncé en FCFA avant de commencer, et vous ne payez qu’après avoir essayé la clé.\n\nGarantie d’un mois sur chaque clé, extensible à douze mois.",
+                'content' => $excerpt."\n\nLe travail se fait à notre boutique de Douala ou là où se trouve votre véhicule, avec nos machines de taille, nos outils de codage et un stock de clés vierges. Le prix vous est annoncé en FCFA avant de commencer, et vous ne payez qu’après avoir essayé la clé.\n\nGarantie d’un mois sur chaque clé, extensible à douze mois.",
             ]);
         }
     }
@@ -93,7 +93,7 @@ class DatabaseSeeder extends Seeder
     {
         $items = [
             ['Jean-Paul Mbarga', 'Douala – Bonapriso', 'Clé de ma Corolla perdue un dimanche soir : le technicien est venu à Bonapriso en moins d’une heure et m’a refait une clé programmée devant moi. Service impeccable.'],
-            ['Aïcha Bello', 'Douala – Akwa', 'Double de clé télécommande pour mon RAV4 fait à l’atelier d’Akwa en 30 minutes, prix annoncé respecté. Bien moins cher que chez le concessionnaire.'],
+            ['Aïcha Bello', 'Douala – Akwa', 'Double de clé télécommande pour mon RAV4 fait à la boutique en 30 minutes, prix annoncé respecté. Bien moins cher que chez le concessionnaire.'],
             ['Serge Nkoulou', 'Yaoundé – Bastos', 'Mes clés étaient restées dans le coffre du Prado. Ouverture sans aucune rayure et explications très claires. Je recommande vivement.'],
             ['Carine Ewane', 'Douala – Bonamoussadi', 'Ma clé de Hilux était cassée en deux : nouvelle coque, nouvelle lame taillée et programmation le jour même. Rapide et propre.'],
             ['Patrick Fotso', 'Douala – Bassa', 'Nous gérons une flotte de pick-up : CAMER AUTO KEY refait toutes nos clés perdues et programme les doubles. Réactifs et fiables.'],
@@ -109,7 +109,7 @@ class DatabaseSeeder extends Seeder
         $faqs = [
             ['Quel est le prix d’une clé de voiture ?', 'Comptez à partir de 25 000 FCFA pour la copie d’une clé mécanique. Le montant dépend du véhicule, du type de clé et de la gamme choisie ; il vous est toujours confirmé avant de commencer.'],
             ['Peut-on faire une clé si je n’ai plus l’ancienne ?', 'Oui. Nous lisons les informations du véhicule pour tailler et coder une clé neuve, puis nous pouvons effacer les clés perdues de la mémoire du véhicule.'],
-            ['Combien de temps faut-il ?', 'À l’atelier d’Akwa, une copie de clé prend souvent une trentaine de minutes. Pour un déplacement, le délai dépend du quartier et de la circulation : nous vous donnons une heure de passage au téléphone.'],
+            ['Combien de temps faut-il ?', 'En boutique, une copie de clé prend souvent une trentaine de minutes. Pour un déplacement, le délai dépend du quartier et de la circulation : nous vous donnons une heure de passage au téléphone.'],
             ['Comment se passe le paiement ?', 'Rien à payer lors de la demande. Vous réglez après avoir essayé la clé : Orange Money, MTN Mobile Money, espèces ou carte bancaire.'],
             ['Que dois-je présenter ?', 'La carte grise du véhicule et une pièce d’identité au même nom. Sans ces documents, nous ne fabriquons pas de clé : c’est une protection contre le vol.'],
             ['La clé est-elle garantie ?', 'Oui, un mois sur chaque clé. Vous pouvez choisir une garantie de douze mois au moment de la demande.'],

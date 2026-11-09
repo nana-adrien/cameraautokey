@@ -2,7 +2,7 @@
 @section('title', 'Qui sommes-nous ?')
 
 @section('content')
-@include('partials.page-hero', ['image' => 'photos/equipe-camer-auto-key.webp', 'position' => '50% 30%', 'titleHtml' => 'Qui <em>sommes-nous</em> ?', 'title' => 'À propos', 'subtitle' => e($settings['company_name']).' est un réseau de <strong>serruriers automobiles mobiles</strong>, basé à Akwa (Douala) et actif dans tout le Cameroun.'])
+@include('partials.page-hero', ['image' => 'photos/equipe-camer-auto-key.webp', 'position' => '50% 30%', 'titleHtml' => 'Qui <em>sommes-nous</em> ?', 'title' => 'À propos', 'subtitle' => e($settings['company_name']).' est un réseau de <strong>serruriers automobiles mobiles</strong>, basé à Douala et actif dans tout le Cameroun.'])
 <div class="content-wrap grid">
     <div>
         <x-sc icon="far fa-chart-bar" title="{{ $settings['company_name'] }} en chiffres">
@@ -20,7 +20,7 @@
                 <p>Nos intervenants sont formés aux technologies des principaux constructeurs et équipés de véhicules-ateliers. Ils interviennent chez les particuliers comme auprès des flottes d’entreprise.</p>
             </div>
         </x-sc>
-        <x-sc icon="fas fa-store" title="Nos deux enseignes" sub="Une même équipe à Akwa, Douala">
+        <x-sc icon="fas fa-store" title="Nos deux enseignes" sub="Une même équipe à Douala">
             <div class="steps-grid">
                 <div class="step-card" style="text-align:center"><img src="{{ asset('images/logo-camer-auto-key-160.png') }}" alt="Logo {{ $settings['company_name'] }}" width="90" height="90" style="margin:0 auto 10px;border-radius:50%"><b>{{ $settings['company_name'] }}</b><p>Vente, reproduction et programmation de clés auto, télécommandes et cartes mains libres.</p></div>
                 <a class="step-card" href="{{ route('garage') }}" style="text-align:center;display:block"><img src="{{ asset('images/logo-3k-auto-services.webp') }}" alt="Logo {{ $settings['garage_name'] }}" width="90" height="84" style="margin:0 auto 10px;border-radius:50%"><b>{{ $settings['garage_name'] }}</b><p>Garage : mécanique, entretien, diagnostic, freinage, alarme, GPS et caméras.</p></a>
