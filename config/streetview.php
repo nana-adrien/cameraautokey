@@ -34,12 +34,15 @@ return [
     ],
 
     'garage' => [
-        'enabled' => false,
-        'test' => false,
+        'enabled' => true,
+        // Vue de TEST : aucune photo 360° n'existe autour de Ndogsimbi (testé : garage,
+        // carrefour Makepe Missoké, Ndokoti, université, Bepanda). On réutilise le
+        // panorama de test d'Akwa en attendant une vraie photo 360° du garage.
+        'test' => true,
         'embed_url' => null,
-        'lat' => null,
-        'lng' => null,
-        'heading' => 0,
+        'lat' => 4.0485,
+        'lng' => 9.6950,
+        'heading' => 326,
         'pitch' => 0,
     ],
 

@@ -432,20 +432,57 @@
     <figure><img src="" alt=""><figcaption></figcaption></figure>
 </div>
 
-{{-- ─── GARAGE PARTENAIRE ─── --}}
-<section class="garage-band">
-    <div class="container"><div class="garage-band-inner">
-        <img src="{{ asset('images/logo-3k-auto-services.webp') }}" alt="Logo {{ $settings['garage_name'] }}" width="120" height="112" loading="lazy">
-        <div class="garage-band-text">
-            <span class="eyebrow">Notre garage partenaire</span>
-            <h2>{{ $settings['garage_name'] }}</h2>
-            <p>Mécanique, entretien, vidange, diagnostic électronique, freinage, alarme, GPS et caméras : la même équipe s’occupe aussi de tout votre véhicule.</p>
+{{-- ─── GARAGE AUTO : 3K AUTO SERVICES (le logo de l'en-tête bascule sur 3K dans cette section) ─── --}}
+@php
+    $gTel = preg_replace('/\s+/', '', $settings['garage_phone']);
+    $garageServices = [
+        ['fas fa-cogs', 'Mécanique générale', 'Moteur, embrayage, distribution, suspensions'],
+        ['fas fa-oil-can', 'Entretien & vidange', 'Huile, filtres, niveaux, révision complète'],
+        ['fas fa-laptop-medical', 'Diagnostic électronique', 'Voyants, codes défaut, calculateurs'],
+        ['fas fa-compact-disc', 'Freinage', 'Plaquettes, disques, liquide de frein'],
+        ['fas fa-shield-alt', 'Alarme & GPS', 'Protection et suivi de votre véhicule'],
+        ['fas fa-video', 'Caméras & écrans', 'Recul 360°, multimédia, accessoires'],
+    ];
+@endphp
+<section class="garage-auto" id="garage-auto" data-brand-switch="garage" aria-labelledby="garage-auto-title">
+    <div class="container">
+        <div class="garage-auto-head">
+            <img src="{{ asset('images/logo-3k-auto-services.webp') }}" alt="Logo {{ $settings['garage_name'] }}" width="96" height="90" loading="lazy">
+            <div>
+                <span class="garage-auto-eyebrow"><i class="fas fa-tools"></i> Garage auto</span>
+                <h2 id="garage-auto-title">{{ $settings['garage_name'] }}</h2>
+                <p>Le garage de l’équipe, à <strong>Ndogsimbi (derrière Overline Voyages)</strong> : mécanique, entretien, diagnostic et équipements pour voitures, 4x4 et pick-up.</p>
+            </div>
         </div>
-        <div class="garage-band-actions">
-            <a href="{{ route('garage') }}" class="btn-red">Découvrir le garage</a>
-            <a href="tel:{{ preg_replace('/\s+/', '', $settings['garage_phone']) }}" class="btn-outline"><i class="fas fa-phone-alt"></i> {{ $settings['garage_phone'] }}</a>
+
+        <div class="garage-auto-grid">
+            <div class="garage-auto-services">
+                @foreach ($garageServices as [$icon, $name, $desc])
+                    <div class="ga-service"><span><i class="{{ $icon }}"></i></span><div><b>{{ $name }}</b><small>{{ $desc }}</small></div></div>
+                @endforeach
+            </div>
+            <div class="garage-auto-photos">
+                <img src="{{ asset('images/photos/thumbs/f150-pont-elevateur.webp') }}" alt="Ford F-150 sur pont élévateur au garage 3K" width="800" height="600" loading="lazy" class="ga-photo-main">
+                <img src="{{ asset('images/photos/thumbs/mecanicien-capot-toyota.webp') }}" alt="Diagnostic sous le capot d’un Toyota" width="800" height="600" loading="lazy">
+                <img src="{{ asset('images/photos/thumbs/vidange-moteur.webp') }}" alt="Vidange moteur" width="800" height="600" loading="lazy">
+            </div>
         </div>
-    </div></div>
+
+        <div class="garage-auto-bar">
+            <span><i class="fas fa-map-marker-alt"></i> {{ $settings['garage_address'] }}</span>
+            <span><i class="far fa-clock"></i> {{ $settings['garage_hours'] }}</span>
+            <span><i class="fas fa-phone-alt"></i> <a href="tel:{{ $gTel }}">{{ $settings['garage_phone'] }}</a></span>
+        </div>
+        <div class="garage-auto-actions">
+            <a href="{{ route('garage') }}" class="ga-btn ga-btn-primary">Découvrir le garage</a>
+            @if ($settings['garage_whatsapp'])
+                <a href="https://wa.me/{{ $settings['garage_whatsapp'] }}" class="ga-btn" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> Rendez-vous</a>
+            @endif
+            @if (is_numeric($settings['garage_lat']) && is_numeric($settings['garage_lng']))
+                <a href="https://www.google.com/maps/dir/?api=1&amp;destination={{ $settings['garage_lat'] }},{{ $settings['garage_lng'] }}" class="ga-btn" target="_blank" rel="noopener"><i class="fas fa-route"></i> Itinéraire</a>
+            @endif
+        </div>
+    </div>
 </section>
 
 {{-- ─── AVIS CLIENTS ─── --}}

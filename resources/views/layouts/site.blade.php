@@ -14,7 +14,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800;900&family=Barlow+Condensed:wght@600;700;800;900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     @stack('head')
-    <link rel="stylesheet" href="{{ asset('css/site.css') }}?v=19">
+    <link rel="stylesheet" href="{{ asset('css/site.css') }}?v=20">
     <link rel="icon" type="image/png" href="{{ asset('images/favicon-64.png') }}">
     <link rel="apple-touch-icon" href="{{ asset('images/logo-camer-auto-key-160.png') }}">
 </head>
@@ -42,9 +42,18 @@
 
 {{-- ─── NAVIGATION ─── --}}
 <header class="site-nav">
-    <a href="{{ route('home') }}" class="brand-lockup" aria-label="{{ $settings['company_name'] }} — accueil">
-        <img src="{{ asset('images/logo-camer-auto-key-160.png') }}" alt="" class="brand-lockup-logo" width="52" height="52">
-        <span class="brand-lockup-text">CAMER <b>AUTO KEY</b><small>Clés auto · Programmation</small></span>
+    {{-- Logo « carrousel vertical » : bascule sur 3K tant que la section [data-brand-switch="garage"] est à l'écran --}}
+    <a href="{{ route('home') }}" class="brand-lockup brand-roll" aria-label="{{ $settings['company_name'] }} — accueil">
+        <span class="brand-track">
+            <span class="brand-face" data-face="shop">
+                <img src="{{ asset('images/logo-camer-auto-key-160.png') }}" alt="" class="brand-lockup-logo" width="52" height="52">
+                <span class="brand-lockup-text">CAMER <b>AUTO KEY</b><small>Clés auto · Programmation</small></span>
+            </span>
+            <span class="brand-face" data-face="garage" aria-hidden="true">
+                <img src="{{ asset('images/logo-3k-auto-services.webp') }}" alt="" class="brand-lockup-logo" width="52" height="52">
+                <span class="brand-lockup-text">3K <b>AUTO SERVICES</b><small>Garage · Mécanique · Diagnostic</small></span>
+            </span>
+        </span>
     </a>
 
     <button type="button" class="mobile-menu-btn" id="menu-btn" aria-label="Menu" aria-expanded="false">
@@ -227,6 +236,19 @@
         e.preventDefault(); a.parentElement.classList.toggle('active-mobile');
     }));
     nav.querySelectorAll('a[href*="#"]').forEach((a) => a.addEventListener('click', () => toggle(false)));
+
+    // Logo de l'en-tête : bascule vers le logo du garage quand sa section passe au milieu de l'écran.
+    const zone = document.querySelector('[data-brand-switch="garage"]');
+    const roll = document.querySelector('.brand-roll');
+    if (zone && roll && 'IntersectionObserver' in window) {
+        const faces = roll.querySelectorAll('.brand-face');
+        new IntersectionObserver(([entry]) => {
+            const garage = entry.isIntersecting;
+            document.body.classList.toggle('brand-garage', garage);
+            faces[0].setAttribute('aria-hidden', garage ? 'true' : 'false');
+            faces[1].setAttribute('aria-hidden', garage ? 'false' : 'true');
+        }, { rootMargin: '-45% 0px -45% 0px' }).observe(zone);
+    }
 })();
 </script>
 @stack('scripts')

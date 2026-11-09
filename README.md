@@ -81,14 +81,22 @@ Il ne reste plus d’image provisoire sur le site.
 Réglages dans **`config/streetview.php`**, une entrée par adresse (`shop` = boutique d’Akwa, `garage` = 3K à Ndogsimbi) :
 
 - `enabled` : affiche ou masque le bouton « Street View » (bascule avec la carte).
-- `test` : affiche l’étiquette « Vue de test ». La boutique utilise actuellement un **point de test**
-  (photo 360° publique près du boulevard de la Liberté, à ~700 m) : Google n’a pas de Street View devant les deux adresses.
+- `test` : affiche l’étiquette « Vue de test ». Les **deux adresses** utilisent actuellement le même **point de test**
+  (photo 360° publique près du boulevard de la Liberté, à Akwa) : Google n’a aucune vue 360° devant la boutique
+  ni autour du garage (Ndogsimbi, Makepe Missoké, Ndokoti, université, Bepanda testés).
 - `embed_url` : méthode recommandée quand la vraie vue existe — sur Google Maps, ouvrir la vue 360°,
   *Partager → Intégrer une carte*, copier l’adresse du `src="…"`, puis mettre `test` à `false`.
 - Sinon `lat`, `lng`, `heading` (0 = nord, 90 = est…) et `pitch` : Google affiche le panorama le plus proche.
 
 Le panorama ne se charge qu’au clic sur « Street View ». Pour obtenir une vraie vue, le client peut publier
 une photo 360° devant sa boutique sur sa fiche Google Maps.
+
+## Section « Garage auto » et logo animé (accueil)
+
+La section `#garage-auto` de l’accueil présente uniquement le garage 3K Auto Services. Elle porte l’attribut
+`data-brand-switch="garage"` : quand elle passe au milieu de l’écran, le logo de l’en-tête défile verticalement
+vers celui de 3K, puis revient à Camer Auto Key en la quittant (script en bas de `layouts/site.blade.php`,
+styles `.brand-roll` / `.brand-track` dans `site.css`). Sans JavaScript, le logo Camer Auto Key reste affiché.
 
 ## Logos des marques
 
