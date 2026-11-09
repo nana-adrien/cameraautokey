@@ -123,8 +123,8 @@ button { font: inherit; }
 .refonte-section { padding: 70px 0; background: linear-gradient(135deg, var(--dark), var(--navy)); color: #fff; }
 .refonte-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 50px; align-items: center; }
 .refonte-media { position: relative; }
-.refonte-media img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 16px; box-shadow: 0 30px 70px rgba(0,0,0,.4); }
-.refonte-badge { position: absolute; right: -16px; bottom: 28px; background: var(--red); color: #fff; border-radius: 14px; padding: 16px 20px; box-shadow: 0 14px 34px rgba(214,38,46,.45); text-align: left; }
+.refonte-media img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; object-position: 45% 50%; border-radius: 16px; box-shadow: 0 30px 70px rgba(0,0,0,.4); }
+.refonte-badge { position: absolute; right: -16px; top: 22px; background: var(--red); color: #fff; border-radius: 14px; padding: 16px 20px; box-shadow: 0 14px 34px rgba(214,38,46,.45); text-align: left; }
 .refonte-badge b { display: block; font-family: var(--fc); font-size: 36px; font-weight: 900; line-height: 1; }
 .refonte-badge span { font-size: 12.5px; font-weight: 600; opacity: .9; }
 .refonte-content .eyebrow { display: inline-flex; gap: 8px; align-items: center; color: #ff6b70; font-family: var(--fb); font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }

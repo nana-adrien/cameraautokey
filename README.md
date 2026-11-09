@@ -42,7 +42,7 @@ Aucun build front n’est nécessaire : le CSS et le JS sont dans `public/css` e
 
 | Fichier | Utilisation |
 |---|---|
-| `cles-toyota-tacoma.webp`, `decoupe-cle-machine.webp`, `f150-pont-elevateur.webp`, `mecanicien-capot-toyota.webp`, `installation-camera-recul.webp` | Diaporama de l’accueil (pleine largeur, rotation toutes les 6 s — liste dans `pages/home.blade.php`) |
+| `cles-toyota-tacoma.webp`, `taille-cle-atelier.webp`, `cles-toyota-interieur.webp`, `taille-cle-condor.webp`, `cles-toyota-tundra-blanc.webp` | Diaporama de l’accueil (pleine largeur, rotation toutes les 6 s — liste dans `pages/home.blade.php`) ; `taille-cle-atelier.webp` aussi dans la section « Refonte de clés » |
 | `equipe-camer-auto-key.webp` | Bandeau et photo de la page À propos |
 | `cles-toyota-tundra-blanc.webp`, `cles-toyota-interieur.webp`, `atelier-cour.webp`, `vidange-moteur.webp`… | Bandeaux des autres pages |
 | 12 photos | Galerie « Nos réalisations » de l’accueil |

@@ -14,7 +14,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800;900&family=Barlow+Condensed:wght@600;700;800;900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     @stack('head')
-    <link rel="stylesheet" href="{{ asset('css/site.css') }}?v=14">
+    <link rel="stylesheet" href="{{ asset('css/site.css') }}?v=16">
     <link rel="icon" type="image/png" href="{{ asset('images/favicon-64.png') }}">
     <link rel="apple-touch-icon" href="{{ asset('images/logo-camer-auto-key-160.png') }}">
 </head>
