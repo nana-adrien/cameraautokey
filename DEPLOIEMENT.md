@@ -1,22 +1,18 @@
-# Déploiement de la version TEST sur Vercel
+# Déploiement de la version TEST sur Vercel (conteneur Docker)
 
-Le site Laravel tourne sur Vercel grâce au runtime communautaire **vercel-php@0.9.0** (PHP 8.5,
-extensions `pdo_sqlite` et `pdo_pgsql` incluses). Les fichiers concernés :
+Le site est déployé sur Vercel comme **conteneur** : Vercel construit `Dockerfile.vercel`
+(Laravel servi par FrankenPHP, PHP 8.5) et envoie tout le trafic sur le port 80 du conteneur.
 
 | Fichier | Rôle |
 |---|---|
-| `vercel.json` | Runtime PHP, routes (fichiers de `public/` servis directement, le reste vers Laravel), en-têtes de sécurité, `noindex` |
-| `api/index.php` | Point d’entrée : redirige caches et vues vers `/tmp`, vérifie les secrets, crée la base de démonstration, puis lance `public/index.php` |
-| `.vercelignore` | Exclut `vendor/` (réinstallé par Composer sur Vercel), `.env`, bases SQLite locales, journaux… |
+| `Dockerfile.vercel` | Image : extensions PHP, dépendances Composer (sans dev), valeurs par défaut de la version test |
+| `docker/entrypoint.sh` | Démarrage : vérifie les secrets, prépare la base, met en cache config/routes/vues, lance FrankenPHP |
+| `vercel.json` | Force le mode conteneur (`"framework": "container"`) + en-têtes de sécurité et `noindex` |
+| `.vercelignore` / `.dockerignore` | N’envoient jamais `.env`, `vendor/`, les bases locales ni les journaux |
 
 ## 1. Variables à définir dans Vercel (une seule fois)
 
-Uniquement pour l’environnement **Preview**, dans le tableau de bord (*Settings → Environment Variables*)
-ou en ligne de commande depuis la racine du projet :
-
-```bash
-vercel link
-```
+Pour l’environnement **Preview** (tableau de bord → *Settings → Environment Variables*, ou CLI) :
 
 ```bash
 php artisan key:generate --show
@@ -30,10 +26,10 @@ vercel env add APP_KEY preview
 vercel env add ADMIN_PASSWORD preview
 ```
 
-- `APP_KEY` : collez la clé affichée par `key:generate --show` (une clé **différente** de celle du `.env` local).
-- `ADMIN_PASSWORD` : mot de passe du compte admin de test (long et unique). Facultatif : `ADMIN_EMAIL`.
+- `APP_KEY` : une clé **différente** de celle du `.env` local.
+- `ADMIN_PASSWORD` : mot de passe du compte admin de test (`ADMIN_EMAIL` facultatif, défaut `admin@cameraautokey.fr`).
 
-Sans ces deux variables, le site affiche « Configuration incomplète » au lieu de démarrer.
+Sans ces deux variables, le conteneur s’arrête avec le message « Configuration incomplète » (visible dans `vercel logs`).
 
 ## 2. Lancer un déploiement de test
 
@@ -41,23 +37,30 @@ Sans ces deux variables, le site affiche « Configuration incomplète » au lieu
 vercel
 ```
 
-`vercel` (sans `--prod`) crée un déploiement **Preview** avec une URL du type `https://cameraautokey-xxxx.vercel.app`.
+Sans `--prod`, Vercel crée un déploiement **Preview**. ⚠️ Le projet est relié au dépôt GitHub : chaque `git push`
+sur `main` déclenche un déploiement **Production** (qui aura besoin des mêmes variables pour l’environnement Production).
 
 ## 3. Comportement de la version test
 
-- **Base de données** : SQLite dans `/tmp`, créée et remplie avec les données de démonstration au premier
-  appel de chaque instance. Les demandes et modifications **disparaissent** quand Vercel recycle l’instance.
-- **Données persistantes** (optionnel) : ajoutez dans Vercel `DB_CONNECTION=pgsql` et `DB_URL=postgresql://…`
-  (Supabase, Neon…), puis lancez une fois les migrations vers cette base depuis votre poste :
-  `DB_CONNECTION=pgsql DB_URL=… php artisan migrate --seed --force`.
-- **Indexation** : en-tête `X-Robots-Tag: noindex, nofollow` sur tout le site (la version test n’apparaît pas sur Google).
-- **Sessions** : cookies chiffrés et `secure` ; **cache** et limite de tentatives de connexion en base ;
-  **journaux** dans la console Vercel (`vercel logs <url>`) ; **e-mails** écrits dans les journaux.
-- Toute valeur par défaut de `api/index.php` peut être remplacée par une variable Vercel du même nom.
+- **Base de données** : SQLite dans le conteneur, recréée avec les données de démonstration à chaque démarrage.
+  Vercel met le conteneur en veille après 30 s sans trafic en preview (5 min en production) : les demandes
+  saisies **disparaissent**, et plusieurs conteneurs peuvent tourner en parallèle avec chacun leur base.
+- **Données persistantes** (optionnel) : dans Vercel, `DB_CONNECTION=pgsql` + `DB_URL=postgresql://…`
+  (Supabase, Neon…). Les migrations s’exécutent au démarrage ; ajoutez `SEED_ON_BOOT=true` une seule fois
+  pour charger les données de démonstration, puis retirez-la (sinon les contenus modifiés dans l’admin seraient réécrits).
+- **Sessions** en cookies chiffrés `secure` ; **cache** et limite de tentatives de connexion en base ;
+  **journaux** dans la console Vercel ; **e-mails** écrits dans les journaux.
+- **Indexation** bloquée (`X-Robots-Tag: noindex, nofollow`).
+- Toute valeur `ENV` du `Dockerfile.vercel` peut être remplacée par une variable Vercel du même nom.
 
-## Vérifié en local
+## Tester l’image en local
 
-Simulation sans fichier `.env` via `api/index.php` : création de la base dans `/tmp`, toutes les pages et
-fichiers statiques en 200, demande d’intervention complète (session, CSRF, lien signé), compte admin créé
-avec `ADMIN_PASSWORD` (le mot de passe `password` est refusé), blocage après 5 tentatives de connexion
-ratées, message clair si un secret manque. Le build réel sur les serveurs Vercel n’a pas encore été lancé.
+```bash
+docker build -f Dockerfile.vercel -t cameraautokey-test .
+```
+
+```bash
+docker run --rm -p 8080:80 -e APP_KEY="$(php artisan key:generate --show)" -e ADMIN_PASSWORD="un-mot-de-passe-de-test" -e SESSION_SECURE_COOKIE=false cameraautokey-test
+```
+
+Puis ouvrir http://localhost:8080 (`SESSION_SECURE_COOKIE=false` uniquement en local, sans HTTPS).

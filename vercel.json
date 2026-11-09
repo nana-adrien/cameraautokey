@@ -1,27 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "version": 2,
-  "framework": null,
-  "installCommand": "echo 'Aucune dépendance front à installer'",
-  "buildCommand": "echo 'Site servi par PHP : aucun build front'",
-  "outputDirectory": "public",
-  "functions": {
-    "api/index.php": {
-      "runtime": "vercel-php@0.9.0",
-      "memory": 1024,
-      "maxDuration": 30,
-      "excludeFiles": "{.git/**,node_modules/**,tests/**,storage/logs/**,database/*.sqlite}"
-    }
-  },
-  "routes": [
-    {
-      "src": "/(css|js|images)/(.*)",
-      "headers": { "Cache-Control": "public, max-age=3600" },
-      "continue": true
-    },
-    { "handle": "filesystem" },
-    { "src": "/(.*)", "dest": "/api/index.php" }
-  ],
+  "framework": "container",
   "headers": [
     {
       "source": "/(.*)",

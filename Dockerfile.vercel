@@ -1,19 +1,12 @@
-# ---------- Étape 1 : compilation des assets (Tailwind / Vite) ----------
-FROM node:22-alpine AS assets
-WORKDIR /app
-COPY package.json package-lock.json ./
-RUN npm ci
-COPY . .
-RUN npm run build
-
-# ---------- Étape 2 : application Laravel avec FrankenPHP ----------
+# ---------- Application Laravel avec FrankenPHP (déploiement conteneur Vercel) ----------
+# Le site n'utilise ni Vite ni Tailwind compilé : CSS et JS sont déjà dans public/.
 FROM dunglas/frankenphp:1-php8.5
 
-# 1. Extensions PHP requises par Laravel (pdo_sqlite est déjà incluse dans l'image)
-RUN install-php-extensions pcntl pdo_mysql gd zip intl redis bcmath soap
+# 1. Extensions PHP (pdo_sqlite est déjà incluse ; pdo_pgsql pour une base PostgreSQL persistante)
+RUN install-php-extensions pcntl pdo_mysql pdo_pgsql gd zip intl redis bcmath soap opcache
 
 # 2. Composer
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 WORKDIR /app
 
@@ -23,18 +16,34 @@ COPY composer.json composer.lock /app/
 # 4. Dépendances de production, sans scripts ni autoloader
 RUN composer install --no-dev --no-scripts --no-autoloader --prefer-dist --no-interaction
 
-# 5. Reste de l'application
+# 5. Reste de l'application (.dockerignore exclut .env, vendor, bases locales…)
 COPY . /app
 
-# 6. Assets compilés à l'étape 1 (crée public/build/manifest.json)
-COPY --from=assets /app/public/build /app/public/build
-
-# 7. Autoloader final optimisé
+# 6. Autoloader final optimisé (+ découverte des paquets Laravel)
 RUN composer dump-autoload --optimize --no-dev
 
-# 8. Permissions indispensables pour Laravel
-RUN chown -R www-data:www-data /app/storage /app/bootstrap/cache /app/database
+# 7. Valeurs par défaut de la version de TEST — toute variable définie dans Vercel les remplace.
+#    Secrets obligatoires dans Vercel : APP_KEY et ADMIN_PASSWORD.
+ENV APP_NAME="CAMER AUTO KEY" \
+    APP_ENV=staging \
+    APP_DEBUG=false \
+    APP_LOCALE=fr \
+    APP_FALLBACK_LOCALE=fr \
+    APP_TIMEZONE=Africa/Douala \
+    LOG_CHANNEL=stderr \
+    SESSION_DRIVER=cookie \
+    SESSION_SECURE_COOKIE=true \
+    CACHE_STORE=database \
+    QUEUE_CONNECTION=sync \
+    MAIL_MAILER=log \
+    DB_CONNECTION=sqlite \
+    DB_DATABASE=/app/database/database.sqlite
 
+# 8. Permissions indispensables pour Laravel + script de démarrage
+RUN chmod +x /app/docker/entrypoint.sh \
+    && chown -R www-data:www-data /app/storage /app/bootstrap/cache /app/database
+
+# Vercel envoie le trafic sur le port 80 (modifiable avec la variable PORT).
 EXPOSE 80
 
-CMD ["frankenphp", "php-server", "--listen", ":80", "--root", "public/"]
+CMD ["/app/docker/entrypoint.sh"]
