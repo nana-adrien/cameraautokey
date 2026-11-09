@@ -36,18 +36,28 @@ Aucun build front n’est nécessaire : le CSS et le JS sont dans `public/css` e
 - CRUD : services, marques, techniciens, avis clients, FAQ.
 - Paramètres : nom, téléphones, e-mail, WhatsApp, textes de l’accueil.
 
-## Images provisoires à remplacer
+## Images
 
-Toutes les images sont des visuels temporaires (SVG) à remplacer par les photos du client,
-en gardant le même nom de fichier (ou en adaptant le chemin dans la vue) :
+**Photos du client** (`public/images/photos/`, format WebP) :
+
+| Fichier | Utilisation |
+|---|---|
+| `hero-cles-toyota.webp` | 1ʳᵉ image du diaporama de l’accueil (photo haute définition, 1536 px) |
+| `cle-toyota-tundra.webp`, `diagnostic-tablette.webp` | 2ᵉ et 3ᵉ images du diaporama |
+| `atelier-camer-auto-key.webp`, `programmation-tableau-de-bord.webp`, `cle-lexus.webp`, `pont-elevateur-toyota.webp` | Bandeaux des pages internes, page À propos |
+| toutes (+ `cles-toyota-boutique.webp`, `entretien-vidange.webp`) | Galerie « Nos réalisations » de l’accueil |
+
+⚠️ Les photos reçues font 414 × 414 px, sauf `hero-cles-toyota.webp` / `cles-toyota-boutique.webp`.
+Pour un diaporama net sur grand écran, remplacer `cle-toyota-tundra.webp` et `diagnostic-tablette.webp`
+par les originaux (au moins 1600 px de large), en gardant le même nom.
+
+**Visuels encore provisoires** (`public/images/`) :
 
 | Fichier | Où | Format conseillé |
 |---|---|---|
-| `public/images/logo.svg` / `logo-white.svg` | En-tête, menu mobile | SVG ou PNG transparent, ~190×40 |
-| `public/images/placeholders/hero-1.svg` → `hero-3.svg` | Diaporama de l’accueil (fondu 18 s) | JPG/WebP 1920×800 |
-| `public/images/placeholders/page-hero.svg` | Bandeau des pages internes | JPG/WebP 1920×600 |
-| `public/images/placeholders/vehicle-*.svg` | Cartes « Type de véhicule » | PNG transparent 160×80 |
-| `public/images/placeholders/brand-logos.svg` | Bandeau des logos de marques | WebP ~2000 px de large |
+| `logo.svg` / `logo-white.svg` | En-tête, menu mobile | SVG ou PNG transparent, ~190×40 |
+| `placeholders/vehicle-*.svg` | Cartes « Type de véhicule » | PNG transparent 160×80 |
+| `placeholders/brand-logos.svg` | Bandeau des logos de marques | WebP ~2000 px de large |
 
 ## Tarification
 

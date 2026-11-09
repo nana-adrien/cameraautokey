@@ -3,7 +3,7 @@
 
 @section('content')
 @php $tel = preg_replace('/\s+/', '', $settings['phone']); @endphp
-@include('partials.page-hero', ['titleHtml' => '<em>Contactez</em>-nous', 'title' => 'Contact', 'subtitle' => 'Une question, un devis ? Nous répondons rapidement, 7j/7.', 'cta' => false, 'trust' => false])
+@include('partials.page-hero', ['image' => 'photos/atelier-camer-auto-key.webp', 'titleHtml' => '<em>Contactez</em>-nous', 'title' => 'Contact', 'subtitle' => 'Une question, un devis ? Nous répondons rapidement, 7j/7.', 'cta' => false, 'trust' => false])
 <div class="content-wrap grid">
     <div>
         <x-sc icon="far fa-envelope" title="Envoyer un message">

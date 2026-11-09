@@ -4,7 +4,7 @@
     <div class="alert-bar">🚨 Clé perdue ou véhicule bloqué maintenant ? Appelez en urgence : <a href="tel:{{ $tel }}">{{ $settings['phone'] }}</a> — <a href="{{ route('home') }}#commande">demande en ligne</a> — intervention 24h/24</div>
 @endif
 <section class="svc-hero">
-    <img src="{{ asset('images/placeholders/'.($image ?? 'page-hero.svg')) }}" alt="" fetchpriority="high">
+    <img src="{{ asset('images/'.($image ?? 'photos/atelier-camer-auto-key.webp')) }}" alt="" fetchpriority="high">
     <div>
         <h1>{!! $titleHtml ?? e($title) !!}</h1>
         @isset($subtitle)<p>{!! $subtitle !!}</p>@endisset

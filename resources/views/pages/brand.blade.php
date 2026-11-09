@@ -3,7 +3,7 @@
 @section('description', $brand->description)
 
 @section('content')
-@include('partials.page-hero', [
+@include('partials.page-hero', ['image' => 'photos/cle-toyota-tundra.webp', 
     'alert' => true,
     'title' => 'Reproduction clé '.$brand->name,
     'titleHtml' => 'Reproduction clé <em>'.e($brand->name).'</em><br>à domicile 24h/24',

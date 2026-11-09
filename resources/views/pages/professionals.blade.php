@@ -2,7 +2,7 @@
 @section('title', 'Professionnels & flottes')
 
 @section('content')
-@include('partials.page-hero', ['titleHtml' => 'Espace <em>professionnels</em>', 'title' => 'Professionnels', 'subtitle' => 'Garages, loueurs, concessions et gestionnaires de flottes : <strong>un partenaire unique</strong> pour toutes vos clés.'])
+@include('partials.page-hero', ['image' => 'photos/pont-elevateur-toyota.webp', 'titleHtml' => 'Espace <em>professionnels</em>', 'title' => 'Professionnels', 'subtitle' => 'Garages, loueurs, concessions et gestionnaires de flottes : <strong>un partenaire unique</strong> pour toutes vos clés.'])
 <div class="content-wrap grid">
     <div>
         <x-sc num="1" title="Nos solutions pour les entreprises">

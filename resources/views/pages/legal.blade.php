@@ -2,7 +2,7 @@
 @section('title', 'Mentions légales')
 
 @section('content')
-@include('partials.page-hero', ['title' => 'Mentions légales', 'cta' => false, 'trust' => false])
+@include('partials.page-hero', ['image' => 'photos/programmation-tableau-de-bord.webp', 'title' => 'Mentions légales', 'cta' => false, 'trust' => false])
 <div class="content-wrap" style="max-width:900px">
     <x-sc num="1" title="Éditeur du site">
         <div class="text-block"><p>{{ $settings['company_name'] }} — {{ $settings['address'] }}<br>E-mail : {{ $settings['email'] }} — Téléphone : {{ $settings['phone'] }}</p><p><em>À compléter : forme juridique, capital, SIRET, RCS, numéro de TVA, directeur de la publication.</em></p></div>

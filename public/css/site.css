@@ -289,6 +289,22 @@ button { font: inherit; }
 .brands-strip { padding: 30px 0; background: #fff; border-top: 1px solid var(--border); }
 .brands-strip img { max-width: 1000px; width: 100%; margin: 0 auto; opacity: .85; }
 
+/* ─── RÉALISATIONS (galerie) ─── */
+.gallery-section { padding: 70px 0 40px; background: var(--off); border-top: 1px solid var(--border); }
+.gallery-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+.gallery-item { position: relative; display: block; aspect-ratio: 1; padding: 0; border: 0; border-radius: var(--r); overflow: hidden; cursor: zoom-in; background: var(--border); box-shadow: var(--sh-sm); }
+.gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s cubic-bezier(.2,.8,.2,1); }
+.gallery-item:hover img { transform: scale(1.06); }
+.gallery-cap { position: absolute; inset: auto 0 0 0; padding: 26px 14px 12px; background: linear-gradient(to top, rgba(10,20,50,.85), transparent); color: #fff; font-family: var(--fb); font-size: 13px; font-weight: 700; text-align: left; opacity: 0; transform: translateY(6px); transition: opacity .25s ease, transform .25s ease; }
+.gallery-item:hover .gallery-cap, .gallery-item:focus-visible .gallery-cap { opacity: 1; transform: none; }
+.lightbox { position: fixed; inset: 0; z-index: 10000; background: rgba(8,16,33,.92); display: flex; align-items: center; justify-content: center; padding: 30px; animation: fadeUp .2s ease; }
+.lightbox figure { max-width: min(900px, 100%); text-align: center; }
+.lightbox img { max-height: 80vh; width: auto; margin: 0 auto; border-radius: var(--r); box-shadow: var(--sh-lg); }
+.lightbox figcaption { color: #fff; font-family: var(--fb); font-weight: 600; margin-top: 12px; }
+.lightbox-close { position: absolute; top: 16px; right: 22px; background: none; border: 0; color: #fff; font-size: 40px; cursor: pointer; line-height: 1; }
+@media (max-width: 900px) { .gallery-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (hover: none) { .gallery-cap { opacity: 1; transform: none; } }
+
 /* ─── AVIS ─── */
 .testimonials-section { padding: 80px 0; background: #fff; border-top: 1px solid var(--border); }
 .section-title { text-align: center; margin-bottom: 50px; }

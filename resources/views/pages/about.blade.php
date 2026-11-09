@@ -2,7 +2,7 @@
 @section('title', 'Qui sommes-nous ?')
 
 @section('content')
-@include('partials.page-hero', ['titleHtml' => 'Qui <em>sommes-nous</em> ?', 'title' => 'À propos', 'subtitle' => e($settings['company_name']).' est un réseau de <strong>serruriers automobiles mobiles</strong>, joignables jour et nuit en France et en Belgique.'])
+@include('partials.page-hero', ['image' => 'photos/atelier-camer-auto-key.webp', 'titleHtml' => 'Qui <em>sommes-nous</em> ?', 'title' => 'À propos', 'subtitle' => e($settings['company_name']).' est un réseau de <strong>serruriers automobiles mobiles</strong>, joignables jour et nuit en France et en Belgique.'])
 <div class="content-wrap grid">
     <div>
         <x-sc icon="far fa-chart-bar" title="{{ $settings['company_name'] }} en chiffres">
@@ -14,10 +14,12 @@
             </div>
         </x-sc>
         <x-sc num="1" title="Notre mission">
+            <img src="{{ asset('images/photos/atelier-camer-auto-key.webp') }}" alt="L’atelier {{ $settings['company_name'] }}" width="414" height="414" style="float:right;width:220px;border-radius:var(--r);margin:0 0 12px 18px">
             <div class="text-block">
                 <p>Rendre la reproduction et la programmation de clés aussi simples qu’une course de VTC : une demande en ligne, un prix clair, un technicien qui vient à vous.</p>
                 <p>Nos intervenants sont formés aux technologies des principaux constructeurs et équipés de véhicules-ateliers. Ils interviennent chez les particuliers comme auprès des flottes d’entreprise.</p>
             </div>
+            <div style="clear:both"></div>
         </x-sc>
         <x-sc num="2" title="Nos engagements">
             <div class="steps-grid">

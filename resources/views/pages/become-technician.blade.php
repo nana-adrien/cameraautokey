@@ -2,7 +2,7 @@
 @section('title', 'Devenir intervenant')
 
 @section('content')
-@include('partials.page-hero', ['titleHtml' => 'Devenir <em>intervenant</em>', 'title' => 'Devenir intervenant', 'subtitle' => 'Serrurier automobile ou technicien en électronique embarquée ? <strong>Rejoignez notre réseau</strong> et recevez des demandes près de chez vous.', 'cta' => false, 'trust' => false])
+@include('partials.page-hero', ['image' => 'photos/diagnostic-tablette.webp', 'titleHtml' => 'Devenir <em>intervenant</em>', 'title' => 'Devenir intervenant', 'subtitle' => 'Serrurier automobile ou technicien en électronique embarquée ? <strong>Rejoignez notre réseau</strong> et recevez des demandes près de chez vous.', 'cta' => false, 'trust' => false])
 <div class="content-wrap grid">
     <div>
         <x-sc num="1" title="Pourquoi nous rejoindre ?">

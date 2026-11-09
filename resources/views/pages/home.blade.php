@@ -15,6 +15,16 @@
         'remote' => '<svg viewBox="0 0 48 48" fill="none" stroke="#1a2f5e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="13" y="3" width="22" height="26" rx="7"/><circle cx="24" cy="11" r="2.5" fill="#d6262e" stroke="#d6262e"/><circle cx="24" cy="20" r="2.5"/><path d="M24 29v16M24 37h5M24 42h4"/></svg>',
         'smart' => '<svg viewBox="0 0 48 48" fill="none" stroke="#1a2f5e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="11" width="36" height="26" rx="5"/><path d="M12 19h10M12 25h6"/><path d="M31 20a6 6 0 0 1 0 8M35 17a10 10 0 0 1 0 14" stroke="#d6262e"/></svg>',
     ];
+    $gallery = [
+        ['cles-toyota-boutique.webp', 'Clés Toyota mains libres livrées devant la boutique'],
+        ['diagnostic-tablette.webp', 'Programmation de clé par diagnostic'],
+        ['cle-toyota-tundra.webp', 'Double de clé Toyota Tundra'],
+        ['programmation-tableau-de-bord.webp', 'Intervention sur l’antidémarrage'],
+        ['cle-lexus.webp', 'Nouvelle clé Lexus'],
+        ['atelier-camer-auto-key.webp', 'Clés RAM devant notre atelier'],
+        ['pont-elevateur-toyota.webp', 'Toyota Hilux sur pont élévateur'],
+        ['entretien-vidange.webp', 'Entretien et vidange'],
+    ];
     $vehicleImages = ['auto' => 'vehicle-car.svg', 'pl' => 'vehicle-truck.svg', 'moto' => 'vehicle-moto.svg'];
 @endphp
 
@@ -22,9 +32,9 @@
 {{-- ─── HERO ─── --}}
 <section class="hero-section">
     <div class="hero-slider" aria-hidden="true">
-        <img src="{{ asset('images/placeholders/hero-1.svg') }}" alt="" fetchpriority="high">
-        <img src="{{ asset('images/placeholders/hero-2.svg') }}" alt="" loading="lazy">
-        <img src="{{ asset('images/placeholders/hero-3.svg') }}" alt="" loading="lazy">
+        <img src="{{ asset('images/photos/hero-cles-toyota.webp') }}" alt="" fetchpriority="high" style="object-position:70% 50%">
+        <img src="{{ asset('images/photos/cle-toyota-tundra.webp') }}" alt="" loading="lazy" style="object-position:50% 62%">
+        <img src="{{ asset('images/photos/diagnostic-tablette.webp') }}" alt="" loading="lazy" style="object-position:60% 30%">
     </div>
     <div class="hero-bg"></div>
     <div class="hero-content">
@@ -296,6 +306,28 @@
     <div class="container"><img src="{{ asset('images/placeholders/brand-logos.svg') }}" alt="Marques automobiles prises en charge" width="1200" height="740" loading="lazy"></div>
 </section>
 
+{{-- ─── RÉALISATIONS ─── --}}
+<section class="gallery-section">
+    <div class="container">
+        <div class="section-title">
+            <span class="sub-title">Nos réalisations</span>
+            <h2 class="main-title">Nos techniciens sur le terrain</h2>
+        </div>
+        <div class="gallery-grid">
+            @foreach ($gallery as [$file, $caption])
+                <button type="button" class="gallery-item" data-full="{{ asset('images/photos/'.$file) }}" data-caption="{{ $caption }}">
+                    <img src="{{ asset('images/photos/'.$file) }}" alt="{{ $caption }}" loading="lazy" width="414" height="414">
+                    <span class="gallery-cap"><i class="fas fa-search-plus"></i> {{ $caption }}</span>
+                </button>
+            @endforeach
+        </div>
+    </div>
+</section>
+<div class="lightbox" id="lightbox" hidden>
+    <button type="button" class="lightbox-close" aria-label="Fermer">&times;</button>
+    <figure><img src="" alt=""><figcaption></figcaption></figure>
+</div>
+
 {{-- ─── AVIS CLIENTS ─── --}}
 <section class="testimonials-section">
     <div class="container">
@@ -403,6 +435,17 @@
             pagination: { el: '.swiper-pagination', clickable: true },
             breakpoints: { 700: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } },
         });
+        (function () {
+            const box = document.getElementById('lightbox');
+            const img = box.querySelector('img'), cap = box.querySelector('figcaption');
+            document.querySelectorAll('.gallery-item').forEach((item) => item.addEventListener('click', () => {
+                img.src = item.dataset.full; img.alt = item.dataset.caption; cap.textContent = item.dataset.caption;
+                box.hidden = false;
+            }));
+            const close = () => { box.hidden = true; img.src = ''; };
+            box.addEventListener('click', (e) => { if (e.target === box || e.target.closest('.lightbox-close')) close(); });
+            document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !box.hidden) close(); });
+        })();
         window.PRICING = @json($pricing);
     </script>
     <script src="{{ asset('js/configurator.js') }}?v=2"></script>

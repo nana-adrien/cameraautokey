@@ -2,7 +2,7 @@
 @section('title', 'Conditions générales d’intervention')
 
 @section('content')
-@include('partials.page-hero', ['titleHtml' => 'Conditions générales <em>d’intervention</em>', 'title' => 'Conditions générales d’intervention', 'cta' => false, 'trust' => false])
+@include('partials.page-hero', ['image' => 'photos/programmation-tableau-de-bord.webp', 'titleHtml' => 'Conditions générales <em>d’intervention</em>', 'title' => 'Conditions générales d’intervention', 'cta' => false, 'trust' => false])
 <div class="content-wrap" style="max-width:900px">
     <x-sc num="1" title="Demande d’intervention"><div class="text-block"><p>La demande en ligne n’entraîne aucun paiement. Le tarif est confirmé par un conseiller avant le départ du technicien.</p></div></x-sc>
     <x-sc num="2" title="Justificatifs"><div class="text-block"><p>Avant toute fabrication de clé, le client présente la carte grise du véhicule et une pièce d’identité au même nom. À défaut, l’intervention ne peut pas être réalisée.</p></div></x-sc>

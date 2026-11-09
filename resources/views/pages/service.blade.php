@@ -3,7 +3,7 @@
 @section('description', $service->excerpt)
 
 @section('content')
-@include('partials.page-hero', [
+@include('partials.page-hero', ['image' => 'photos/programmation-tableau-de-bord.webp', 
     'alert' => true,
     'title' => $service->title,
     'titleHtml' => e($service->title).' ?<br>Intervention <em>24h/24</em>',

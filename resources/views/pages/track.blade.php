@@ -2,7 +2,7 @@
 @section('title', 'Suivre ma demande')
 
 @section('content')
-@include('partials.page-hero', ['titleHtml' => 'Suivre ma <em>demande</em>', 'title' => 'Suivre ma demande', 'subtitle' => 'Saisissez la référence reçue lors de votre demande et votre adresse e-mail.', 'cta' => false, 'trust' => false])
+@include('partials.page-hero', ['image' => 'photos/cle-lexus.webp', 'titleHtml' => 'Suivre ma <em>demande</em>', 'title' => 'Suivre ma demande', 'subtitle' => 'Saisissez la référence reçue lors de votre demande et votre adresse e-mail.', 'cta' => false, 'trust' => false])
 <div class="content-wrap" style="max-width:760px">
     <x-sc icon="fas fa-search" title="Retrouver ma demande">
         <form method="POST" action="{{ route('orders.track.search') }}">
