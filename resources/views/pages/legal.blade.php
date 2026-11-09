@@ -1,5 +1,6 @@
 @extends('layouts.site')
 @section('title', 'Mentions légales')
+@section('description', 'Mentions légales et protection des données personnelles du site CAMER AUTO KEY.')
 
 @section('content')
 @include('partials.page-hero', ['image' => 'photos/atelier-cour.webp', 'title' => 'Mentions légales', 'cta' => false, 'trust' => false])

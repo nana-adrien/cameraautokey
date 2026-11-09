@@ -1,5 +1,6 @@
 @extends('layouts.site')
-@section('title', 'Qui sommes-nous ?')
+@section('title', 'Qui sommes-nous ? Clés auto et garage à Douala')
+@section('description', 'CAMER AUTO KEY, spécialiste des clés de voiture à Akwa, et son garage 3K Auto Services à Ndogsimbi : une équipe de Douala, des outils professionnels, des prix clairs.')
 
 @section('content')
 @include('partials.page-hero', ['image' => 'photos/equipe-camer-auto-key.webp', 'position' => '50% 30%', 'titleHtml' => 'Qui <em>sommes-nous</em> ?', 'title' => 'À propos', 'subtitle' => e($settings['company_name']).' est un réseau de <strong>serruriers automobiles mobiles</strong>, basé à Douala et actif dans tout le Cameroun.'])

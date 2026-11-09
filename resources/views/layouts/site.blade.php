@@ -7,8 +7,37 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@yield('title', 'Reproduction et refonte de clé de voiture à Douala') | {{ $settings['company_name'] }} — clés auto à Douala</title>
-    <meta name="description" content="@yield('description', 'Reproduction, refonte et programmation de clés auto, moto et poids lourd à Douala, Yaoundé et partout au Cameroun.')">
+    @php
+        $seoTitle = trim($__env->yieldContent('title', 'Clés de voiture à Douala : copie et codage')).' | '.trim($__env->yieldContent('title_suffix', $settings['company_name']));
+        $seoDescription = trim($__env->yieldContent('description', 'Clé perdue, cassée ou à dupliquer ? '.$settings['company_name'].' taille et code vos clés de voiture, camion et moto à Akwa, Douala. Prix en FCFA, payé après essai.'));
+        $seoImage = asset(trim($__env->yieldContent('og_image', config('seo.og_image'))));
+        $seoIndex = config('seo.indexing') && ! trim($__env->yieldContent('noindex'));
+        $seoGeo = trim($__env->yieldContent('geo', $settings['shop_lat'].';'.$settings['shop_lng']));
+    @endphp
+    <title>{{ $seoTitle }}</title>
+    <meta name="description" content="{{ $seoDescription }}">
+    <meta name="robots" content="{{ $seoIndex ? 'index, follow, max-image-preview:large' : 'noindex, nofollow' }}">
+    <link rel="canonical" href="{{ url()->current() }}">
+    <meta name="theme-color" content="#1a2f5e">
+    {{-- Aperçus WhatsApp / Facebook / X --}}
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="fr_CM">
+    <meta property="og:site_name" content="{{ $settings['company_name'] }}">
+    <meta property="og:title" content="{{ $seoTitle }}">
+    <meta property="og:description" content="{{ $seoDescription }}">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:image" content="{{ $seoImage }}">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    {{-- Référencement local --}}
+    <meta name="geo.region" content="{{ config('seo.region') }}">
+    <meta name="geo.placename" content="Douala">
+    @if (str_contains($seoGeo, ';') && $seoGeo !== ';')
+        <meta name="geo.position" content="{{ $seoGeo }}">
+        <meta name="ICBM" content="{{ str_replace(';', ', ', $seoGeo) }}">
+    @endif
+    @stack('jsonld')
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800;900&family=Barlow+Condensed:wght@600;700;800;900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -183,10 +212,11 @@
                     <p style="color:#4ade80;margin:0">{{ session('newsletter') }}</p>
                 @endif
                 <div class="ft-social">
-                    <a href="{{ $settings['social_facebook'] ?: '#' }}" aria-label="Facebook" target="_blank" rel="noopener"><i class="fab fa-facebook-f"></i></a>
-                    <a href="{{ $settings['social_tiktok'] ?: '#' }}" aria-label="TikTok" target="_blank" rel="noopener"><i class="fab fa-tiktok"></i></a>
-                    <a href="{{ $settings['social_youtube'] ?: '#' }}" aria-label="YouTube" target="_blank" rel="noopener"><i class="fab fa-youtube"></i></a>
-                    <a href="{{ $settings['social_instagram'] ?: '#' }}" aria-label="Instagram" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a>
+                    @foreach (['facebook' => 'fab fa-facebook-f', 'instagram' => 'fab fa-instagram', 'tiktok' => 'fab fa-tiktok', 'youtube' => 'fab fa-youtube'] as $network => $icon)
+                        @if ($settings['social_'.$network])
+                            <a href="{{ $settings['social_'.$network] }}" aria-label="{{ $settings['company_name'] }} sur {{ ucfirst($network) }}" target="_blank" rel="noopener me"><i class="{{ $icon }}"></i></a>
+                        @endif
+                    @endforeach
                 </div>
             </div>
         </div>

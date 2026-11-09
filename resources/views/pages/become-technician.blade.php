@@ -1,5 +1,6 @@
 @extends('layouts.site')
-@section('title', 'Devenir intervenant')
+@section('title', 'Devenir technicien partenaire au Cameroun')
+@section('description', 'Serrurier auto ou technicien en électronique embarquée au Cameroun ? Rejoignez le réseau CAMER AUTO KEY et recevez des demandes près de chez vous.')
 
 @section('content')
 @include('partials.page-hero', ['image' => 'photos/installation-camera-recul.webp', 'titleHtml' => 'Devenir <em>intervenant</em>', 'title' => 'Devenir intervenant', 'subtitle' => 'Serrurier automobile ou technicien en électronique embarquée ? <strong>Rejoignez notre réseau</strong> et recevez des demandes près de chez vous.', 'cta' => false, 'trust' => false])

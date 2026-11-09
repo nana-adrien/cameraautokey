@@ -1,5 +1,6 @@
 @extends('layouts.site')
 @section('title', 'Conditions générales d’intervention')
+@section('description', 'Conditions d’intervention de CAMER AUTO KEY : demande, justificatifs, annulation, paiement et garantie des clés.')
 
 @section('content')
 @include('partials.page-hero', ['image' => 'photos/vidange-moteur.webp', 'titleHtml' => 'Conditions générales <em>d’intervention</em>', 'title' => 'Conditions générales d’intervention', 'cta' => false, 'trust' => false])

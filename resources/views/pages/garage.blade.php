@@ -1,6 +1,12 @@
 @extends('layouts.site')
-@section('title', $settings['garage_name'].' — garage automobile à Douala')
-@section('description', 'Mécanique générale, entretien, vidange, diagnostic électronique, freinage, alarme, GPS et caméras : le garage '.$settings['garage_name'].', partenaire de '.$settings['company_name'].' à Douala.')
+@section('title', 'Garage auto à Douala (Ndogsimbi)')
+@section('title_suffix', '3K Auto Services')
+@section('description', 'Garage 3K Auto Services à Ndogsimbi, Douala 5e : mécanique, vidange, diagnostic électronique, freinage, alarme, GPS et caméras. Devis avant travaux.')
+@section('og_image', config('seo.og_image_garage'))
+@section('geo', $settings['garage_lat'].';'.$settings['garage_lng'])
+@push('jsonld')
+<script type="application/ld+json">{!! \App\Support\Seo::json(\App\Support\Seo::garage()) !!}</script>
+@endpush
 
 @php
     $gTel = preg_replace('/\s+/', '', $settings['garage_phone']);

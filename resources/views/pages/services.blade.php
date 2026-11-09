@@ -1,5 +1,6 @@
 @extends('layouts.site')
-@section('title', 'Nos services de serrurerie automobile')
+@section('title', 'Services clés auto à Douala : copie, codage, ouverture')
+@section('description', 'Remplacement de clés perdues, copie, codage antidémarrage, ouverture sans clé, réparation de télécommande et diagnostic : tous nos services de clés automobiles à Douala.')
 
 @section('content')
 @include('partials.page-hero', ['image' => 'photos/mecanicien-capot-toyota.webp', 'titleHtml' => 'Nos <em>services</em>', 'title' => 'Nos services', 'subtitle' => 'Copie, codage, ouverture et réparation de clés pour voitures, camions et deux-roues, en boutique ou chez vous.'])

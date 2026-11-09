@@ -1,5 +1,13 @@
 @extends('layouts.site')
-@section('title', 'Contact')
+@section('title', 'Contact : boutique Akwa, garage Ndogsimbi')
+@section('description', 'Où trouver CAMER AUTO KEY (Boulevard de la République, Akwa) et le garage 3K Auto Services (Ndogsimbi) à Douala : plans, itinéraires, horaires et téléphones.')
+@push('jsonld')
+<script type="application/ld+json">{!! \App\Support\Seo::json(\App\Support\Seo::shop()) !!}</script>
+@endpush
+@push('jsonld')
+<script type="application/ld+json">{!! \App\Support\Seo::json(\App\Support\Seo::garage()) !!}</script>
+@endpush
+
 
 @section('content')
 @php $tel = preg_replace('/\s+/', '', $settings['phone']); @endphp

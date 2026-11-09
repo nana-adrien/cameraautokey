@@ -39,6 +39,16 @@
     $vehicleImages = ['auto' => 'voiture.svg', 'pl' => 'camion.svg', 'moto' => 'moto.svg'];
 @endphp
 
+@push('jsonld')
+<script type="application/ld+json">{!! \App\Support\Seo::json(\App\Support\Seo::website()) !!}</script>
+@endpush
+@push('jsonld')
+<script type="application/ld+json">{!! \App\Support\Seo::json(\App\Support\Seo::shop()) !!}</script>
+@endpush
+@push('jsonld')
+<script type="application/ld+json">{!! \App\Support\Seo::json(\App\Support\Seo::garage()) !!}</script>
+@endpush
+
 @section('content')
 {{-- ─── HERO ─── --}}
 <section class="hero-section">

@@ -98,6 +98,23 @@ La section `#garage-auto` de l’accueil présente uniquement le garage 3K Auto 
 vers celui de 3K, puis revient à Camer Auto Key en la quittant (script en bas de `layouts/site.blade.php`,
 styles `.brand-roll` / `.brand-track` dans `site.css`). Sans JavaScript, le logo Camer Auto Key reste affiché.
 
+## Référencement (SEO)
+
+- **Indexation** (`config/seo.php`) : fermée hors production (`noindex` + `robots.txt` fermé), ouverte quand
+  `APP_ENV=production` ou `SEO_INDEXING=true`. L’admin, la page de suivi et les confirmations restent toujours exclues.
+- **`/sitemap.xml`** (pages, services, marques) et **`/robots.txt`** sont générés dynamiquement.
+- **Données structurées** (`app/Support/Seo.php`) : `Locksmith` (CAMER AUTO KEY, Akwa) et `AutoRepair`
+  (3K Auto Services, Ndogsimbi) avec adresse, GPS, téléphone, réseaux sociaux et prestations ; `WebSite`,
+  `BreadcrumbList`, `Service` (pages services et marques) et `FAQPage`.
+- **Balises** : titre et description propres à chaque page, URL canonique, aperçus WhatsApp/Facebook
+  (`public/images/og/`), balises géographiques de Douala.
+
+À faire hors du site (le plus important pour le référencement local) :
+1. Mettre en ligne sur le vrai nom de domaine (`APP_URL`), puis déclarer `https://…/sitemap.xml` dans Google Search Console.
+2. Fiches Google des deux entreprises : même nom, adresse et téléphone que sur le site, lien vers le site
+   (page d’accueil pour la boutique, `/garage-3k-auto-services` pour le garage), photos, horaires par jour.
+3. Demander des avis Google aux clients satisfaits.
+
 ## Logos des marques
 
 Les logos sont dans `public/images/brands/{slug-de-la-marque}.svg` (source : Simple Icons, licence CC0,

@@ -27,10 +27,10 @@ class Setting extends Model
         'garage_lng' => '9.7346894',
         'garage_maps_url' => 'https://maps.google.com/?cid=15614242871044277534',
         'opening_hours' => 'Ouvert de 8h00 à 18h00',
-        'social_facebook' => '',
+        'social_facebook' => 'https://www.facebook.com/camerautokeyy/',
         'social_tiktok' => '',
         'social_youtube' => '',
-        'social_instagram' => '',
+        'social_instagram' => 'https://www.instagram.com/camerautokey/',
         'hero_title' => 'Clé perdue, abîmée ou en un seul exemplaire ?',
         'hero_subtitle' => 'Passez sans rendez-vous à la boutique, ou faites venir un technicien.',
     ];

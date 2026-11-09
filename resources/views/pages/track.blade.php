@@ -1,5 +1,6 @@
 @extends('layouts.site')
 @section('title', 'Suivre ma demande')
+@section('noindex', '1')
 
 @section('content')
 @include('partials.page-hero', ['image' => 'photos/cles-toyota-tacoma.webp', 'titleHtml' => 'Suivre ma <em>demande</em>', 'title' => 'Suivre ma demande', 'subtitle' => 'Saisissez la référence reçue lors de votre demande et votre adresse e-mail.', 'cta' => false, 'trust' => false])

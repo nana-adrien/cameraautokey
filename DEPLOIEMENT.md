@@ -50,7 +50,8 @@ sur `main` déclenche un déploiement **Production** (qui aura besoin des mêmes
   pour charger les données de démonstration, puis retirez-la (sinon les contenus modifiés dans l’admin seraient réécrits).
 - **Sessions** en cookies chiffrés `secure` ; **cache** et limite de tentatives de connexion en base ;
   **journaux** dans la console Vercel ; **e-mails** écrits dans les journaux.
-- **Indexation** bloquée (`X-Robots-Tag: noindex, nofollow`).
+- **Indexation** bloquée tant que `APP_ENV` n’est pas `production` (gérée par l’application, voir `config/seo.php`).
+  Pour la mise en ligne définitive : `APP_ENV=production`, `APP_URL=https://votre-domaine` dans Vercel.
 - Toute valeur `ENV` du `Dockerfile.vercel` peut être remplacée par une variable Vercel du même nom.
 
 ## Tester l’image en local

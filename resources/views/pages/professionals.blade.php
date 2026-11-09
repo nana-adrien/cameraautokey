@@ -1,5 +1,6 @@
 @extends('layouts.site')
-@section('title', 'Professionnels & flottes')
+@section('title', 'Clés pour flottes et professionnels à Douala')
+@section('description', 'Taxis, transporteurs, loueurs, entreprises : clés de secours pour toute votre flotte, codage et dépannage, avec un interlocuteur unique à Douala.')
 
 @section('content')
 @include('partials.page-hero', ['image' => 'photos/atelier-cour.webp', 'titleHtml' => 'Espace <em>professionnels</em>', 'title' => 'Professionnels', 'subtitle' => 'Garages, loueurs, concessions et gestionnaires de flottes : <strong>un partenaire unique</strong> pour toutes vos clés.'])

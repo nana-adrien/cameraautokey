@@ -1,5 +1,6 @@
 @extends('layouts.site')
 @section('title', 'Demande enregistrée')
+@section('noindex', '1')
 
 @section('content')
 <nav class="step-bar" aria-label="Étapes de la demande">

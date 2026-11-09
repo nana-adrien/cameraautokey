@@ -1,3 +1,6 @@
+@push('jsonld')
+<script type="application/ld+json">{!! \App\Support\Seo::json(\App\Support\Seo::breadcrumb($breadcrumbItems ?? [[strip_tags($crumb ?? ($title ?? '')), null]])) !!}</script>
+@endpush
 {{-- Bandeau de page : $title (HTML autorisé via $titleHtml), $subtitle, $cta (bool), $badges (array) --}}
 @php $tel = preg_replace('/\s+/', '', $settings['phone']); @endphp
 @if ($alert ?? false)
