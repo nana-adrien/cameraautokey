@@ -1,6 +1,8 @@
 @php
     $tel = preg_replace('/\s+/', '', $settings['phone']);
     $telBe = preg_replace('/\s+/', '', $settings['phone_secondary']);
+    // Pages du garage 3K : logo de l'en-tête et icône d'onglet du garage.
+    $isGarage = request()->routeIs('garage', 'garage.*');
 @endphp
 <!DOCTYPE html>
 <html lang="fr-CM">
@@ -14,14 +16,14 @@
             'description' => 'Clé perdue, cassée ou à dupliquer ? '.$settings['company_name'].' taille et code vos clés de voiture, camion et moto à Akwa, Douala. Prix en FCFA, payé après essai.',
             'og_image' => config('seo.og_image'),
             'geo' => $settings['shop_lat'].';'.$settings['shop_lng'],
-            'site_name' => $settings['company_name'],
+            'site_name' => $isGarage ? $settings['garage_name'] : $settings['company_name'],
             'theme' => '#1a2f5e',
-            'icon' => 'images/favicon-64.png',
-            'touch_icon' => 'images/logo-camer-auto-key-160.png',
+            'icon' => $isGarage ? 'images/favicon-3k-64.png' : 'images/favicon-64.png',
+            'touch_icon' => $isGarage ? 'images/logo-3k-auto-services-160.png' : 'images/logo-camer-auto-key-160.png',
         ],
     ])
 </head>
-<body>
+<body @class(['brand-garage' => $isGarage])>
 
 {{-- ─── TOPBAR ─── --}}
 <div class="topbar">
@@ -46,13 +48,13 @@
 {{-- ─── NAVIGATION ─── --}}
 <header class="site-nav">
     {{-- Logo « carrousel vertical » : bascule sur 3K tant que la section [data-brand-switch="garage"] est à l'écran --}}
-    <a href="{{ route('home') }}" class="brand-lockup brand-roll" aria-label="{{ $settings['company_name'] }} — accueil">
+    <a href="{{ $isGarage ? route('garage') : route('home') }}" class="brand-lockup brand-roll" aria-label="{{ $isGarage ? $settings['garage_name'].' — garage' : $settings['company_name'].' — accueil' }}">
         <span class="brand-track">
-            <span class="brand-face" data-face="shop">
+            <span class="brand-face" data-face="shop" @if ($isGarage) aria-hidden="true" @endif>
                 <img src="{{ asset('images/logo-camer-auto-key-160.png') }}" alt="" class="brand-lockup-logo" width="52" height="52">
                 <span class="brand-lockup-text">CAMER <b>AUTO KEY</b><small>Clés auto · Programmation</small></span>
             </span>
-            <span class="brand-face" data-face="garage" aria-hidden="true">
+            <span class="brand-face" data-face="garage" @unless ($isGarage) aria-hidden="true" @endunless>
                 <img src="{{ asset('images/logo-3k-auto-services.webp') }}" alt="" class="brand-lockup-logo" width="52" height="52">
                 <span class="brand-lockup-text">3K <b>AUTO SERVICES</b><small>Garage · Mécanique · Diagnostic</small></span>
             </span>
@@ -65,7 +67,11 @@
 
     <ul class="nav-links" id="nav-links">
         <li class="mobile-menu-header">
-            <span class="brand-lockup"><img src="{{ asset('images/logo-camer-auto-key-160.png') }}" alt="" class="brand-lockup-logo" width="44" height="44"><span class="brand-lockup-text">CAMER <b>AUTO KEY</b></span></span>
+            @if ($isGarage)
+                <span class="brand-lockup"><img src="{{ asset('images/logo-3k-auto-services-160.png') }}" alt="" class="brand-lockup-logo" width="44" height="44"><span class="brand-lockup-text">3K <b>AUTO SERVICES</b></span></span>
+            @else
+                <span class="brand-lockup"><img src="{{ asset('images/logo-camer-auto-key-160.png') }}" alt="" class="brand-lockup-logo" width="44" height="44"><span class="brand-lockup-text">CAMER <b>AUTO KEY</b></span></span>
+            @endif
             <button type="button" data-close-menu aria-label="Fermer">&times;</button>
         </li>
         <li><a href="{{ route('home') }}" @class(['nav-active' => request()->routeIs('home')]) @if (request()->routeIs('home')) aria-current="page" @endif>Accueil</a></li>
