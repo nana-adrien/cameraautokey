@@ -45,7 +45,7 @@
     <div class="hero-slider" aria-hidden="true">
         @foreach ([
             ['cles-toyota-tacoma.webp', '62% 58%'],
-            ['taille-cle-atelier.webp', '50% 45%'],
+            ['taille-cle-atelier.webp?v=2', '50% 45%'],
             ['cles-toyota-interieur.webp', '55% 50%'],
             ['taille-cle-condor.webp', '60% 40%'],
             ['cles-toyota-tundra-blanc.webp', '50% 55%'],
@@ -356,7 +356,7 @@
 <section class="refonte-section" id="refonte-cles">
     <div class="container refonte-grid">
         <div class="refonte-media">
-            <img src="{{ asset('images/photos/taille-cle-atelier.webp') }}" alt="Taille d’une clé sur machine dans l’atelier CAMER AUTO KEY" width="1024" height="506" loading="lazy">
+            <img src="{{ asset('images/photos/taille-cle-atelier.webp') }}?v=2" alt="Taille d’une clé sur machine dans l’atelier CAMER AUTO KEY" width="1024" height="506" loading="lazy">
             <div class="refonte-badge"><b>30 min</b><span>en moyenne pour<br>une clé complète</span></div>
         </div>
         <div class="refonte-content">
