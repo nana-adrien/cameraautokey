@@ -17,6 +17,10 @@ class SettingController extends Controller
         'email' => 'E-mail de contact',
         'whatsapp' => 'Numéro WhatsApp (format international, sans +)',
         'address' => 'Zone / adresse',
+        'social_facebook' => 'Lien Facebook',
+        'social_tiktok' => 'Lien TikTok',
+        'social_youtube' => 'Lien YouTube',
+        'social_instagram' => 'Lien Instagram',
         'hero_title' => 'Titre de la page d’accueil',
         'hero_subtitle' => 'Sous-titre de la page d’accueil',
     ];

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Brand;
+use App\Models\Faq;
 use App\Models\Service;
+use App\Models\Testimonial;
 use Illuminate\View\View;
 
 class CatalogController extends Controller
@@ -19,8 +21,8 @@ class CatalogController extends Controller
 
         return view('pages.service', [
             'service' => $service,
-            'others' => Service::active()->whereKeyNot($service->id)->take(3)->get(),
-        ]);
+            'others' => Service::active()->whereKeyNot($service->id)->get(),
+        ] + $this->sharedBlocks());
     }
 
     public function brands(): View
@@ -34,7 +36,17 @@ class CatalogController extends Controller
 
         return view('pages.brand', [
             'brand' => $brand,
-            'services' => Service::active()->take(4)->get(),
-        ]);
+            'services' => Service::active()->get(),
+        ] + $this->sharedBlocks());
+    }
+
+    /** Blocs communs aux pages service et marque (FAQ, marques, avis). */
+    private function sharedBlocks(): array
+    {
+        return [
+            'faqs' => Faq::where('is_published', true)->orderBy('position')->take(5)->get(),
+            'brands' => Brand::active()->get(),
+            'testimonials' => Testimonial::where('is_published', true)->latest()->take(2)->get(),
+        ];
     }
 }

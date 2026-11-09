@@ -2,23 +2,30 @@
 @section('title', 'Demande enregistrée')
 
 @section('content')
-@include('partials.page-hero', ['title' => 'Merci, votre demande est enregistrée !', 'subtitle' => 'Un conseiller vous contacte très rapidement pour confirmer le prix et l’horaire d’intervention.'])
-<section class="section">
-    <div class="container" style="max-width:760px">
-        <div class="card">
-            <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
-                <div><span class="muted">Référence</span><h2 style="margin:0">{{ $order->reference }}</h2></div>
-                <span class="status status-{{ $order->status }}">{{ $order->statusLabel() }}</span>
+<nav class="step-bar" aria-label="Étapes de la demande">
+    <div class="step-tab done"><span class="sn">✓</span><span class="sl">Configuration</span></div>
+    <div class="step-tab done"><span class="sn">✓</span><span class="sl">Localisation</span></div>
+    <div class="step-tab done"><span class="sn">✓</span><span class="sl">Validation</span></div>
+    <div class="step-tab active"><span class="sn">4</span><span class="sl">Confirmation</span></div>
+</nav>
+<div class="content-wrap" style="max-width:760px">
+    <x-sc icon="fas fa-check" title="Demande enregistrée" sub="Merci pour votre confiance">
+        <div style="text-align:center;padding:10px 0">
+            <div class="success-icon"><i class="fas fa-check"></i></div>
+            <h2 style="font-family:var(--fb);font-size:24px;font-weight:800;color:var(--navy)">Merci {{ \Illuminate\Support\Str::before($order->customer_name, ' ') }} !</h2>
+            <p style="color:var(--muted);max-width:480px;margin:8px auto 0">Un conseiller vous appelle très rapidement pour confirmer le tarif et l’horaire d’intervention. Un e-mail de confirmation vous sera envoyé.</p>
+            <div class="success-receipt">
+                <div class="receipt-row"><span class="receipt-lbl">Référence</span><span class="receipt-val">{{ $order->reference }}</span></div>
+                <div class="receipt-row"><span class="receipt-lbl">Statut</span><span class="badge-status status-{{ $order->status }}">{{ $order->statusLabel() }}</span></div>
+                <div class="receipt-row"><span class="receipt-lbl">Véhicule</span><span class="receipt-val">{{ $order->brand_model }} ({{ $order->year }}) — {{ $order->plate }}</span></div>
+                <div class="receipt-row"><span class="receipt-lbl">Besoin</span><span class="receipt-val">{{ $order->label('need') }}</span></div>
+                <div class="receipt-row"><span class="receipt-lbl">Clé</span><span class="receipt-val">{{ $order->label('key_type') }} × {{ $order->quantity }}</span></div>
+                <div class="receipt-row"><span class="receipt-lbl">Adresse</span><span class="receipt-val">{{ $order->address }}, {{ $order->postal_code }} {{ $order->city }}</span></div>
+                <div class="receipt-row"><span class="receipt-lbl">Urgence</span><span class="receipt-val">{{ $order->emergency ? 'Oui' : 'Non' }}</span></div>
             </div>
-            <p class="muted" style="margin-top:10px">Conservez cette référence : elle vous permet de <a href="{{ route('orders.track') }}" style="color:var(--red);font-weight:700">suivre votre demande</a>.</p>
-            <div class="summary-row"><span>Véhicule</span><span>{{ $order->brand_model }} ({{ $order->year }}) — {{ $order->plate }}</span></div>
-            <div class="summary-row"><span>Besoin</span><span>{{ $order->label('need') }}</span></div>
-            <div class="summary-row"><span>Clé</span><span>{{ $order->label('key_type') }} · {{ $order->label('desired_key') }} × {{ $order->quantity }}</span></div>
-            <div class="summary-row"><span>Adresse</span><span>{{ $order->address }}, {{ $order->postal_code }} {{ $order->city }}</span></div>
-            <div class="summary-row"><span>Urgence</span><span>{{ $order->emergency ? 'Oui' : 'Non' }}</span></div>
-            <div class="summary-total"><span class="muted">Prix estimé TTC</span><strong>{{ $order->estimated_price }} €</strong></div>
+            <p style="font-size:13px;color:var(--muted)">Conservez votre référence pour <a href="{{ route('orders.track') }}" style="color:var(--navy);font-weight:700">suivre votre demande</a>.</p>
+            <a href="{{ route('home') }}" class="btn-red" style="margin-top:16px">Retour à l’accueil</a>
         </div>
-        <p class="center" style="margin-top:24px"><a class="btn btn-outline" href="{{ route('home') }}">Retour à l’accueil</a></p>
-    </div>
-</section>
+    </x-sc>
+</div>
 @endsection

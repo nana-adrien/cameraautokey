@@ -2,21 +2,21 @@
 @section('title', 'Devenir intervenant')
 
 @section('content')
-@include('partials.page-hero', ['title' => 'Devenir intervenant', 'subtitle' => 'Serrurier automobile ou technicien en électronique embarquée ? Rejoignez notre réseau.'])
-<section class="section">
-    <div class="container order-layout">
-        <div class="prose card">
-            <h2 style="margin-top:0">Pourquoi nous rejoindre ?</h2>
-            <p>✔ Des demandes qualifiées dans votre zone, sans frais de prospection.</p>
-            <p>✔ Une interface pour accepter, suivre et clôturer vos interventions.</p>
-            <p>✔ Un paiement rapide après chaque prestation validée.</p>
-            <h3>Profil recherché</h3>
-            <p>Expérience en taille et programmation de clés, matériel de diagnostic, véhicule équipé, statut professionnel et assurance RC Pro.</p>
-        </div>
-        <div>
-            <h3>Envoyer ma candidature</h3>
+@include('partials.page-hero', ['titleHtml' => 'Devenir <em>intervenant</em>', 'title' => 'Devenir intervenant', 'subtitle' => 'Serrurier automobile ou technicien en électronique embarquée ? <strong>Rejoignez notre réseau</strong> et recevez des demandes près de chez vous.', 'cta' => false, 'trust' => false])
+<div class="content-wrap grid">
+    <div>
+        <x-sc num="1" title="Pourquoi nous rejoindre ?">
+            <div class="steps-grid">
+                <div class="step-card"><span class="n">1</span><b>Demandes qualifiées</b><p>Des interventions dans votre zone, sans frais de prospection.</p></div>
+                <div class="step-card"><span class="n">2</span><b>Outil de suivi</b><p>Acceptez, suivez et clôturez vos interventions simplement.</p></div>
+                <div class="step-card"><span class="n">3</span><b>Paiement rapide</b><p>Versement après chaque prestation validée.</p></div>
+                <div class="step-card"><span class="n">4</span><b>Profil recherché</b><p>Expérience en taille et programmation, matériel de diagnostic, RC Pro.</p></div>
+            </div>
+        </x-sc>
+        <x-sc num="2" title="Envoyer ma candidature">
             @include('partials.message-form', ['type' => 'intervenant', 'messageLabel' => 'Votre expérience, votre zone et votre matériel', 'button' => 'Postuler'])
-        </div>
+        </x-sc>
     </div>
-</section>
+    <aside>@include('partials.side-cta', ['sideTitle' => 'Une question ?'])</aside>
+</div>
 @endsection

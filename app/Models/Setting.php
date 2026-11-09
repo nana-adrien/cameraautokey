@@ -14,8 +14,12 @@ class Setting extends Model
         'email' => 'contact@cameraautokey.fr',
         'whatsapp' => '33123456789',
         'address' => 'France & Belgique',
-        'hero_title' => 'Clé de voiture perdue, cassée ou à dupliquer ?',
-        'hero_subtitle' => 'Un technicien CAMERAUTOKEY vient à vous, 24h/24 et 7j/7. Prix annoncé avant de partir, sans surprise.',
+        'social_facebook' => '',
+        'social_tiktok' => '',
+        'social_youtube' => '',
+        'social_instagram' => '',
+        'hero_title' => 'Clé de voiture perdue, cassée ou à refaire ?',
+        'hero_subtitle' => 'Technicien équipé selon votre véhicule, intervention rapide à domicile.',
     ];
 
     protected $fillable = ['key', 'value'];

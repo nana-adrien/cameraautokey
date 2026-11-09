@@ -1,334 +1,409 @@
 @extends('layouts.site')
 
+@push('head')
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11.1.14/swiper-bundle.min.css">
+@endpush
+
+@php
+    $tel = preg_replace('/\s+/', '', $settings['phone']);
+    $step2Fields = ['customer_name', 'customer_phone', 'customer_email', 'address', 'postal_code', 'city', 'notes'];
+    $startStep = $errors->hasAny($step2Fields) ? 2 : 1;
+    $v = fn ($name, $default = null) => old($name, $default);
+    $keyIcons = [
+        'simple' => '<svg viewBox="0 0 48 48" fill="none" stroke="#1a2f5e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="15" cy="24" r="8"/><path d="M23 24h20M37 24v6M42 24v4"/></svg>',
+        'transponder' => '<svg viewBox="0 0 48 48" fill="none" stroke="#1a2f5e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="14" y="4" width="20" height="22" rx="6"/><rect x="20" y="10" width="8" height="8" rx="1.5" fill="#d6262e" stroke="#d6262e"/><path d="M24 26v18M24 34h5M24 40h4"/></svg>',
+        'remote' => '<svg viewBox="0 0 48 48" fill="none" stroke="#1a2f5e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="13" y="3" width="22" height="26" rx="7"/><circle cx="24" cy="11" r="2.5" fill="#d6262e" stroke="#d6262e"/><circle cx="24" cy="20" r="2.5"/><path d="M24 29v16M24 37h5M24 42h4"/></svg>',
+        'smart' => '<svg viewBox="0 0 48 48" fill="none" stroke="#1a2f5e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="11" width="36" height="26" rx="5"/><path d="M12 19h10M12 25h6"/><path d="M31 20a6 6 0 0 1 0 8M35 17a10 10 0 0 1 0 14" stroke="#d6262e"/></svg>',
+    ];
+    $vehicleImages = ['auto' => 'vehicle-car.svg', 'pl' => 'vehicle-truck.svg', 'moto' => 'vehicle-moto.svg'];
+@endphp
+
 @section('content')
-<section class="hero">
-    <div class="container">
-        <div>
-            <h1>{{ $settings['hero_title'] }} <em>On intervient chez vous.</em></h1>
-            <p class="lead">{{ $settings['hero_subtitle'] }}</p>
-            <p class="lead" style="font-size:.98rem">Voitures · Utilitaires · Camions · Motos — partout en France et en Belgique.</p>
-            <div class="actions">
-                <a href="#commande" class="btn btn-green btn-lg">🚀 Démarrer ma demande</a>
-                <a href="tel:{{ preg_replace('/\s+/', '', $settings['phone']) }}" class="btn btn-ghost btn-lg">📞 {{ $settings['phone'] }}</a>
-            </div>
-            <div class="badges">
-                <span class="badge-pill">🛡️ Techniciens certifiés</span>
-                <span class="badge-pill">⚡ Intervention d’urgence</span>
-                <span class="badge-pill">🕒 Service 24h/24 – 7j/7</span>
-                <span class="badge-pill">💶 Prix annoncé à l’avance</span>
-                <span class="badge-pill">⭐ 4,8/5 avis clients</span>
-            </div>
-        </div>
-        <div class="hero-card">
-            <div class="big-key">🔑</div>
-            <ul>
-                <li><span class="ic">📝</span><div><b>Demande en 2 minutes</b><small>Configurez votre besoin, le prix s’affiche en direct.</small></div></li>
-                <li><span class="ic">🚐</span><div><b>Atelier mobile</b><small>Taille et programmation de la clé sur place.</small></div></li>
-                <li><span class="ic">✅</span><div><b>Paiement après intervention</b><small>Vous validez, puis vous réglez. Facture par e-mail.</small></div></li>
-            </ul>
+{{-- ─── HERO ─── --}}
+<section class="hero-section">
+    <div class="hero-slider" aria-hidden="true">
+        <img src="{{ asset('images/placeholders/hero-1.svg') }}" alt="" fetchpriority="high">
+        <img src="{{ asset('images/placeholders/hero-2.svg') }}" alt="" loading="lazy">
+        <img src="{{ asset('images/placeholders/hero-3.svg') }}" alt="" loading="lazy">
+    </div>
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+        <h1>{{ $settings['hero_title'] }}<br>Intervention à domicile</h1>
+        <p><strong>Diagnostic et tarif annoncés avant intervention</strong> · Voitures · Camions · Motos · Partout en France et en Belgique<br>{{ $settings['hero_subtitle'] }}</p>
+        <a href="#form-area" class="hero-cta"><i class="fas fa-bolt"></i> Démarrer ma demande</a>
+        <div class="hero-badges">
+            <span class="hbadge"><i class="fas fa-shield-alt"></i> Technicien certifié</span>
+            <span class="hbadge"><i class="fas fa-bolt"></i> Intervention d’urgence</span>
+            <span class="hbadge"><i class="far fa-clock"></i> Service 24h/24 7j/7</span>
+            <span class="hbadge"><i class="far fa-check-circle"></i> Transparence garantie</span>
+            <span class="hbadge"><i class="fas fa-star"></i> 4,9/5 avis clients</span>
         </div>
     </div>
 </section>
 
-<section class="order-wrap" id="commande">
-    <div class="container">
-        <div class="progress" id="progress">
-            <div class="p-step active" data-step="1"><span class="dot">1</span>Configuration</div>
-            <div class="bar"></div>
-            <div class="p-step" data-step="2"><span class="dot">2</span>Localisation</div>
-            <div class="bar"></div>
-            <div class="p-step" data-step="3"><span class="dot">3</span>Confirmation</div>
+{{-- ─── BARRE D'ÉTAPES ─── --}}
+<nav class="step-bar" id="commande" aria-label="Étapes de la demande">
+    <div class="step-tab active" data-tab="1"><span class="sn">1</span><span class="sl">Configuration</span></div>
+    <div class="step-tab step-future" data-tab="2"><span class="sn">2</span><span class="sl">Localisation</span></div>
+    <div class="step-tab step-future" data-tab="3"><span class="sn">3</span><span class="sl">Validation</span></div>
+    <div class="step-tab step-future" data-tab="4"><span class="sn">4</span><span class="sl">Confirmation</span></div>
+</nav>
+
+<form method="POST" action="{{ route('orders.store') }}" id="order-form" data-start-step="{{ $startStep }}" novalidate>
+    @csrf
+    <div class="page-wrap" id="form-area">
+        <div class="form-col">
+            @if ($errors->any())
+                <div class="flash-error">
+                    <b>Merci de corriger :</b>
+                    <ul style="margin:6px 0 0 18px">@foreach ($errors->all() as $error)<li>{{ $error }}</li>@endforeach</ul>
+                </div>
+            @endif
+
+            {{-- ═════════ ÉTAPE 1 : CONFIGURATION ═════════ --}}
+            <div class="step-panel" data-step="1">
+                <div class="sc">
+                    <div class="sc-head"><span class="sc-num ico">ℹ️</span><div><h2>Comment fonctionne votre intervention ?</h2><p>De votre demande à la facture — simple, sécurisé, transparent</p></div></div>
+                    <div class="sc-body">
+                        <div class="how-it-works-grid">
+                            <div class="hiw-card"><span class="hiw-icon"><i class="far fa-calendar-check"></i></span><div><div class="hiw-title">1. Demande en ligne</div><div class="hiw-desc">Configurez votre besoin dans le formulaire. <strong>Aucun paiement</strong> n’est demandé à cette étape.</div></div></div>
+                            <div class="hiw-card"><span class="hiw-icon"><i class="fas fa-user-friends"></i></span><div><div class="hiw-title">2. Traitement &amp; attribution</div><div class="hiw-desc">Notre équipe 24/7 vous attribue un technicien. <strong>Urgence :</strong> départ immédiat. <strong>Standard :</strong> prise de rendez-vous.</div></div></div>
+                            <div class="hiw-card"><span class="hiw-icon"><i class="fas fa-tools"></i></span><div><div class="hiw-title">3. Intervention sur site</div><div class="hiw-desc">Le technicien certifié se déplace et réalise la prestation : fabrication, programmation ou ouverture.</div></div></div>
+                            <div class="hiw-card"><span class="hiw-icon"><i class="far fa-check-circle"></i></span><div><div class="hiw-title">4. Validation &amp; règlement</div><div class="hiw-desc">Vous validez la fin de la prestation → règlement → <strong>facture envoyée par e-mail</strong>.</div></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sc" data-section="vehicle_type">
+                    <div class="sc-head"><span class="sc-num">1</span><div><h3>Type de véhicule *</h3><p>Choisissez le type de véhicule concerné par la demande.</p></div></div>
+                    <div class="sc-body">
+                        <div class="veh-cards">
+                            @foreach ($pricing['vehicle_types'] as $key => $opt)
+                                <label class="veh-card" data-group="vehicle_type">
+                                    <input class="dkp-hidden-input" type="radio" name="vehicle_type" value="{{ $key }}" @checked($v('vehicle_type') === $key)>
+                                    <div class="veh-icon-wrap"><img src="{{ asset('images/placeholders/'.$vehicleImages[$key]) }}" alt="" width="140" height="70"></div>
+                                    <div class="veh-sel-dot"></div>
+                                    <div class="veh-name">{{ $opt['label'] }}</div>
+                                    <div class="veh-sub">{{ $opt['hint'] }}</div>
+                                </label>
+                            @endforeach
+                        </div>
+                        <div class="section-error"></div>
+                    </div>
+                </div>
+
+                <div class="sc" data-section="need">
+                    <div class="sc-head"><span class="sc-num">2</span><div><h3>Quel est votre besoin ? *</h3></div></div>
+                    <div class="sc-body">
+                        <div class="opt-list">
+                            @foreach ($pricing['needs'] as $key => $opt)
+                                <label class="opt-row" data-group="need">
+                                    <input class="dkp-hidden-input" type="radio" name="need" value="{{ $key }}" @checked($v('need') === $key)>
+                                    <span class="opt-radio"></span>
+                                    <span class="opt-content"><span class="opt-name">{{ $opt['label'] }}</span><span class="opt-desc" style="display:block">{{ $opt['hint'] }}</span></span>
+                                </label>
+                            @endforeach
+                        </div>
+                        <div class="section-error"></div>
+                    </div>
+                </div>
+
+                <div class="sc" data-section="key_type">
+                    <div class="sc-head"><span class="sc-num">3</span><div><h3>Type de clé du véhicule *</h3><p>Choisissez ce qui ressemble le plus à votre clé actuelle.</p></div></div>
+                    <div class="sc-body">
+                        <div class="key-grid">
+                            @foreach ($pricing['key_types'] as $key => $opt)
+                                <label class="key-card" data-group="key_type">
+                                    <input class="dkp-hidden-input" type="radio" name="key_type" value="{{ $key }}" @checked($v('key_type') === $key)>
+                                    <span class="kchk">✓</span>
+                                    <span class="key-svg-wrap">{!! $keyIcons[$key] !!}</span>
+                                    <span class="key-name-row">
+                                        <span class="key-name">{{ $opt['label'] }}</span>
+                                        <span class="key-help" tabindex="0">?<span class="key-tooltip">{{ $opt['tooltip'] ?? $opt['hint'] }}</span></span>
+                                    </span>
+                                    <span class="key-desc">({{ $opt['hint'] }})</span>
+                                </label>
+                            @endforeach
+                        </div>
+                        <div class="section-error"></div>
+                    </div>
+                </div>
+
+                <div class="sc" data-section="desired_key">
+                    <div class="sc-head"><span class="sc-num">4</span><div><h3>Type de clé souhaitée *</h3><p>Les clés génériques sont des modèles compatibles de qualité professionnelle. Les clés d’origine sont des modèles de marque constructeur.</p></div></div>
+                    <div class="sc-body">
+                        <div class="opt-list">
+                            @foreach ($pricing['desired_keys'] as $key => $opt)
+                                <label class="opt-row" data-group="desired_key">
+                                    <input class="dkp-hidden-input" type="radio" name="desired_key" value="{{ $key }}" @checked($v('desired_key', 'generic') === $key)>
+                                    <span class="opt-radio"></span>
+                                    <span class="opt-content"><span class="opt-name">{{ $opt['label'] }}</span>@if ($key === 'generic')<span class="opt-rec">Recommandé</span>@endif<span class="opt-desc" style="display:block">({{ $opt['hint'] }})</span></span>
+                                </label>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sc" data-section="quantity">
+                    <div class="sc-head"><span class="sc-num">5</span><div><h3>Nombre de clés souhaitées *</h3><p>Il est fortement recommandé d’avoir au moins deux clés. La 2ᵉ clé bénéficie automatiquement d’une réduction de {{ $pricing['second_key_discount'] * 100 }} %.</p></div></div>
+                    <div class="sc-body">
+                        <div class="count-grid">
+                            <label class="count-card" data-group="quantity">
+                                <input class="dkp-hidden-input" type="radio" name="quantity" value="1" @checked((string) $v('quantity', '1') === '1')>
+                                <span class="kchk">✓</span><div class="count-big">1</div><div class="count-lbl">Clé</div>
+                            </label>
+                            <label class="count-card" data-group="quantity">
+                                <input class="dkp-hidden-input" type="radio" name="quantity" value="2" @checked((string) $v('quantity') === '2')>
+                                <span class="kchk">✓</span><div class="count-big">2</div><div class="count-lbl">Clés</div>
+                                <span class="count-badge">2ᵉ clé −{{ $pricing['second_key_discount'] * 100 }} %</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sc">
+                    <div class="sc-head"><span class="sc-num">6</span><div><h3>Protection <span class="sc-tag">Optionnel</span></h3><p>Un mois de garantie est inclus pour chaque clé fabriquée. Vous pouvez prolonger la garantie d’un an.</p></div></div>
+                    <div class="sc-body">
+                        <div class="gar-incl"><i class="fas fa-shield-alt"></i> Une garantie d’un mois est incluse dans le prix pour chaque clé fabriquée</div>
+                        <label class="tog-row" data-toggle>
+                            <input class="dkp-hidden-input" type="checkbox" name="warranty_extension" value="1" @checked($v('warranty_extension'))>
+                            <span class="tog-sw"><span class="tog-knob"></span></span>
+                            <span class="tog-txt"><span class="tog-name" style="display:block">Extension de garantie de 1 an</span><span class="tog-desc" style="display:block">(couvre chaque clé pendant 1 an au total — dysfonctionnement électronique)</span></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="sc">
+                    <div class="sc-head"><span class="sc-num">7</span><div><h3>Options d’intervention <span class="sc-tag">Optionnel</span></h3></div></div>
+                    <div class="sc-body">
+                        <label class="tog-row" data-toggle>
+                            <input class="dkp-hidden-input" type="checkbox" name="emergency" value="1" @checked($v('emergency'))>
+                            <span class="tog-sw"><span class="tog-knob"></span></span>
+                            <span class="tog-txt"><span class="tog-name" style="display:block">Intervention d’urgence</span><span class="tog-desc" style="display:block">Week-end — soir de 20h à 8h — ou besoin de passage rapide</span></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="sc" data-section="vehicle_info">
+                    <div class="sc-head"><span class="sc-num">8</span><div><h3>Informations du véhicule</h3></div></div>
+                    <div class="sc-body">
+                        <div class="inp-row">
+                            <div class="inp-wrap"><label class="inp-label" for="plate">Plaque <span class="req">*</span></label><input class="dkp-input" id="plate" name="plate" value="{{ $v('plate') }}" placeholder="AB-123-CD" autocomplete="off"></div>
+                            <div class="inp-wrap"><label class="inp-label" for="brand_model">Marque / modèle <span class="req">*</span></label><input class="dkp-input" id="brand_model" name="brand_model" value="{{ $v('brand_model') }}" placeholder="Renault Clio" list="brand-list"></div>
+                            <div class="inp-wrap"><label class="inp-label" for="year">Année <span class="req">*</span></label><input class="dkp-input" id="year" name="year" type="number" inputmode="numeric" min="1970" max="{{ now()->year + 1 }}" value="{{ $v('year') }}" placeholder="2022"></div>
+                        </div>
+                        <datalist id="brand-list">@foreach ($brands->flatten() as $b)<option value="{{ $b->name }}">@endforeach</datalist>
+                        <div class="section-error"></div>
+                    </div>
+                </div>
+            </div>
+
+            {{-- ═════════ ÉTAPE 2 : LOCALISATION ═════════ --}}
+            <div class="step-panel" data-step="2">
+                <div class="sc" data-section="address">
+                    <div class="sc-head"><span class="sc-num ico"><i class="fas fa-map-marker-alt"></i></span><div><h3>Adresse d’intervention</h3><p>Où se trouve le véhicule ?</p></div></div>
+                    <div class="sc-body">
+                        <button type="button" class="geo-btn" id="geo-btn">
+                            <span class="geo-icon">📍</span>
+                            <span class="geo-title" style="display:block">Utiliser ma position actuelle</span>
+                            <span class="geo-sub">Remplit automatiquement l’adresse d’intervention</span>
+                        </button>
+                        <div class="gps-status-msg" id="gps-msg" role="status"></div>
+                        <div class="or-sep">ou saisissez l’adresse</div>
+                        <div class="inp-row two">
+                            <div class="inp-wrap full ac-wrap">
+                                <label class="inp-label" for="address">Adresse <span class="req">*</span></label>
+                                <input class="dkp-input" id="address" name="address" value="{{ $v('address') }}" placeholder="12 rue de la République" autocomplete="street-address">
+                                <div class="ac-list" id="ac-list"></div>
+                            </div>
+                            <div class="inp-wrap"><label class="inp-label" for="postal_code">Code postal <span class="req">*</span></label><input class="dkp-input" id="postal_code" name="postal_code" value="{{ $v('postal_code') }}" placeholder="75001" autocomplete="postal-code"></div>
+                            <div class="inp-wrap"><label class="inp-label" for="city">Ville <span class="req">*</span></label><input class="dkp-input" id="city" name="city" value="{{ $v('city') }}" placeholder="Paris" autocomplete="address-level2"></div>
+                        </div>
+                        <div class="section-error"></div>
+                    </div>
+                </div>
+                <div class="sc" data-section="contact">
+                    <div class="sc-head"><span class="sc-num ico"><i class="far fa-user"></i></span><div><h3>Vos coordonnées</h3><p>Pour que le technicien puisse vous joindre.</p></div></div>
+                    <div class="sc-body">
+                        <div class="inp-row two">
+                            <div class="inp-wrap"><label class="inp-label" for="customer_name">Nom complet <span class="req">*</span></label><input class="dkp-input" id="customer_name" name="customer_name" value="{{ $v('customer_name') }}" autocomplete="name"></div>
+                            <div class="inp-wrap"><label class="inp-label" for="customer_phone">Téléphone <span class="req">*</span></label><input class="dkp-input" id="customer_phone" name="customer_phone" type="tel" value="{{ $v('customer_phone') }}" autocomplete="tel" placeholder="06 12 34 56 78"></div>
+                            <div class="inp-wrap full"><label class="inp-label" for="customer_email">E-mail <span class="req">*</span></label><input class="dkp-input" id="customer_email" name="customer_email" type="email" value="{{ $v('customer_email') }}" autocomplete="email" placeholder="vous@exemple.fr"></div>
+                            <div class="inp-wrap full"><label class="inp-label" for="notes">Précisions (facultatif)</label><textarea class="dkp-textarea" id="notes" name="notes" rows="3" placeholder="Parking, étage, disponibilités…">{{ $v('notes') }}</textarea></div>
+                        </div>
+                        <div class="section-error"></div>
+                    </div>
+                </div>
+            </div>
+
+            {{-- ═════════ ÉTAPE 3 : VALIDATION ═════════ --}}
+            <div class="step-panel" data-step="3">
+                <div class="sc">
+                    <div class="sc-head"><span class="sc-num ico"><i class="fas fa-car"></i></span><div><h3>Véhicule &amp; prestation</h3></div></div>
+                    <div class="sc-body"><div class="vinfo-grid" id="vinfo-vehicle"></div></div>
+                </div>
+                <div class="sc">
+                    <div class="sc-head"><span class="sc-num ico"><i class="fas fa-map-marker-alt"></i></span><div><h3>Adresse &amp; contact</h3></div></div>
+                    <div class="sc-body"><div class="vinfo-grid" id="vinfo-contact"></div></div>
+                </div>
+                <div class="sc">
+                    <div class="sc-head"><span class="sc-num ico"><i class="fas fa-file-invoice"></i></span><div><h3>Tarif &amp; règlement</h3></div></div>
+                    <div class="sc-body">
+                        <div class="gar-incl" style="margin:0"><i class="fas fa-check-circle"></i> Aucun paiement maintenant : un conseiller vous confirme le prix avant le départ du technicien, et vous réglez uniquement après l’intervention.</div>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        @if ($errors->any())
-            <div class="alert alert-error">
-                Merci de corriger les champs suivants :
-                <ul style="margin:6px 0 0">
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
+        {{-- ─── COLONNE RÉCAPITULATIF ─── --}}
+        <aside>
+            <div class="sidebar-sticky">
+                <div class="recap-wrap">
+                    <div class="rh"><h3>Vos sélections</h3><span class="rc-badge" id="rc-count">0</span></div>
+                    <div class="rb" id="recap">
+                        <div class="recap-empty"><span class="recap-empty-icon">🔑</span>Sélectionnez vos options<br>pour voir votre récapitulatif</div>
+                    </div>
+                </div>
+                <label class="terms-box" id="terms-box">
+                    <input type="checkbox" name="accept_terms" value="1" id="accept_terms" @checked($v('accept_terms'))>
+                    <span>J’ai lu et j’accepte les <a href="{{ route('terms') }}" target="_blank">Conditions générales d’intervention</a> — obligatoire pour valider votre demande.</span>
+                </label>
+                <button type="button" class="btn-cta" id="btn-next">Continuer vers la localisation →</button>
+                <button type="button" class="btn-back" id="btn-back" hidden>← Retour</button>
+                <button type="button" class="btn-clear-draft" id="btn-clear">Effacer mes informations</button>
+                <div class="pay-row" aria-label="Moyens de paiement acceptés après intervention">
+                    <span class="pay-chip"><i class="fab fa-cc-visa"></i></span>
+                    <span class="pay-chip"><i class="fab fa-cc-mastercard"></i></span>
+                    <span class="pay-chip"><i class="fab fa-cc-paypal"></i></span>
+                    <span class="pay-chip"><i class="fab fa-cc-apple-pay"></i></span>
+                    <span class="pay-chip"><i class="fab fa-google-pay"></i></span>
+                    <span class="pay-chip">ESPÈCES</span>
+                </div>
+                <div class="trust-list">
+                    <span class="trust-item"><span class="tdot"></span>Paiement uniquement après l’intervention</span>
+                    <span class="trust-item"><span class="tdot"></span>Garantie 1 mois incluse sur chaque clé</span>
+                    <span class="trust-item"><span class="tdot"></span>Prix annoncé avant toute intervention</span>
+                    <span class="trust-item"><span class="tdot"></span>Annulation gratuite avant départ du technicien</span>
+                    <span class="trust-item"><span class="tdot"></span>Technicien certifié — RC Pro assurée</span>
+                </div>
+            </div>
+        </aside>
+    </div>
+</form>
+
+{{-- ─── LOGOS DES MARQUES ─── --}}
+<section class="brands-strip">
+    <div class="container"><img src="{{ asset('images/placeholders/brand-logos.svg') }}" alt="Marques automobiles prises en charge" width="1200" height="740" loading="lazy"></div>
+</section>
+
+{{-- ─── AVIS CLIENTS ─── --}}
+<section class="testimonials-section">
+    <div class="container">
+        <div class="section-title">
+            <span class="sub-title">Consultez les avis des clients</span>
+            <h2 class="main-title">Les meilleures recommandations sont celles de nos clients</h2>
+        </div>
+        <div class="swiper testimonial-swiper">
+            <div class="swiper-wrapper">
+                @foreach ($testimonials as $t)
+                    <div class="swiper-slide">
+                        <div class="testimonial-block">
+                            <div class="testimonial-avtar">
+                                <div class="initials">{{ $t->initials() }}</div>
+                                <div class="testimonial-name">{{ $t->name }}</div>
+                                <span>Client | {{ $t->city }}</span>
+                            </div>
+                            <div class="testimonial-content">
+                                <p>{{ $t->content }}</p>
+                                <i class="fas fa-quote-right"></i>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+    </div>
+</section>
+
+{{-- ─── SECTION SEO ─── --}}
+<section class="seo-section">
+    <div class="seo-inner">
+        <div class="seo-head">
+            <h2>{{ $settings['company_name'] }} — votre serrurier automobile à domicile</h2>
+            <p>Spécialiste de la <strong>serrurerie automobile mobile</strong> en France et en Belgique, {{ $settings['company_name'] }} réalise la <strong>reproduction de clé de voiture</strong>, le <strong>double de clé auto</strong> et la <strong>programmation de clé</strong> directement chez vous, 24h/24.</p>
+        </div>
+        <div class="seo-grid">
+            <div class="seo-card">
+                <h3>Clé de voiture perdue ? Dépannage 24h/24</h3>
+                <p>Plus aucune clé ? Pas d’inquiétude. Un technicien {{ $settings['company_name'] }} se déplace en urgence avec tout son matériel pour <strong>créer une nouvelle clé sur place</strong>, sans l’originale et sans passer par le concessionnaire.</p>
+                <p class="note">Besoin d’aide immédiate ? Appelez le {{ $settings['phone'] }} : un serrurier auto part vers vous.</p>
+            </div>
+            <div class="seo-card">
+                <h3>Double de clé voiture &amp; reproduction rapide</h3>
+                <p>Vous avez encore une clé qui fonctionne ? Nous réalisons un <strong>double de clé</strong> à domicile : clé à transpondeur, télécommande, clé électronique ou mains libres, sur plus de 100 marques.</p>
+                <p class="note">Prix communiqué à l’avance, sans surprise.</p>
+            </div>
+            <div class="seo-card">
+                <h3>Programmer &amp; reprogrammer une clé</h3>
+                <p>Codage par prise OBD, synchronisation de transpondeur, clé qui ne démarre plus : nos techniciens utilisent du <strong>matériel professionnel</strong> pour programmer votre clé en quelques minutes.</p>
+                <p class="note">Intervention rapide, sur place.</p>
+            </div>
+            <div class="seo-card">
+                <h3>Ouverture de véhicule sans clé</h3>
+                <p>Clé enfermée dans l’habitacle ou dans le coffre ? Nous ouvrons votre véhicule <strong>sans aucun dégât</strong>, de jour comme de nuit, week-ends et jours fériés compris.</p>
+                <p class="note">Une nouvelle clé peut être fabriquée dans la foulée.</p>
+            </div>
+            <div class="seo-card">
+                <h3>Toutes marques, auto, moto et poids lourd</h3>
+                <p>Peugeot, Renault, Citroën, Volkswagen, BMW, Mercedes, Audi, Toyota… mais aussi <strong>camions et motos</strong> : nos techniciens connaissent les systèmes antidémarrage des principaux constructeurs.</p>
+                <p class="note"><a href="{{ route('brands.index') }}" style="color:var(--navy);font-weight:700">Voir toutes les marques →</a></p>
+            </div>
+            <div class="seo-card">
+                <h3>Tarifs transparents</h3>
+                <p>Le tarif dépend du véhicule, du type de clé et des options. Il vous est <strong>communiqué avant le départ</strong> du technicien, sur la base de votre carte grise ou de votre plaque et de l’adresse d’intervention.</p>
+                <p class="note">Règlement après l’intervention, par carte ou virement.</p>
+            </div>
+        </div>
+        <div class="seo-cta">
+            <h3>Comment refaire une clé de voiture sans double ?</h3>
+            <p>C’est simple : même <strong>sans clé d’origine</strong>, nos techniciens fabriquent une nouvelle clé à partir des données du véhicule, la programment sur place et peuvent <strong>désactiver les anciennes clés</strong> pour votre sécurité.</p>
+            <a href="tel:{{ $tel }}" class="btn-white"><i class="fas fa-phone-alt"></i> {{ $settings['phone'] }}</a>
+        </div>
+
+        @if ($faqs->isNotEmpty())
+            <div class="seo-sub">
+                <h3>Questions fréquentes — clé de voiture</h3>
+                <div class="faq-list">
+                    @foreach ($faqs as $faq)
+                        <details class="faq-item"><summary>{{ $faq->question }}</summary><div class="faq-a">{{ $faq->answer }}</div></details>
                     @endforeach
-                </ul>
+                </div>
             </div>
         @endif
 
-        @php
-            $step2Fields = ['customer_name', 'customer_phone', 'customer_email', 'address', 'postal_code', 'city', 'notes', 'accept_terms'];
-            $startStep = $errors->hasAny($step2Fields) ? 2 : 1;
-            $v = fn ($name, $default = null) => old($name, $default);
-        @endphp
-
-        <form method="POST" action="{{ route('orders.store') }}" id="order-form" data-start-step="{{ $startStep }}" novalidate>
-            @csrf
-            <div class="order-layout">
-                <div>
-                    {{-- ============ ÉTAPE 1 : CONFIGURATION ============ --}}
-                    <div class="panel" data-panel="1">
-                        <div class="info-box">
-                            <h3>ℹ️ Comment se déroule votre intervention ?</h3>
-                            <span class="muted">De la demande à la facture : simple, rapide et transparent.</span>
-                            <ol>
-                                <li><b>Demande</b> — vous configurez votre besoin ; aucun paiement à la commande.</li>
-                                <li><b>Attribution</b> — notre équipe vous attribue un technicien proche de vous.</li>
-                                <li><b>Intervention</b> — fabrication, programmation ou ouverture sur place.</li>
-                                <li><b>Validation</b> — vous validez la prestation, puis vous réglez. Facture envoyée par e-mail.</li>
-                            </ol>
-                        </div>
-
-                        <div class="q-block">
-                            <div class="q-title"><span class="n">1</span>Type de véhicule *</div>
-                            <p class="q-help">Choisissez le type de véhicule concerné.</p>
-                            <div class="choices cols-3">
-                                @foreach ($pricing['vehicle_types'] as $key => $opt)
-                                    <div class="choice">
-                                        <input type="radio" name="vehicle_type" id="vt-{{ $key }}" value="{{ $key }}" @checked($v('vehicle_type', 'auto') === $key)>
-                                        <label for="vt-{{ $key }}"><span class="emoji">{{ $opt['icon'] }}</span><span><b>{{ $opt['label'] }}</b><small>{{ $opt['hint'] }}</small></span></label>
-                                    </div>
-                                @endforeach
-                            </div>
-                        </div>
-
-                        <div class="q-block">
-                            <div class="q-title"><span class="n">2</span>Quel est votre besoin ? *</div>
-                            <div class="choices" style="margin-top:12px">
-                                @foreach ($pricing['needs'] as $key => $opt)
-                                    <div class="choice">
-                                        <input type="radio" name="need" id="need-{{ $key }}" value="{{ $key }}" @checked($v('need') === $key)>
-                                        <label for="need-{{ $key }}"><span><b>{{ $opt['label'] }}</b><small>{{ $opt['hint'] }}</small></span><span class="tag">dès {{ $opt['base'] }} €</span></label>
-                                    </div>
-                                @endforeach
-                            </div>
-                        </div>
-
-                        <div class="q-block">
-                            <div class="q-title"><span class="n">3</span>Type de clé du véhicule *</div>
-                            <p class="q-help">Choisissez ce qui ressemble le plus à votre clé actuelle.</p>
-                            <div class="choices cols-2">
-                                @foreach ($pricing['key_types'] as $key => $opt)
-                                    <div class="choice">
-                                        <input type="radio" name="key_type" id="kt-{{ $key }}" value="{{ $key }}" @checked($v('key_type') === $key)>
-                                        <label for="kt-{{ $key }}"><span><b>{{ $opt['label'] }}</b><small>{{ $opt['hint'] }}</small></span></label>
-                                    </div>
-                                @endforeach
-                            </div>
-                        </div>
-
-                        <div class="q-block">
-                            <div class="q-title"><span class="n">4</span>Type de clé souhaitée *</div>
-                            <p class="q-help">Les clés génériques sont des modèles compatibles de qualité professionnelle ; les clés d’origine portent le logo du constructeur.</p>
-                            <div class="choices cols-2">
-                                @foreach ($pricing['desired_keys'] as $key => $opt)
-                                    <div class="choice">
-                                        <input type="radio" name="desired_key" id="dk-{{ $key }}" value="{{ $key }}" @checked($v('desired_key', 'generic') === $key)>
-                                        <label for="dk-{{ $key }}"><span><b>{{ $opt['label'] }}</b><small>{{ $opt['hint'] }}</small></span></label>
-                                    </div>
-                                @endforeach
-                            </div>
-                        </div>
-
-                        <div class="q-block">
-                            <div class="q-title"><span class="n">5</span>Nombre de clés *</div>
-                            <p class="q-help">Nous recommandons d’avoir au moins deux clés. La 2ᵉ clé bénéficie de −{{ $pricing['second_key_discount'] * 100 }} %.</p>
-                            <div class="choices cols-2">
-                                <div class="choice">
-                                    <input type="radio" name="quantity" id="qty-1" value="1" @checked((string) $v('quantity', '1') === '1')>
-                                    <label for="qty-1"><span class="emoji">🔑</span><b>1 clé</b></label>
-                                </div>
-                                <div class="choice">
-                                    <input type="radio" name="quantity" id="qty-2" value="2" @checked((string) $v('quantity') === '2')>
-                                    <label for="qty-2"><span class="emoji">🔑🔑</span><b>2 clés</b><span class="tag">2ᵉ clé −{{ $pricing['second_key_discount'] * 100 }} %</span></label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="q-block">
-                            <div class="q-title"><span class="n">6</span>Protection <span class="opt">Optionnel</span></div>
-                            <p class="q-help">Un mois de garantie est inclus pour chaque clé fabriquée.</p>
-                            <div class="choice">
-                                <input type="checkbox" name="warranty_extension" id="warranty" value="1" @checked($v('warranty_extension'))>
-                                <label for="warranty"><span class="emoji">🛡️</span><span><b>Extension de garantie 1 an</b><small>Couvre les dysfonctionnements électroniques de chaque clé pendant un an.</small></span><span class="tag">+{{ $pricing['warranty_extension'] }} € / clé</span></label>
-                            </div>
-                        </div>
-
-                        <div class="q-block">
-                            <div class="q-title"><span class="n">7</span>Options d’intervention <span class="opt">Optionnel</span></div>
-                            <div class="choice" style="margin-top:12px">
-                                <input type="checkbox" name="emergency" id="emergency" value="1" @checked($v('emergency'))>
-                                <label for="emergency"><span class="emoji">⚡</span><span><b>Intervention d’urgence</b><small>Week-end, soirée de 20h à 8h ou besoin d’un passage rapide.</small></span><span class="tag">+{{ $pricing['emergency'] }} €</span></label>
-                            </div>
-                        </div>
-
-                        <div class="q-block">
-                            <div class="q-title"><span class="n">8</span>Informations du véhicule</div>
-                            <div class="fields" style="margin-top:14px">
-                                <div class="field"><label for="plate">Plaque *</label><input id="plate" name="plate" value="{{ $v('plate') }}" placeholder="AB-123-CD" required></div>
-                                <div class="field"><label for="brand_model">Marque / modèle *</label><input id="brand_model" name="brand_model" value="{{ $v('brand_model') }}" placeholder="Peugeot 308" required></div>
-                                <div class="field"><label for="year">Année *</label><input id="year" name="year" type="number" min="1970" max="{{ now()->year + 1 }}" value="{{ $v('year') }}" placeholder="2018" required></div>
-                            </div>
-                        </div>
-
-                        <div class="panel-actions">
-                            <span></span>
-                            <button type="button" class="btn btn-red btn-lg" data-next>Continuer vers la localisation →</button>
-                        </div>
-                    </div>
-
-                    {{-- ============ ÉTAPE 2 : LOCALISATION ============ --}}
-                    <div class="panel" data-panel="2">
-                        <div class="q-block">
-                            <div class="q-title"><span class="n">📍</span>Vos coordonnées</div>
-                            <div class="fields two" style="margin-top:14px">
-                                <div class="field"><label for="customer_name">Nom complet *</label><input id="customer_name" name="customer_name" value="{{ $v('customer_name') }}" autocomplete="name" required></div>
-                                <div class="field"><label for="customer_phone">Téléphone *</label><input id="customer_phone" name="customer_phone" type="tel" value="{{ $v('customer_phone') }}" autocomplete="tel" required></div>
-                                <div class="field full"><label for="customer_email">E-mail *</label><input id="customer_email" name="customer_email" type="email" value="{{ $v('customer_email') }}" autocomplete="email" required></div>
-                            </div>
-                        </div>
-                        <div class="q-block">
-                            <div class="q-title"><span class="n">🏠</span>Adresse d’intervention</div>
-                            <div class="fields" style="margin-top:14px">
-                                <div class="field full"><label for="address">Adresse *</label><input id="address" name="address" value="{{ $v('address') }}" autocomplete="street-address" required></div>
-                                <div class="field"><label for="postal_code">Code postal *</label><input id="postal_code" name="postal_code" value="{{ $v('postal_code') }}" autocomplete="postal-code" required></div>
-                                <div class="field" style="grid-column: span 2"><label for="city">Ville *</label><input id="city" name="city" value="{{ $v('city') }}" autocomplete="address-level2" required></div>
-                                <div class="field full"><label for="notes">Précisions (facultatif)</label><textarea id="notes" name="notes" rows="3" placeholder="Parking, étage, disponibilités…">{{ $v('notes') }}</textarea></div>
-                            </div>
-                        </div>
-                        <div class="panel-actions">
-                            <button type="button" class="btn btn-outline" data-prev>← Retour</button>
-                            <button type="button" class="btn btn-red btn-lg" data-next>Vérifier ma demande →</button>
-                        </div>
-                    </div>
-
-                    {{-- ============ ÉTAPE 3 : CONFIRMATION ============ --}}
-                    <div class="panel" data-panel="3">
-                        <div class="q-block">
-                            <div class="q-title"><span class="n">✓</span>Vérifiez votre demande</div>
-                            <p class="q-help">Aucun paiement n’est demandé maintenant. Le règlement s’effectue après l’intervention, une fois la prestation validée.</p>
-                            <div id="recap" class="grid grid-2" style="gap:8px 24px"></div>
-                        </div>
-                        <div class="q-block">
-                            <label class="check-line">
-                                <input type="checkbox" name="accept_terms" value="1" id="accept_terms" @checked($v('accept_terms'))>
-                                <span>J’ai lu et j’accepte les <a href="{{ route('terms') }}" target="_blank" style="color:var(--red);font-weight:700">Conditions générales d’intervention</a>. *</span>
-                            </label>
-                        </div>
-                        <div class="panel-actions">
-                            <button type="button" class="btn btn-outline" data-prev>← Retour</button>
-                            <button type="submit" class="btn btn-green btn-lg">Envoyer ma demande ✓</button>
-                        </div>
-                    </div>
-                    <p class="error-text" id="step-error" role="alert" hidden></p>
-                </div>
-
-                <aside class="summary" aria-live="polite">
-                    <div class="summary-head">🧾 Vos sélections</div>
-                    <div class="summary-body">
-                        <div class="summary-row"><span>Véhicule</span><span data-sum="vehicle_type">—</span></div>
-                        <div class="summary-row"><span>Besoin</span><span data-sum="need">—</span></div>
-                        <div class="summary-row"><span>Type de clé</span><span data-sum="key_type">—</span></div>
-                        <div class="summary-row"><span>Clé souhaitée</span><span data-sum="desired_key">—</span></div>
-                        <div class="summary-row"><span>Quantité</span><span data-sum="quantity">—</span></div>
-                        <div class="summary-row"><span>Garantie 1 an</span><span data-sum="warranty_extension">Non</span></div>
-                        <div class="summary-row"><span>Urgence</span><span data-sum="emergency">Non</span></div>
-                        <div class="summary-total"><span class="muted">Prix estimé TTC</span><strong id="total">— €</strong></div>
-                    </div>
-                    <div class="summary-foot">
-                        <span>✔ Aucun débit avant la fin de la prestation</span>
-                        <span>✔ Garantie 1 mois incluse sur chaque clé</span>
-                        <span>✔ Annulation gratuite avant le départ du technicien</span>
-                        <span>✔ Techniciens certifiés, assurés RC Pro</span>
-                    </div>
-                </aside>
+        <div class="seo-sub">
+            <h3>Ressources utiles</h3>
+            <div class="res-grid">
+                <a class="res-card" href="{{ route('services.index') }}"><b>Toutes nos prestations</b><span>Perte totale, double, ouverture, programmation, réparation.</span></a>
+                <a class="res-card" href="{{ route('brands.index') }}"><b>Clés par marque</b><span>Retrouvez votre constructeur et nos solutions dédiées.</span></a>
+                <a class="res-card" href="{{ route('faq') }}"><b>FAQ complète</b><span>Tarifs, délais, documents à fournir, garantie.</span></a>
             </div>
-        </form>
-    </div>
-</section>
-
-<section class="section">
-    <div class="container">
-        <div class="section-head">
-            <div class="eyebrow">Nos prestations</div>
-            <h2>Toutes les solutions pour vos clés, sans passer par le garage</h2>
-            <p class="muted">Un technicien équipé d’un atelier mobile complet se déplace là où se trouve votre véhicule.</p>
-        </div>
-        <div class="grid grid-4">
-            @foreach ($services as $service)
-                <a class="card" href="{{ route('services.show', $service) }}">
-                    <div class="icon">{{ $service->icon }}</div>
-                    <h3>{{ $service->title }}</h3>
-                    <p class="muted" style="font-size:.92rem">{{ $service->excerpt }}</p>
-                    <span class="price">À partir de {{ $service->price_from }} € TTC</span>
-                </a>
-            @endforeach
-        </div>
-    </div>
-</section>
-
-<section class="section white">
-    <div class="container">
-        <div class="section-head">
-            <div class="eyebrow">Avis clients</div>
-            <h2>Ils nous ont confié leurs clés</h2>
-        </div>
-        <div class="reviews">
-            @foreach ($testimonials as $t)
-                <div class="card review">
-                    <div class="head">
-                        <div class="avatar">{{ $t->initials() }}</div>
-                        <div><b>{{ $t->name }}</b><div class="muted" style="font-size:.85rem">Client · {{ $t->city }}</div></div>
-                        <div class="stars" style="margin-left:auto" aria-label="{{ $t->rating }} sur 5">{{ str_repeat('★', $t->rating) }}</div>
-                    </div>
-                    <p style="margin:0">{{ $t->content }}</p>
-                </div>
-            @endforeach
-        </div>
-    </div>
-</section>
-
-<section class="section">
-    <div class="container">
-        <div class="section-head">
-            <div class="eyebrow">Toutes marques</div>
-            <h2>Plus de {{ $brands->flatten()->count() }} marques couvertes</h2>
-        </div>
-        @foreach (\App\Models\Brand::CATEGORIES as $cat => $label)
-            @if (isset($brands[$cat]))
-                <h3 class="center" style="font-size:1rem;margin:24px 0 12px">{{ $label }}</h3>
-                <div class="brand-cloud">
-                    @foreach ($brands[$cat] as $brand)
-                        <a class="brand-chip" href="{{ route('brands.show', $brand) }}">{{ $brand->name }}</a>
-                    @endforeach
-                </div>
-            @endif
-        @endforeach
-    </div>
-</section>
-
-<section class="section white">
-    <div class="container prose" style="max-width:900px">
-        <h2>{{ $settings['company_name'] }} — votre serrurier automobile mobile</h2>
-        <p>{{ $settings['company_name'] }} réunit un réseau de techniciens spécialisés dans la reproduction de clés de voiture, le double de clé auto et la programmation de clés électroniques, directement à votre domicile ou sur votre lieu de travail.</p>
-        <h3>Clé de voiture perdue ? Nous intervenons en urgence</h3>
-        <p>En cas de perte totale, nous fabriquons une nouvelle clé sans l’originale, puis nous la programmons sur le calculateur du véhicule. Les anciennes clés peuvent être désactivées pour votre sécurité.</p>
-        <h3>Double de clé et programmation</h3>
-        <p>Clé simple, clé à transpondeur, télécommande ou carte mains libres : nos techniciens utilisent un matériel de diagnostic professionnel pour coder votre nouvelle clé en quelques minutes.</p>
-        <h3>Des prix clairs</h3>
-        <p>Le prix estimé s’affiche pendant votre demande et vous est confirmé avant le départ du technicien. Vous ne réglez qu’une fois la prestation terminée.</p>
-    </div>
-</section>
-
-<section class="section">
-    <div class="container">
-        <div class="cta-band">
-            <div>
-                <h2>Besoin d’une clé maintenant ?</h2>
-                <p style="margin:6px 0 0;opacity:.9">Un conseiller vous répond 24h/24 et 7j/7.</p>
-            </div>
-            <a class="btn btn-lg" href="tel:{{ preg_replace('/\s+/', '', $settings['phone']) }}">📞 {{ $settings['phone'] }}</a>
         </div>
     </div>
 </section>
 @endsection
 
 @push('scripts')
-    <script>window.PRICING = @json($pricing);</script>
-    <script src="{{ asset('js/configurator.js') }}?v=1"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11.1.14/swiper-bundle.min.js"></script>
+    <script>
+        new Swiper('.testimonial-swiper', {
+            loop: true, speed: 700, spaceBetween: 24, slidesPerView: 1,
+            autoplay: { delay: 4500, disableOnInteraction: false, pauseOnMouseEnter: true },
+            pagination: { el: '.swiper-pagination', clickable: true },
+            breakpoints: { 700: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } },
+        });
+        window.PRICING = @json($pricing);
+    </script>
+    <script src="{{ asset('js/configurator.js') }}?v=2"></script>
 @endpush

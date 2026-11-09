@@ -32,6 +32,7 @@ Route::controller(PageController::class)->group(function () {
     Route::get('/contact', 'contact')->name('contact');
     Route::get('/mentions-legales', 'legal')->name('legal');
     Route::get('/conditions-intervention', 'terms')->name('terms');
+    Route::post('/newsletter', 'subscribe')->middleware('throttle:5,1')->name('newsletter');
     Route::post('/contact', 'sendMessage')->middleware('throttle:5,1')->name('contact.send');
 });
 

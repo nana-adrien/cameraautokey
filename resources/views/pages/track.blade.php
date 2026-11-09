@@ -2,44 +2,40 @@
 @section('title', 'Suivre ma demande')
 
 @section('content')
-@include('partials.page-hero', ['title' => 'Suivre ma demande', 'subtitle' => 'Saisissez la référence reçue lors de votre demande et votre adresse e-mail.'])
-<section class="section">
-    <div class="container" style="max-width:760px">
-        <form method="POST" action="{{ route('orders.track.search') }}" class="card">
+@include('partials.page-hero', ['titleHtml' => 'Suivre ma <em>demande</em>', 'title' => 'Suivre ma demande', 'subtitle' => 'Saisissez la référence reçue lors de votre demande et votre adresse e-mail.', 'cta' => false, 'trust' => false])
+<div class="content-wrap" style="max-width:760px">
+    <x-sc icon="fas fa-search" title="Retrouver ma demande">
+        <form method="POST" action="{{ route('orders.track.search') }}">
             @csrf
-            <div class="fields two">
-                <div class="field"><label for="reference">Référence *</label><input id="reference" name="reference" value="{{ old('reference', request('reference')) }}" placeholder="CAK-251109-XXXXX" required>@error('reference')<div class="err">{{ $message }}</div>@enderror</div>
-                <div class="field"><label for="customer_email">E-mail *</label><input id="customer_email" type="email" name="customer_email" value="{{ old('customer_email', request('customer_email')) }}" required>@error('customer_email')<div class="err">{{ $message }}</div>@enderror</div>
+            <div class="inp-row two">
+                <div class="inp-wrap"><label class="inp-label" for="reference">Référence <span class="req">*</span></label><input class="dkp-input" id="reference" name="reference" value="{{ old('reference', request('reference')) }}" placeholder="CAK-261109-XXXXX" required>@error('reference')<span class="inp-err">{{ $message }}</span>@enderror</div>
+                <div class="inp-wrap"><label class="inp-label" for="customer_email">E-mail <span class="req">*</span></label><input class="dkp-input" id="customer_email" type="email" name="customer_email" value="{{ old('customer_email', request('customer_email')) }}" required>@error('customer_email')<span class="inp-err">{{ $message }}</span>@enderror</div>
             </div>
-            <button class="btn btn-red" style="margin-top:16px">Rechercher</button>
+            <button class="btn-cta">Rechercher</button>
         </form>
-
         @if (! empty($notFound))
-            <div class="alert alert-error" style="margin-top:20px">Aucune demande ne correspond à cette référence et cette adresse e-mail.</div>
+            <div class="flash-error" style="margin-top:16px">Aucune demande ne correspond à cette référence et cette adresse e-mail.</div>
         @endif
+    </x-sc>
 
-        @isset($order)
-            <div class="card" style="margin-top:20px">
-                <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
-                    <h2 style="margin:0">{{ $order->reference }}</h2>
-                    <span class="status status-{{ $order->status }}">{{ $order->statusLabel() }}</span>
+    @isset($order)
+        @php $steps = ['pending', 'assigned', 'in_progress', 'completed']; $idx = array_search($order->status, $steps); @endphp
+        <x-sc icon="fas fa-clipboard-list" title="Demande {{ $order->reference }}">
+            @if ($order->status !== 'cancelled')
+                <div class="step-bar" style="padding:0;margin-bottom:16px;flex-wrap:wrap">
+                    @foreach ($steps as $i => $s)
+                        <div @class(['step-tab', 'done' => $idx !== false && $i < $idx, 'active' => $i === $idx, 'step-future' => $idx !== false && $i > $idx])><span class="sn">{{ $i + 1 }}</span><span class="sl">{{ \App\Models\Order::STATUSES[$s] }}</span></div>
+                    @endforeach
                 </div>
-                @php $steps = ['pending', 'assigned', 'in_progress', 'completed']; $idx = array_search($order->status, $steps); @endphp
-                @if ($order->status !== 'cancelled')
-                    <div class="progress" style="box-shadow:none;padding:16px 0;margin:10px 0">
-                        @foreach ($steps as $i => $s)
-                            <div @class(['p-step', 'done' => $idx !== false && $i < $idx, 'active' => $i === $idx])><span class="dot">{{ $i + 1 }}</span>{{ \App\Models\Order::STATUSES[$s] }}</div>
-                            @if (! $loop->last)<div class="bar"></div>@endif
-                        @endforeach
-                    </div>
-                @endif
-                <div class="summary-row"><span>Véhicule</span><span>{{ $order->brand_model }} — {{ $order->plate }}</span></div>
-                <div class="summary-row"><span>Besoin</span><span>{{ $order->label('need') }}</span></div>
-                <div class="summary-row"><span>Technicien</span><span>{{ $order->technician?->name ?? 'En cours d’attribution' }}</span></div>
-                <div class="summary-row"><span>Créée le</span><span>{{ $order->created_at->translatedFormat('d F Y à H\hi') }}</span></div>
-                <div class="summary-total"><span class="muted">Prix estimé TTC</span><strong>{{ $order->estimated_price }} €</strong></div>
+            @endif
+            <div class="success-receipt" style="margin:0;max-width:none">
+                <div class="receipt-row"><span class="receipt-lbl">Statut</span><span class="badge-status status-{{ $order->status }}">{{ $order->statusLabel() }}</span></div>
+                <div class="receipt-row"><span class="receipt-lbl">Véhicule</span><span class="receipt-val">{{ $order->brand_model }} — {{ $order->plate }}</span></div>
+                <div class="receipt-row"><span class="receipt-lbl">Besoin</span><span class="receipt-val">{{ $order->label('need') }}</span></div>
+                <div class="receipt-row"><span class="receipt-lbl">Technicien</span><span class="receipt-val">{{ $order->technician?->name ?? 'En cours d’attribution' }}</span></div>
+                <div class="receipt-row"><span class="receipt-lbl">Créée le</span><span class="receipt-val">{{ $order->created_at->translatedFormat('d F Y à H\hi') }}</span></div>
             </div>
-        @endisset
-    </div>
-</section>
+        </x-sc>
+    @endisset
+</div>
 @endsection

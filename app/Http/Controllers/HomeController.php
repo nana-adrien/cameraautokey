@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Brand;
+use App\Models\Faq;
 use App\Models\Service;
 use App\Models\Testimonial;
 use Illuminate\View\View;
@@ -16,6 +17,7 @@ class HomeController extends Controller
             'testimonials' => Testimonial::where('is_published', true)->latest()->take(6)->get(),
             'brands' => Brand::active()->get()->groupBy('category'),
             'pricing' => config('pricing'),
+            'faqs' => Faq::where('is_published', true)->orderBy('position')->take(5)->get(),
         ]);
     }
 }

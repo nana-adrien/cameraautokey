@@ -46,6 +46,18 @@ class PageController extends Controller
         return view('pages.terms');
     }
 
+    public function subscribe(Request $request): RedirectResponse
+    {
+        $data = $request->validate(['email' => ['required', 'email', 'max:150']]);
+
+        ContactMessage::firstOrCreate(
+            ['type' => 'newsletter', 'email' => $data['email']],
+            ['name' => 'Abonné newsletter', 'message' => 'Inscription à la newsletter depuis le pied de page.'],
+        );
+
+        return back()->with('newsletter', 'Merci, vous êtes inscrit(e) !');
+    }
+
     public function sendMessage(Request $request): RedirectResponse
     {
         $data = $request->validate([

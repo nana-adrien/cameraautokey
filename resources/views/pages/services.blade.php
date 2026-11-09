@@ -1,20 +1,18 @@
 @extends('layouts.site')
-@section('title', 'Nos services')
+@section('title', 'Nos services de serrurerie automobile')
 
 @section('content')
-@include('partials.page-hero', ['title' => 'Nos services', 'subtitle' => 'Reproduction, programmation, ouverture et réparation de clés pour tous types de véhicules.'])
-<section class="section">
-    <div class="container">
-        <div class="grid grid-3">
-            @foreach ($services as $service)
-                <a class="card" href="{{ route('services.show', $service) }}">
-                    <div class="icon">{{ $service->icon }}</div>
-                    <h3>{{ $service->title }}</h3>
-                    <p class="muted">{{ $service->excerpt }}</p>
-                    <span class="price">À partir de {{ $service->price_from }} € TTC</span>
-                </a>
-            @endforeach
-        </div>
+@include('partials.page-hero', ['titleHtml' => 'Nos <em>services</em>', 'title' => 'Nos services', 'subtitle' => 'Reproduction, programmation, ouverture et réparation de clés pour voitures, utilitaires, poids lourds et motos — à domicile, 24h/24.'])
+<div class="content-wrap">
+    <div class="card-grid">
+        @foreach ($services as $service)
+            <a class="svc-card" href="{{ route('services.show', $service) }}">
+                <span class="ic">{{ $service->icon }}</span>
+                <b>{{ $service->title }}</b>
+                <p>{{ $service->excerpt }}</p>
+                <span>Découvrir →</span>
+            </a>
+        @endforeach
     </div>
-</section>
+</div>
 @endsection

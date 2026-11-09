@@ -2,31 +2,32 @@
 @section('title', 'Qui sommes-nous ?')
 
 @section('content')
-@include('partials.page-hero', ['title' => 'Qui sommes-nous ?', 'subtitle' => $settings['company_name'].' est un réseau de serruriers automobiles mobiles, joignables jour et nuit.'])
-<section class="section">
-    <div class="container">
-        <div class="grid grid-2" style="align-items:center;gap:40px">
-            <div class="prose">
-                <h2>Notre mission</h2>
-                <p>Rendre la reproduction et la programmation de clés aussi simple qu’une course en VTC : une demande en ligne, un prix clair, un technicien qui vient à vous.</p>
+@include('partials.page-hero', ['titleHtml' => 'Qui <em>sommes-nous</em> ?', 'title' => 'À propos', 'subtitle' => e($settings['company_name']).' est un réseau de <strong>serruriers automobiles mobiles</strong>, joignables jour et nuit en France et en Belgique.'])
+<div class="content-wrap grid">
+    <div>
+        <x-sc icon="far fa-chart-bar" title="{{ $settings['company_name'] }} en chiffres">
+            <div class="stats-grid">
+                <div><div class="stat-val">24/7</div><div class="stat-lbl">Disponibilité</div></div>
+                <div><div class="stat-val">45<em>min</em></div><div class="stat-lbl">Délai moyen en urgence</div></div>
+                <div><div class="stat-val">100+</div><div class="stat-lbl">Marques couvertes</div></div>
+                <div><div class="stat-val">4,9<em>★</em></div><div class="stat-lbl">Satisfaction client</div></div>
+            </div>
+        </x-sc>
+        <x-sc num="1" title="Notre mission">
+            <div class="text-block">
+                <p>Rendre la reproduction et la programmation de clés aussi simples qu’une course de VTC : une demande en ligne, un prix clair, un technicien qui vient à vous.</p>
                 <p>Nos intervenants sont formés aux technologies des principaux constructeurs et équipés de véhicules-ateliers. Ils interviennent chez les particuliers comme auprès des flottes d’entreprise.</p>
             </div>
-            <div class="grid grid-2">
-                <div class="card center"><div style="font-size:2rem;font-weight:800;color:var(--red)">24/7</div><span class="muted">Disponibilité</span></div>
-                <div class="card center"><div style="font-size:2rem;font-weight:800;color:var(--red)">45 min</div><span class="muted">Délai moyen en urgence</span></div>
-                <div class="card center"><div style="font-size:2rem;font-weight:800;color:var(--red)">49+</div><span class="muted">Marques couvertes</span></div>
-                <div class="card center"><div style="font-size:2rem;font-weight:800;color:var(--red)">4,8/5</div><span class="muted">Satisfaction client</span></div>
+        </x-sc>
+        <x-sc num="2" title="Nos engagements">
+            <div class="steps-grid">
+                <div class="step-card"><span class="n"><i class="fas fa-euro-sign"></i></span><b>Transparence</b><p>Prix annoncé avant toute intervention, sans frais cachés.</p></div>
+                <div class="step-card"><span class="n"><i class="fas fa-shield-alt"></i></span><b>Sécurité</b><p>Contrôle de la carte grise et de l’identité avant chaque fabrication de clé.</p></div>
+                <div class="step-card"><span class="n"><i class="fas fa-bolt"></i></span><b>Réactivité</b><p>Un technicien proche de chez vous, de jour comme de nuit.</p></div>
+                <div class="step-card"><span class="n"><i class="fas fa-award"></i></span><b>Garantie</b><p>Chaque clé fabriquée est garantie un mois, extensible à un an.</p></div>
             </div>
-        </div>
-        <div class="section-head" style="margin-top:70px">
-            <div class="eyebrow">Nos engagements</div>
-            <h2>Pourquoi nous choisir ?</h2>
-        </div>
-        <div class="grid grid-3">
-            <div class="card"><div class="icon">💶</div><h3>Transparence</h3><p class="muted">Prix annoncé avant toute intervention, sans frais cachés.</p></div>
-            <div class="card"><div class="icon">🛡️</div><h3>Sécurité</h3><p class="muted">Contrôle de la carte grise et de l’identité avant chaque fabrication de clé.</p></div>
-            <div class="card"><div class="icon">⚡</div><h3>Réactivité</h3><p class="muted">Un technicien proche de chez vous, de jour comme de nuit.</p></div>
-        </div>
+        </x-sc>
     </div>
-</section>
+    <aside>@include('partials.side-cta')</aside>
+</div>
 @endsection

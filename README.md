@@ -24,7 +24,7 @@ Aucun build front n’est nécessaire : le CSS et le JS sont dans `public/css` e
 ## Fonctionnalités
 
 **Site public**
-- Accueil : hero, configurateur (type de véhicule, besoin, type de clé, clé souhaitée, quantité avec −30 % sur la 2ᵉ clé, garantie, urgence, véhicule → coordonnées → récapitulatif), services, avis, marques, texte SEO.
+- Accueil : diaporama hero, barre d’étapes, formulaire en cartes (brouillon sauvegardé, géolocalisation et autocomplétion d’adresse via l’API Adresse), logos des marques, carrousel d’avis (Swiper), section SEO + FAQ. Configurateur (type de véhicule, besoin, type de clé, clé souhaitée, quantité avec −30 % sur la 2ᵉ clé, garantie, urgence, véhicule → coordonnées → récapitulatif), services, avis, marques, texte SEO.
 - Pages services (`/service/{slug}`) et marques (`/service/reproduction-cle-{marque}`), avec méga-menu.
 - Suivi de demande par référence + e-mail, page de confirmation par URL signée.
 - À propos, Professionnels, Devenir intervenant, FAQ, Contact, Mentions légales, CGI.
@@ -35,6 +35,19 @@ Aucun build front n’est nécessaire : le CSS et le JS sont dans `public/css` e
 - Messages (contact, candidatures intervenant, demandes pro) avec marquage lu/non lu.
 - CRUD : services, marques, techniciens, avis clients, FAQ.
 - Paramètres : nom, téléphones, e-mail, WhatsApp, textes de l’accueil.
+
+## Images provisoires à remplacer
+
+Toutes les images sont des visuels temporaires (SVG) à remplacer par les photos du client,
+en gardant le même nom de fichier (ou en adaptant le chemin dans la vue) :
+
+| Fichier | Où | Format conseillé |
+|---|---|---|
+| `public/images/logo.svg` / `logo-white.svg` | En-tête, menu mobile | SVG ou PNG transparent, ~190×40 |
+| `public/images/placeholders/hero-1.svg` → `hero-3.svg` | Diaporama de l’accueil (fondu 18 s) | JPG/WebP 1920×800 |
+| `public/images/placeholders/page-hero.svg` | Bandeau des pages internes | JPG/WebP 1920×600 |
+| `public/images/placeholders/vehicle-*.svg` | Cartes « Type de véhicule » | PNG transparent 160×80 |
+| `public/images/placeholders/brand-logos.svg` | Bandeau des logos de marques | WebP ~2000 px de large |
 
 ## Tarification
 

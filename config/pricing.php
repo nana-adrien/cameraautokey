@@ -8,22 +8,22 @@
 
 return [
     'vehicle_types' => [
-        'auto' => ['label' => 'Voiture - utilitaire', 'hint' => 'Voiture · SUV · Utilitaire', 'icon' => '🚗', 'multiplier' => 1.0],
+        'auto' => ['label' => 'Voiture - utilitaires', 'hint' => 'Voiture · SUV · Utilitaire', 'icon' => '🚗', 'multiplier' => 1.0],
         'pl' => ['label' => 'Camion poids lourd', 'hint' => 'Fourgon · Porteur · Semi', 'icon' => '🚚', 'multiplier' => 1.35],
         'moto' => ['label' => 'Moto / Scooter', 'hint' => '2 roues · 3 roues · Quad', 'icon' => '🏍️', 'multiplier' => 0.85],
     ],
 
     'needs' => [
-        'double' => ['label' => 'Double de clé', 'hint' => 'J’ai encore au moins une clé qui fonctionne', 'base' => 49],
-        'lost' => ['label' => 'Perte totale des clés', 'hint' => 'Aucune clé disponible', 'base' => 129],
-        'opening' => ['label' => 'Ouverture + programmation', 'hint' => 'Ouvrir le véhicule sans clé puis programmer une clé', 'base' => 169],
+        'double' => ['label' => 'Je veux un double de clé', 'hint' => 'J’ai encore au moins une clé qui fonctionne', 'base' => 49],
+        'lost' => ['label' => 'Aucune clé disponible — perte totale', 'hint' => 'Je n’ai plus aucune clé du véhicule', 'base' => 129],
+        'opening' => ['label' => 'Ouverture du véhicule sans clé et programmation', 'hint' => 'Clé enfermée ou véhicule bloqué', 'base' => 169],
     ],
 
     'key_types' => [
-        'simple' => ['label' => 'Clé simple', 'hint' => 'Sans puce, sans boutons', 'extra' => 0],
-        'transponder' => ['label' => 'Clé à transpondeur', 'hint' => 'Puce antivol, sans boutons — programmation nécessaire', 'extra' => 30],
-        'remote' => ['label' => 'Clé télécommande', 'hint' => 'Boutons d’ouverture / fermeture des portes', 'extra' => 60],
-        'smart' => ['label' => 'Clé Smart / Keyless / Carte', 'hint' => 'Démarrage sans clé ou carte mains libres', 'extra' => 120],
+        'simple' => ['label' => 'Clé simple', 'hint' => 'Sans puce, sans boutons', 'tooltip' => 'Clé entièrement mécanique : la lame suffit à ouvrir et démarrer. Courante sur les véhicules anciens et certaines motos.', 'extra' => 0],
+        'transponder' => ['label' => 'Clé à transpondeur', 'hint' => 'Puce antivol, sans boutons', 'tooltip' => 'Une puce dans la tête de clé dialogue avec l’antidémarrage : la clé doit être programmée pour que le moteur démarre.', 'extra' => 30],
+        'remote' => ['label' => 'Clé télécommande', 'hint' => 'Boutons pour ouvrir / fermer les portes', 'tooltip' => 'Clé avec boutons de verrouillage à distance, démarrage en tournant la clé dans le contact.', 'extra' => 60],
+        'smart' => ['label' => 'Clé Smart / Keyless / Carte', 'hint' => 'Démarrage sans clé dans le contact', 'tooltip' => 'Démarrage par bouton Start/Stop : la clé ou la carte reste dans votre poche (système mains libres).', 'extra' => 120],
     ],
 
     'desired_keys' => [

@@ -10,6 +10,7 @@ class ContactMessage extends Model
         'contact' => 'Contact',
         'intervenant' => 'Candidature intervenant',
         'professionnel' => 'Demande professionnelle',
+        'newsletter' => 'Inscription newsletter',
     ];
 
     protected $fillable = ['type', 'name', 'email', 'phone', 'company', 'subject', 'message', 'read_at'];
