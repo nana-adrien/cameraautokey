@@ -32,9 +32,12 @@
 {{-- ─── HERO ─── --}}
 <section class="hero-section">
     <div class="hero-slider" aria-hidden="true">
-        <img src="{{ asset('images/photos/hero-cles-toyota.webp') }}" alt="" fetchpriority="high" style="object-position:70% 50%">
-        <img src="{{ asset('images/photos/cle-toyota-tundra.webp') }}" alt="" loading="lazy" style="object-position:50% 62%">
-        <img src="{{ asset('images/photos/diagnostic-tablette.webp') }}" alt="" loading="lazy" style="object-position:60% 30%">
+        @foreach (['cles-toyota-boutique.webp', 'cle-toyota-tundra.webp', 'diagnostic-tablette.webp'] as $i => $photo)
+            <div class="hero-slide">
+                <img class="hero-slide-bg" src="{{ asset('images/photos/'.$photo) }}" alt="" @unless ($i) fetchpriority="high" @endunless>
+                <img class="hero-slide-photo" src="{{ asset('images/photos/'.$photo) }}" alt="">
+            </div>
+        @endforeach
     </div>
     <div class="hero-bg"></div>
     <div class="hero-content">
