@@ -12,7 +12,7 @@
     'crumb' => $service->title,
 ])
 @include('partials.service-body', [
-    'lead' => '<strong>'.e($service->title).'</strong> — '.nl2br(e(\Illuminate\Support\Str::before($service->content, "\n\n"))).' Clés à partir de <strong>'.$service->price_from.' € TTC</strong> selon le modèle, devis confirmé avant intervention.',
+    'lead' => '<strong>'.e($service->title).'</strong> — '.nl2br(e(\Illuminate\Support\Str::before($service->content, "\n\n"))).' À partir de <strong>'.\App\Support\Money::fcfa($service->price_from).'</strong> selon le modèle, tarif confirmé avant intervention.',
     'subject' => mb_strtolower($service->title),
     'priceFrom' => $service->price_from,
     'links' => $others->mapWithKeys(fn ($o) => [route('services.show', $o) => $o->title])->all(),

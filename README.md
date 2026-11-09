@@ -57,6 +57,18 @@ et régénérer sa miniature (`cwebp -q 80 -resize 800 0 photo.webp -o thumbs/ph
 | `logo.svg` / `logo-white.svg` | En-tête, menu mobile | SVG ou PNG transparent, ~190×40 |
 | `placeholders/vehicle-*.svg` | Cartes « Type de véhicule » | PNG transparent 160×80 |
 
+## Localisation : Cameroun
+
+- Monnaie : **FCFA** (`config/pricing.php`, formatage via `App\Support\Money::fcfa()`), prix arrondis à 500 FCFA.
+- Fuseau horaire : `Africa/Douala` (modifiable via `APP_TIMEZONE`).
+- Coordonnées par défaut (`app/Models/Setting.php`, modifiables dans l’admin → Paramètres) : atelier à Akwa (Douala),
+  téléphone/WhatsApp **+237 694 02 85 96** (repris de l’enseigne du client — à confirmer), horaires, e-mail.
+- Adresse d’intervention : rue ou repère + **quartier** + ville (pas de code postal).
+- Recherche d’adresse et « Utiliser ma position » : Photon / OpenStreetMap, limité au Cameroun ; la position GPS
+  est aussi ajoutée en lien Google Maps dans les précisions de la demande.
+- Paiement affiché : Orange Money, MTN MoMo, espèces, carte.
+- Mentions légales : RCCM, NIU et loi n° 2024/017 sur les données personnelles (à compléter).
+
 ## Logos des marques
 
 Les logos sont dans `public/images/brands/{slug-de-la-marque}.svg` (source : Simple Icons, licence CC0,

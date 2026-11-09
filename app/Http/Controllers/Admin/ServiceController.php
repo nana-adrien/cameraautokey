@@ -20,7 +20,7 @@ class ServiceController extends CrudController
 
     protected function columns(): array
     {
-        return ['title' => 'Titre', 'icon' => 'Icône', 'price_from' => 'À partir de (€)', 'position' => 'Ordre', 'is_active' => 'Actif'];
+        return ['title' => 'Titre', 'icon' => 'Icône', 'price_from' => 'À partir de (FCFA)', 'position' => 'Ordre', 'is_active' => 'Actif'];
     }
 
     protected function fields(?Model $record = null): array
@@ -31,7 +31,7 @@ class ServiceController extends CrudController
             'icon' => ['label' => 'Icône (emoji)', 'type' => 'text', 'rules' => ['required', 'string', 'max:10']],
             'excerpt' => ['label' => 'Résumé', 'type' => 'textarea', 'rules' => ['required', 'string', 'max:500']],
             'content' => ['label' => 'Contenu', 'type' => 'textarea', 'rules' => ['required', 'string']],
-            'price_from' => ['label' => 'Prix à partir de (€)', 'type' => 'number', 'rules' => ['required', 'integer', 'min:0']],
+            'price_from' => ['label' => 'Prix à partir de (FCFA)', 'type' => 'number', 'rules' => ['required', 'integer', 'min:0']],
             'position' => ['label' => 'Ordre d’affichage', 'type' => 'number', 'rules' => ['required', 'integer', 'min:0']],
             'is_active' => ['label' => 'Actif', 'type' => 'checkbox', 'rules' => ['boolean']],
         ];

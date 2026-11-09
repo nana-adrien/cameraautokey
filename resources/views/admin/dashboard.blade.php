@@ -10,7 +10,7 @@
 <div class="stats">
     <div class="card stat"><span class="ic" style="background:#fdecec">🧾</span><div><div class="val">{{ $stats['orders_total'] }}</div><div class="lbl">Demandes au total</div></div></div>
     <div class="card stat"><span class="ic" style="background:#fff4e0">⏳</span><div><div class="val">{{ $stats['orders_pending'] }}</div><div class="lbl">En attente</div></div></div>
-    <div class="card stat"><span class="ic" style="background:#e8f7ee">💶</span><div><div class="val">{{ number_format($stats['revenue'], 0, ',', ' ') }} €</div><div class="lbl">CA réalisé · {{ number_format($stats['revenue_month'], 0, ',', ' ') }} € ce mois</div></div></div>
+    <div class="card stat"><span class="ic" style="background:#e8f7ee">💶</span><div><div class="val">{{ \App\Support\Money::fcfa($stats['revenue']) }}</div><div class="lbl">CA réalisé · {{ \App\Support\Money::fcfa($stats['revenue_month']) }} ce mois</div></div></div>
     <div class="card stat"><span class="ic" style="background:#e6eeff">👷</span><div><div class="val">{{ $stats['technicians'] }}</div><div class="lbl">Techniciens actifs · {{ $stats['unread_messages'] }} message(s) non lu(s)</div></div></div>
 </div>
 

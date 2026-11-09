@@ -2,7 +2,7 @@
 @section('title', 'Qui sommes-nous ?')
 
 @section('content')
-@include('partials.page-hero', ['image' => 'photos/equipe-camer-auto-key.webp', 'position' => '50% 30%', 'titleHtml' => 'Qui <em>sommes-nous</em> ?', 'title' => 'À propos', 'subtitle' => e($settings['company_name']).' est un réseau de <strong>serruriers automobiles mobiles</strong>, joignables jour et nuit en France et en Belgique.'])
+@include('partials.page-hero', ['image' => 'photos/equipe-camer-auto-key.webp', 'position' => '50% 30%', 'titleHtml' => 'Qui <em>sommes-nous</em> ?', 'title' => 'À propos', 'subtitle' => e($settings['company_name']).' est un réseau de <strong>serruriers automobiles mobiles</strong>, basé à Akwa (Douala) et actif dans tout le Cameroun.'])
 <div class="content-wrap grid">
     <div>
         <x-sc icon="far fa-chart-bar" title="{{ $settings['company_name'] }} en chiffres">
@@ -22,7 +22,7 @@
         </x-sc>
         <x-sc num="2" title="Nos engagements">
             <div class="steps-grid">
-                <div class="step-card"><span class="n"><i class="fas fa-euro-sign"></i></span><b>Transparence</b><p>Prix annoncé avant toute intervention, sans frais cachés.</p></div>
+                <div class="step-card"><span class="n"><i class="fas fa-coins"></i></span><b>Transparence</b><p>Prix annoncé avant toute intervention, sans frais cachés.</p></div>
                 <div class="step-card"><span class="n"><i class="fas fa-shield-alt"></i></span><b>Sécurité</b><p>Contrôle de la carte grise et de l’identité avant chaque fabrication de clé.</p></div>
                 <div class="step-card"><span class="n"><i class="fas fa-bolt"></i></span><b>Réactivité</b><p>Un technicien proche de chez vous, de jour comme de nuit.</p></div>
                 <div class="step-card"><span class="n"><i class="fas fa-award"></i></span><b>Garantie</b><p>Chaque clé fabriquée est garantie un mois, extensible à un an.</p></div>

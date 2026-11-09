@@ -15,7 +15,7 @@
 @include('partials.service-body', [
     'lead' => 'Votre <strong>clé '.e($brand->name).'</strong> perdue, cassée ou à dupliquer ? Nos techniciens connaissent les systèmes antidémarrage '.e($brand->name).' ('.e(mb_strtolower($brand->categoryLabel())).') et fabriquent votre nouvelle clé directement à côté du véhicule.',
     'subject' => 'clé '.$brand->name,
-    'priceFrom' => 89,
+    'priceFrom' => 30000,
     'links' => $services->mapWithKeys(fn ($s) => [route('services.show', $s) => $s->title])->all(),
     'linksTitle' => 'Prestations '.$brand->name,
 ])

@@ -13,10 +13,11 @@ class SettingController extends Controller
     public const LABELS = [
         'company_name' => 'Nom de l’entreprise',
         'phone' => 'Téléphone principal',
-        'phone_secondary' => 'Téléphone secondaire (Belgique)',
+        'phone_secondary' => 'Téléphone secondaire (Yaoundé ou autre agence)',
         'email' => 'E-mail de contact',
         'whatsapp' => 'Numéro WhatsApp (format international, sans +)',
         'address' => 'Zone / adresse',
+        'opening_hours' => 'Horaires d’ouverture de l’atelier',
         'social_facebook' => 'Lien Facebook',
         'social_tiktok' => 'Lien TikTok',
         'social_youtube' => 'Lien YouTube',

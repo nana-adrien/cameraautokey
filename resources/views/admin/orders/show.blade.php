@@ -31,7 +31,7 @@
                 <dt>Nom</dt><dd>{{ $order->customer_name }}</dd>
                 <dt>Téléphone</dt><dd><a href="tel:{{ $order->customer_phone }}">{{ $order->customer_phone }}</a></dd>
                 <dt>E-mail</dt><dd><a href="mailto:{{ $order->customer_email }}">{{ $order->customer_email }}</a></dd>
-                <dt>Adresse</dt><dd>{{ $order->address }}, {{ $order->postal_code }} {{ $order->city }}</dd>
+                <dt>Adresse</dt><dd>{{ $order->address }}, {{ $order->district }}, {{ $order->city }}</dd>
                 <dt>Précisions</dt><dd>{{ $order->notes ?: '—' }}</dd>
                 <dt>Créée le</dt><dd>{{ $order->created_at->format('d/m/Y à H:i') }}</dd>
                 @if ($order->completed_at)<dt>Terminée le</dt><dd>{{ $order->completed_at->format('d/m/Y à H:i') }}</dd>@endif
@@ -61,7 +61,7 @@
                 </select>
             </div>
             <div class="field">
-                <label for="estimated_price">Prix (€ TTC)</label>
+                <label for="estimated_price">Prix (FCFA)</label>
                 <input id="estimated_price" type="number" min="0" name="estimated_price" value="{{ old('estimated_price', $order->estimated_price) }}">
                 @error('estimated_price')<div class="err">{{ $message }}</div>@enderror
             </div>

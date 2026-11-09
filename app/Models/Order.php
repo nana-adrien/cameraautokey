@@ -19,7 +19,7 @@ class Order extends Model
     protected $fillable = [
         'reference', 'vehicle_type', 'need', 'key_type', 'desired_key', 'quantity',
         'warranty_extension', 'emergency', 'plate', 'brand_model', 'year',
-        'customer_name', 'customer_phone', 'customer_email', 'address', 'postal_code', 'city',
+        'customer_name', 'customer_phone', 'customer_email', 'address', 'district', 'city',
         'notes', 'estimated_price', 'status', 'technician_id', 'completed_at',
     ];
 

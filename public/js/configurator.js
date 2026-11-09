@@ -4,7 +4,7 @@
  * - 3 étapes avec validation par section
  * - récapitulatif « Vos sélections »
  * - brouillon conservé dans le navigateur (bouton « Effacer mes informations »)
- * - géolocalisation + autocomplétion d'adresse (API Adresse du gouvernement français)
+ * - géolocalisation + autocomplétion d'adresse limitée au Cameroun (Photon / OpenStreetMap)
  * Le prix est calculé côté serveur uniquement (App\Services\PriceCalculator).
  */
 (function () {
@@ -51,7 +51,7 @@
         if (checked('emergency')) add('Option', 'Intervention d’urgence');
         const veh = [val('brand_model'), val('year'), val('plate').toUpperCase()].filter(Boolean).join(' · ');
         add('Véhicule renseigné', veh);
-        const addr = [val('address'), [val('postal_code'), val('city')].filter(Boolean).join(' ')].filter(Boolean).join(', ');
+        const addr = [val('address'), val('district'), val('city')].filter(Boolean).join(', ');
         add('Adresse', addr);
         return items;
     }
@@ -99,7 +99,7 @@
             ['Options', [checked('warranty_extension') && 'Garantie 1 an', checked('emergency') && 'Urgence'].filter(Boolean).join(' · ') || 'Aucune', true],
         ]);
         fill('vinfo-contact', [
-            ['Adresse', `${val('address')}, ${val('postal_code')} ${val('city')}`, true],
+            ['Adresse', `${val('address')}, ${val('district')}, ${val('city')}`, true],
             ['Nom', val('customer_name')],
             ['Téléphone', val('customer_phone')],
             ['E-mail', val('customer_email'), true],
@@ -116,7 +116,7 @@
             ['vehicle_info', () => val('plate') && val('brand_model') && /^\d{4}$/.test(val('year')), 'Renseignez la plaque, la marque / le modèle et l’année (4 chiffres).'],
         ],
         2: [
-            ['address', () => val('address') && val('postal_code') && val('city'), 'Renseignez l’adresse complète d’intervention.'],
+            ['address', () => val('address') && val('district') && val('city'), 'Renseignez l’adresse ou un repère, le quartier et la ville.'],
             ['contact', () => val('customer_name') && val('customer_phone') && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val('customer_email')), 'Renseignez votre nom, votre téléphone et un e-mail valide.'],
         ],
     };
@@ -208,26 +208,36 @@
 
     /* ---------- Adresse : géolocalisation + autocomplétion ---------- */
     const gpsMsg = document.getElementById('gps-msg');
-    const setAddress = (props) => {
-        form.address.value = props.name || props.label || '';
-        form.postal_code.value = props.postcode || '';
-        form.city.value = props.city || '';
-        refresh();
+    // Photon (OpenStreetMap) : recherche limitée au Cameroun (boîte englobante + code pays).
+    const PHOTON = 'https://photon.komoot.io';
+    const CM_BBOX = '8.4,1.6,16.2,13.1';
+    const isCameroon = (p) => (p.countrycode || '').toUpperCase() === 'CM';
+    const streetOf = (p) => [p.housenumber, p.street].filter(Boolean).join(' ') || p.name || '';
+    const districtOf = (p) => p.district || p.locality || p.suburb || '';
+    const cityOf = (p) => p.city || p.town || p.village || p.county || '';
+    const setAddress = (p) => {
+        form.address.value = streetOf(p);
+        if (districtOf(p)) form.district.value = districtOf(p);
+        if (cityOf(p)) form.city.value = cityOf(p);
+        refresh(); saveDraft();
     };
+
     document.getElementById('geo-btn').addEventListener('click', () => {
         gpsMsg.className = 'gps-status-msg';
         if (!navigator.geolocation) { gpsMsg.textContent = 'La géolocalisation n’est pas disponible sur cet appareil.'; gpsMsg.classList.add('err'); return; }
         gpsMsg.textContent = 'Recherche de votre position…'; gpsMsg.classList.add('ok');
         navigator.geolocation.getCurrentPosition(async (pos) => {
+            const { latitude, longitude } = pos.coords;
+            form.notes.value = [form.notes.value.trim(), `Position GPS : https://maps.google.com/?q=${latitude.toFixed(6)},${longitude.toFixed(6)}`].filter(Boolean).join('\n');
             try {
-                const r = await fetch(`https://api-adresse.data.gouv.fr/reverse/?lon=${pos.coords.longitude}&lat=${pos.coords.latitude}&limit=1`);
-                const f = (await r.json()).features[0];
-                if (!f) throw new Error();
+                const r = await fetch(`${PHOTON}/reverse?lon=${longitude}&lat=${latitude}&lang=fr`);
+                const f = ((await r.json()).features || [])[0];
+                if (!f || !isCameroon(f.properties)) throw new Error();
                 setAddress(f.properties);
-                gpsMsg.textContent = `✓ Position détectée : ${f.properties.label}. Vérifiez l’adresse ci-dessous.`;
+                gpsMsg.textContent = '✓ Position détectée et ajoutée aux précisions. Vérifiez la rue, le quartier et la ville.';
             } catch (e) {
-                gpsMsg.className = 'gps-status-msg err';
-                gpsMsg.textContent = 'Adresse introuvable automatiquement. Merci de la saisir ci-dessous.';
+                refresh(); saveDraft();
+                gpsMsg.textContent = '✓ Position GPS ajoutée aux précisions. Complétez la rue ou un repère, le quartier et la ville.';
             }
         }, () => {
             gpsMsg.className = 'gps-status-msg err';
@@ -243,22 +253,23 @@
         if (q.length < 4) { acList.classList.remove('open'); return; }
         acTimer = setTimeout(async () => {
             try {
-                const r = await fetch(`https://api-adresse.data.gouv.fr/search/?q=${encodeURIComponent(q)}&limit=5&autocomplete=1`);
-                const features = (await r.json()).features || [];
+                const r = await fetch(`${PHOTON}/api/?q=${encodeURIComponent(q)}&limit=6&lang=fr&bbox=${CM_BBOX}`);
+                const features = ((await r.json()).features || []).filter((f) => isCameroon(f.properties)).slice(0, 5);
                 acList.innerHTML = '';
                 features.forEach((f) => {
+                    const p = f.properties;
                     const item = document.createElement('div');
                     item.className = 'ac-item';
-                    item.textContent = f.properties.name;
+                    item.textContent = streetOf(p);
                     const small = document.createElement('small');
-                    small.textContent = `${f.properties.postcode} ${f.properties.city}`;
+                    small.textContent = [districtOf(p), cityOf(p)].filter(Boolean).join(', ');
                     item.appendChild(small);
-                    item.addEventListener('mousedown', (e) => { e.preventDefault(); setAddress(f.properties); acList.classList.remove('open'); });
+                    item.addEventListener('mousedown', (e) => { e.preventDefault(); setAddress(p); acList.classList.remove('open'); });
                     acList.appendChild(item);
                 });
                 acList.classList.toggle('open', features.length > 0);
             } catch (e) { acList.classList.remove('open'); }
-        }, 250);
+        }, 300);
     });
     form.address.addEventListener('blur', () => acList.classList.remove('open'));
 

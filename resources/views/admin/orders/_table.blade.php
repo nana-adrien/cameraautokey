@@ -9,7 +9,7 @@
                 <td>{{ $order->brand_model }}<div class="muted" style="font-size:.8rem">{{ $order->plate }}</div></td>
                 <td>{{ $order->label('need') }}</td>
                 <td>{{ $order->city }}</td>
-                <td><b>{{ $order->estimated_price }} €</b></td>
+                <td><b>{{ \App\Support\Money::fcfa($order->estimated_price) }}</b></td>
                 <td><span class="status status-{{ $order->status }}">{{ $order->statusLabel() }}</span></td>
                 <td class="muted">{{ $order->created_at->format('d/m/Y H:i') }}</td>
                 <td class="actions"><a href="{{ route('admin.orders.show', $order) }}" class="btn btn-light btn-sm">Ouvrir</a></td>

@@ -5,7 +5,7 @@ namespace App\Services;
 class PriceCalculator
 {
     /**
-     * Calcule le prix estimé TTC (en euros) d'une demande d'intervention.
+     * Calcule le prix estimé (en FCFA, arrondi à 500 FCFA) d'une demande d'intervention.
      *
      * @param  array{vehicle_type:string, need:string, key_type:string, desired_key:string, quantity:int, warranty_extension:bool, emergency:bool}  $data
      */
@@ -27,6 +27,6 @@ class PriceCalculator
             + ($data['warranty_extension'] ? $config['warranty_extension'] * $quantity : 0)
             + ($data['emergency'] ? $config['emergency'] : 0);
 
-        return (int) round($total);
+        return (int) (round($total / 500) * 500);
     }
 }

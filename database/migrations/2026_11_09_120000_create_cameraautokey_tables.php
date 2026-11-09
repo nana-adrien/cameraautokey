@@ -58,7 +58,7 @@ return new class extends Migration
             $table->string('customer_phone');
             $table->string('customer_email');
             $table->string('address');
-            $table->string('postal_code', 10);
+            $table->string('district', 100); // quartier
             $table->string('city');
             $table->text('notes')->nullable();
             $table->unsignedInteger('estimated_price');

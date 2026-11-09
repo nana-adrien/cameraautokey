@@ -9,17 +9,18 @@ class Setting extends Model
 {
     public const DEFAULTS = [
         'company_name' => 'CAMERAUTOKEY',
-        'phone' => '01 23 45 67 89',
+        'phone' => '+237 694 02 85 96',
         'phone_secondary' => '',
-        'email' => 'contact@cameraautokey.fr',
-        'whatsapp' => '33123456789',
-        'address' => 'France & Belgique',
+        'email' => 'contact@cameraautokey.cm',
+        'whatsapp' => '237694028596',
+        'address' => 'Akwa, Douala — Cameroun',
+        'opening_hours' => 'Lundi – samedi, 8h – 18h',
         'social_facebook' => '',
         'social_tiktok' => '',
         'social_youtube' => '',
         'social_instagram' => '',
         'hero_title' => 'Clé de voiture perdue, cassée ou à refaire ?',
-        'hero_subtitle' => 'Technicien équipé selon votre véhicule, intervention rapide à domicile.',
+        'hero_subtitle' => 'Nous taillons, programmons et refaisons toutes les clés auto en quelques minutes, à l’atelier d’Akwa ou chez vous.',
     ];
 
     protected $fillable = ['key', 'value'];

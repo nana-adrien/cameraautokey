@@ -5,14 +5,14 @@
 @php
     $tel = preg_replace('/\s+/', '', $settings['phone']);
     $rows = [
-        ['Voiture standard (Renault, Peugeot, Citroën, Volkswagen…)', 1, 1.6],
-        ['Véhicule premium (BMW, Mercedes, Audi…)', 1.4, 2.2],
-        ['Véhicule haut de gamme (Porsche, Range Rover, Tesla…)', 1.8, 2.8],
-        ['Utilitaire / poids lourd', 1.3, 2.4],
-        ['Moto / scooter', 0.8, 1.5],
+        ['Voiture courante (Toyota Corolla / Yaris, Hyundai, Kia, Nissan…)', 1, 1.6],
+        ['SUV et 4x4 (RAV4, Hilux, Prado, Land Cruiser, Fortuner…)', 1.3, 2.2],
+        ['Véhicule premium (Lexus, Mercedes, BMW, Range Rover…)', 1.8, 2.8],
+        ['Utilitaire / poids lourd', 1.4, 2.4],
+        ['Moto / scooter', 0.6, 1.2],
     ];
-    $round = fn ($n) => (int) (round($n / 5) * 5);
-    $zones = ['Paris', 'Hauts-de-Seine', 'Seine-Saint-Denis', 'Val-de-Marne', 'Yvelines', 'Essonne', 'Val-d’Oise', 'Seine-et-Marne', 'Lyon', 'Marseille', 'Lille', 'Toulouse', 'Bordeaux', 'Nantes', 'Nice', 'Strasbourg', 'Bruxelles', 'Liège', 'Charleroi', 'Namur'];
+    $round = fn ($n) => \App\Support\Money::fcfa(round($n / 5000) * 5000);
+    $zones = ['Douala – Akwa', 'Bonanjo', 'Bonapriso', 'Bali', 'Deïdo', 'Bonabéri', 'Bonamoussadi', 'Makepe', 'Kotto', 'Logpom', 'Ndokoti', 'Bassa', 'PK14', 'Yaoundé', 'Kribi', 'Limbé', 'Buea', 'Edéa', 'Bafoussam', 'Bamenda'];
 @endphp
 <div class="content-wrap grid">
     <div>
@@ -37,15 +37,15 @@
             </div>
         </x-sc>
 
-        <x-sc num="2" title="Tarifs {{ $subject }}" sub="Fourchettes indicatives TTC — prix confirmé avant le départ du technicien">
+        <x-sc num="2" title="Tarifs {{ $subject }}" sub="Fourchettes indicatives — prix confirmé avant l’intervention">
             <div class="table-scroll">
                 <table class="price-table">
-                    <thead><tr><th>Véhicule / situation</th><th>Fourchette TTC</th></tr></thead>
+                    <thead><tr><th>Véhicule / situation</th><th>Fourchette</th></tr></thead>
                     <tbody>
                         @foreach ($rows as [$labelRow, $min, $max])
-                            <tr><td>{{ $labelRow }}</td><td>{{ $round($priceFrom * $min) }} – {{ $round($priceFrom * $max) }} €</td></tr>
+                            <tr><td>{{ $labelRow }}</td><td>{{ $round($priceFrom * $min) }} – {{ $round($priceFrom * $max) }}</td></tr>
                         @endforeach
-                        <tr><td>Majoration urgence (nuit, week-end, jours fériés)</td><td>+{{ config('pricing.emergency') }} €</td></tr>
+                        <tr><td>Majoration urgence (nuit, week-end, jours fériés)</td><td>+{{ \App\Support\Money::fcfa(config('pricing.emergency')) }}</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -71,7 +71,7 @@
             <p style="font-size:13px;color:var(--muted);margin-top:14px">Vous ne trouvez pas votre marque ? <a href="tel:{{ $tel }}" style="color:var(--navy);font-weight:700">Appelez-nous</a> : nous vérifions la compatibilité avant de nous déplacer.</p>
         </x-sc>
 
-        <x-sc num="5" title="Zones d’intervention" sub="France et Belgique">
+        <x-sc num="5" title="Zones d’intervention" sub="Atelier à Akwa (Douala) — déplacement dans tout le Cameroun">
             <div class="chip-cloud">@foreach ($zones as $z)<span class="chip">📍 {{ $z }}</span>@endforeach</div>
         </x-sc>
 

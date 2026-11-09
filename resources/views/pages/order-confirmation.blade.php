@@ -20,7 +20,7 @@
                 <div class="receipt-row"><span class="receipt-lbl">Véhicule</span><span class="receipt-val">{{ $order->brand_model }} ({{ $order->year }}) — {{ $order->plate }}</span></div>
                 <div class="receipt-row"><span class="receipt-lbl">Besoin</span><span class="receipt-val">{{ $order->label('need') }}</span></div>
                 <div class="receipt-row"><span class="receipt-lbl">Clé</span><span class="receipt-val">{{ $order->label('key_type') }} × {{ $order->quantity }}</span></div>
-                <div class="receipt-row"><span class="receipt-lbl">Adresse</span><span class="receipt-val">{{ $order->address }}, {{ $order->postal_code }} {{ $order->city }}</span></div>
+                <div class="receipt-row"><span class="receipt-lbl">Adresse</span><span class="receipt-val">{{ $order->address }}, {{ $order->district }}, {{ $order->city }}</span></div>
                 <div class="receipt-row"><span class="receipt-lbl">Urgence</span><span class="receipt-val">{{ $order->emergency ? 'Oui' : 'Non' }}</span></div>
             </div>
             <p style="font-size:13px;color:var(--muted)">Conservez votre référence pour <a href="{{ route('orders.track') }}" style="color:var(--navy);font-weight:700">suivre votre demande</a>.</p>

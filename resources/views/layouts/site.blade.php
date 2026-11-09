@@ -3,18 +3,18 @@
     $telBe = preg_replace('/\s+/', '', $settings['phone_secondary']);
 @endphp
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr-CM">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@yield('title', 'Reproduction clé voiture à domicile 24h/24') | {{ $settings['company_name'] }} — Serrurier auto mobile</title>
-    <meta name="description" content="@yield('description', 'Double de clé, perte totale, ouverture et programmation de clés auto, moto et poids lourd à domicile, 24h/24 et 7j/7.')">
+    <title>@yield('title', 'Reproduction et refonte de clé de voiture à Douala') | {{ $settings['company_name'] }} — Serrurier auto mobile</title>
+    <meta name="description" content="@yield('description', 'Reproduction, refonte et programmation de clés auto, moto et poids lourd à Douala, Yaoundé et partout au Cameroun.')">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800;900&family=Barlow+Condensed:wght@600;700;800;900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     @stack('head')
-    <link rel="stylesheet" href="{{ asset('css/site.css') }}?v=9">
+    <link rel="stylesheet" href="{{ asset('css/site.css') }}?v=11">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%231a2f5e'/><path d='M40 25l25 25-25 25h16l25-25-25-25z' fill='%23d6262e'/></svg>">
 </head>
 <body>
@@ -23,6 +23,7 @@
 <div class="topbar">
     <div class="tb-left">
         <span class="tb-item"><span class="tb-dot"></span> Disponible 24h/24 — 7j/7</span>
+        <span class="tb-item"><i class="fas fa-map-marker-alt"></i> {{ $settings['address'] }}</span>
         <a class="tb-item" href="mailto:{{ $settings['email'] }}"><i class="far fa-envelope"></i> {{ $settings['email'] }}</a>
     </div>
     <div class="tb-right">
@@ -53,21 +54,21 @@
             <img src="{{ asset('images/logo.svg') }}" alt="" class="logo-img">
             <button type="button" data-close-menu aria-label="Fermer">&times;</button>
         </li>
-        <li><a href="{{ route('home') }}" @class(['nav-active' => request()->routeIs('home')])>Accueil</a></li>
+        <li><a href="{{ route('home') }}" @class(['nav-active' => request()->routeIs('home')]) @if (request()->routeIs('home')) aria-current="page" @endif>Accueil</a></li>
         <li @class(['has-sub', 'has-mega', 'nav-active' => request()->routeIs('services.*', 'brands.*')])>
             <a href="{{ route('services.index') }}">Nos Services</a>
             <div class="sub-menu mega-menu">
                 <div class="mega-col">
                     <div class="mega-title">Nos expertises</div>
                     @foreach ($navServices as $s)
-                        <a href="{{ route('services.show', $s) }}">{{ $s->title }}</a>
+                        <a href="{{ route('services.show', $s) }}" @class(['current' => request()->is('service/'.$s->slug)])>{{ $s->title }}</a>
                     @endforeach
                 </div>
                 <div class="mega-col">
                     <div class="mega-title">Toutes les marques automobiles</div>
                     <div class="mega-brand-grid">
                         @foreach ($navBrands['auto'] ?? [] as $b)
-                            <a href="{{ route('brands.show', $b) }}">{{ $b->name }}</a>
+                            <a href="{{ route('brands.show', $b) }}" @class(['current' => request()->is('service/reproduction-cle-'.$b->slug)])>{{ $b->name }}</a>
                         @endforeach
                     </div>
                 </div>
@@ -84,11 +85,11 @@
                 </div>
             </div>
         </li>
-        <li><a href="{{ route('about') }}" @class(['nav-active' => request()->routeIs('about')])>À propos</a></li>
-        <li><a href="{{ route('professionals') }}" @class(['nav-active' => request()->routeIs('professionals')])>Professionnels</a></li>
-        <li><a href="{{ route('become-technician') }}" @class(['nav-active' => request()->routeIs('become-technician')])>Devenir intervenant</a></li>
-        <li><a href="{{ route('faq') }}" @class(['nav-active' => request()->routeIs('faq')])>FAQ</a></li>
-        <li><a href="{{ route('contact') }}" @class(['nav-active' => request()->routeIs('contact')])>Contact</a></li>
+        <li><a href="{{ route('about') }}" @class(['nav-active' => request()->routeIs('about')]) @if (request()->routeIs('about')) aria-current="page" @endif>À propos</a></li>
+        <li><a href="{{ route('professionals') }}" @class(['nav-active' => request()->routeIs('professionals')]) @if (request()->routeIs('professionals')) aria-current="page" @endif>Professionnels</a></li>
+        <li><a href="{{ route('become-technician') }}" @class(['nav-active' => request()->routeIs('become-technician')]) @if (request()->routeIs('become-technician')) aria-current="page" @endif>Devenir intervenant</a></li>
+        <li><a href="{{ route('faq') }}" @class(['nav-active' => request()->routeIs('faq')]) @if (request()->routeIs('faq')) aria-current="page" @endif>FAQ</a></li>
+        <li><a href="{{ route('contact') }}" @class(['nav-active' => request()->routeIs('contact')]) @if (request()->routeIs('contact')) aria-current="page" @endif>Contact</a></li>
         <li><a href="{{ route('home') }}#commande" class="nav-cta"><i class="fas fa-bolt"></i> Intervention</a></li>
     </ul>
 </header>
@@ -144,11 +145,12 @@
             <div>
                 <div class="ft-title">Contact &amp; newsletter</div>
                 <ul class="ft-address">
-                    <li><i class="fas fa-phone-alt"></i><a href="tel:{{ $tel }}">France : {{ $settings['phone'] }}</a></li>
+                    <li><i class="fas fa-phone-alt"></i><a href="tel:{{ $tel }}">{{ $settings['phone'] }}</a></li>
                     @if ($settings['phone_secondary'])
-                        <li><i class="fas fa-phone-alt"></i><a href="tel:{{ $telBe }}">Belgique : {{ $settings['phone_secondary'] }}</a></li>
+                        <li><i class="fas fa-phone-alt"></i><a href="tel:{{ $telBe }}">{{ $settings['phone_secondary'] }}</a></li>
                     @endif
                     <li><i class="fas fa-envelope"></i><a href="mailto:{{ $settings['email'] }}">{{ $settings['email'] }}</a></li>
+                    <li><i class="fas fa-map-marker-alt"></i><span>{{ $settings['address'] }}</span></li>
                 </ul>
                 <p style="margin:16px 0 0">Restez informé(e) de nos actualités :</p>
                 <form class="ft-news" method="POST" action="{{ route('newsletter') }}">
@@ -187,7 +189,7 @@
     </div>
     <div class="ft-trust">
         <span><i class="fas fa-shield-alt"></i>RC Pro — techniciens assurés</span>
-        <span><i class="fas fa-calendar-alt"></i>Service 24h/24 – 7j/7</span>
+        <span><i class="fas fa-map-marker-alt"></i>Atelier à Akwa, Douala — interventions dans tout le Cameroun</span>
         <span><i class="fas fa-star"></i>4,9/5 avis clients</span>
     </div>
     <div class="ft-copy">© Copyright {{ date('Y') }} {{ $settings['company_name'] }} — Tous droits réservés · <a href="{{ route('legal') }}">Mentions légales</a></div>

@@ -42,13 +42,13 @@ class DatabaseSeeder extends Seeder
     private function seedServices(): void
     {
         $services = [
-            ['🔑', 'Perte totale de clés auto', 'cle-voiture-perdue', 129, 'Plus aucune clé ? Nous fabriquons et programmons une nouvelle clé sur place, sans passer par le concessionnaire.'],
-            ['🚚', 'Perte totale poids lourd', 'cle-camion-perdue', 175, 'Camions, porteurs et semi-remorques : remise en route rapide de votre flotte, directement sur votre site.'],
-            ['🏍️', 'Perte totale moto', 'cle-moto-perdue', 109, 'Clé de moto ou de scooter perdue : fabrication et codage d’une nouvelle clé là où se trouve votre deux-roues.'],
-            ['🚪', 'Ouverture de véhicule', 'ouverture-vehicule-sans-cle', 89, 'Clé enfermée dans l’habitacle ? Ouverture sans dégât par technique professionnelle, de jour comme de nuit.'],
-            ['💻', 'Programmation de clé', 'programmation-cle-automobile', 79, 'Codage OBD, synchronisation de transpondeur et de télécommande sur la grande majorité des marques.'],
-            ['🛠️', 'Réparation de télécommande', 'reparation-telecommande-voiture', 39, 'Boutons usés, coque cassée, pile ou circuit défaillant : réparation à moindre coût de votre clé actuelle.'],
-            ['🩺', 'Diagnostic automobile', 'diagnostic-auto-voiture', 59, 'Lecture des codes défaut et diagnostic électronique de l’antidémarrage et des calculateurs.'],
+            ['🔑', 'Perte totale de clés auto', 'cle-voiture-perdue', 75000, 'Plus aucune clé ? Nous fabriquons et programmons une nouvelle clé sur place, sans passer par le concessionnaire.'],
+            ['🚚', 'Perte totale poids lourd', 'cle-camion-perdue', 110000, 'Camions, porteurs et semi-remorques : remise en route rapide de votre flotte, directement sur votre site.'],
+            ['🏍️', 'Perte totale moto', 'cle-moto-perdue', 60000, 'Clé de moto ou de scooter perdue : fabrication et codage d’une nouvelle clé là où se trouve votre deux-roues.'],
+            ['🚪', 'Ouverture de véhicule', 'ouverture-vehicule-sans-cle', 35000, 'Clé enfermée dans l’habitacle ? Ouverture sans dégât par technique professionnelle, de jour comme de nuit.'],
+            ['💻', 'Programmation de clé', 'programmation-cle-automobile', 40000, 'Codage OBD, synchronisation de transpondeur et de télécommande sur la grande majorité des marques.'],
+            ['🛠️', 'Réparation de télécommande', 'reparation-telecommande-voiture', 15000, 'Boutons usés, coque cassée, pile ou circuit défaillant : réparation à moindre coût de votre clé actuelle.'],
+            ['🩺', 'Diagnostic automobile', 'diagnostic-auto-voiture', 20000, 'Lecture des codes défaut et diagnostic électronique de l’antidémarrage et des calculateurs.'],
         ];
 
         foreach ($services as $i => [$icon, $title, $slug, $price, $excerpt]) {
@@ -85,11 +85,11 @@ class DatabaseSeeder extends Seeder
     private function seedTestimonials(): void
     {
         $items = [
-            ['Thomas Lefèvre', 'Lyon', 'Clé perdue un dimanche soir, le technicien est arrivé en moins d’une heure. Nouvelle clé fabriquée et programmée devant moi. Service impeccable.'],
-            ['Sophie Garnier', 'Nanterre', 'Double de clé télécommande pour ma Clio, prix annoncé respecté à l’euro près. Beaucoup moins cher que chez le concessionnaire.'],
-            ['Karim Benali', 'Bruxelles', 'Mes clés étaient restées dans le coffre. Ouverture sans aucune rayure et explications très claires. Je recommande.'],
-            ['Émilie Dupont', 'Marseille', 'Télécommande qui ne répondait plus : réparée et resynchronisée en vingt minutes. Rapide, propre et professionnel.'],
-            ['Marc Lambert', 'Lille', 'Nous gérons une flotte de 12 utilitaires, CAMERAUTOKEY est devenu notre partenaire pour toutes les clés. Réactif et fiable.'],
+            ['Jean-Paul Mbarga', 'Douala – Bonapriso', 'Clé de ma Corolla perdue un dimanche soir : le technicien est venu à Bonapriso en moins d’une heure et m’a refait une clé programmée devant moi. Service impeccable.'],
+            ['Aïcha Bello', 'Douala – Akwa', 'Double de clé télécommande pour mon RAV4 fait à l’atelier d’Akwa en 30 minutes, prix annoncé respecté. Bien moins cher que chez le concessionnaire.'],
+            ['Serge Nkoulou', 'Yaoundé – Bastos', 'Mes clés étaient restées dans le coffre du Prado. Ouverture sans aucune rayure et explications très claires. Je recommande vivement.'],
+            ['Carine Ewane', 'Douala – Bonamoussadi', 'Ma clé de Hilux était cassée en deux : nouvelle coque, nouvelle lame taillée et programmation le jour même. Rapide et propre.'],
+            ['Patrick Fotso', 'Douala – Bassa', 'Nous gérons une flotte de pick-up : CAMER AUTO KEY refait toutes nos clés perdues et programme les doubles. Réactifs et fiables.'],
         ];
 
         foreach ($items as [$name, $city, $content]) {
@@ -100,10 +100,10 @@ class DatabaseSeeder extends Seeder
     private function seedFaqs(): void
     {
         $faqs = [
-            ['Combien coûte un double de clé de voiture ?', 'Nos tarifs démarrent à 49 € TTC pour une clé simple. Le prix dépend du type de clé, du véhicule et des options. Il est toujours annoncé avant le départ du technicien.'],
+            ['Combien coûte un double de clé de voiture ?', 'Nos tarifs démarrent à 25 000 FCFA pour une clé simple. Le prix dépend du type de clé, du véhicule et des options. Il est toujours annoncé avant l’intervention.'],
             ['Pouvez-vous refaire une clé sans l’originale ?', 'Oui. En cas de perte totale, nous fabriquons une nouvelle clé à partir de la serrure ou des données du véhicule, puis nous la programmons sur place.'],
-            ['En combien de temps intervenez-vous ?', 'En urgence, un technicien se met en route immédiatement, généralement en 30 à 60 minutes selon votre zone. Hors urgence, nous fixons un rendez-vous à votre convenance.'],
-            ['Quand suis-je débité ?', 'Aucun débit à la commande. Le paiement n’intervient qu’à la fin de la prestation, une fois que vous l’avez validée.'],
+            ['En combien de temps intervenez-vous ?', 'À Douala, un technicien se met en route immédiatement, généralement en 30 à 60 minutes selon le quartier et la circulation. Vous pouvez aussi venir directement à notre atelier d’Akwa.'],
+            ['Comment puis-je payer ?', 'Aucun paiement à la demande. Vous réglez à la fin de la prestation, une fois que vous l’avez validée : espèces, Orange Money, MTN Mobile Money ou carte bancaire.'],
             ['Quels documents dois-je fournir ?', 'La carte grise du véhicule et une pièce d’identité au même nom sont demandées avant toute fabrication de clé, pour des raisons de sécurité.'],
             ['Ma clé est-elle garantie ?', 'Chaque clé fabriquée est garantie un mois. Vous pouvez souscrire une extension de garantie d’un an lors de votre demande.'],
         ];
@@ -116,13 +116,13 @@ class DatabaseSeeder extends Seeder
     private function seedTechniciansAndOrders(): void
     {
         $technicians = collect([
-            ['Alexandre Morel', '06 11 22 33 44', 'Île-de-France'],
-            ['Nicolas Petit', '06 55 66 77 88', 'Auvergne-Rhône-Alpes'],
-            ['Yassine Haddad', '0470 12 34 56', 'Belgique'],
+            ['Emmanuel Ndjock', '+237 677 11 22 33', 'Douala – Akwa / Bonanjo'],
+            ['Rodrigue Tchoua', '+237 699 44 55 66', 'Douala – Bonamoussadi / Makepe'],
+            ['Blaise Atangana', '+237 655 77 88 99', 'Yaoundé'],
         ])->map(fn ($t) => Technician::updateOrCreate(['name' => $t[0]], [
             'phone' => $t[1],
             'zone' => $t[2],
-            'email' => Str::slug($t[0], '.').'@cameraautokey.fr',
+            'email' => Str::slug($t[0], '.').'@cameraautokey.cm',
         ]));
 
         if (Order::exists()) {
@@ -131,29 +131,29 @@ class DatabaseSeeder extends Seeder
 
         $calculator = new PriceCalculator;
         $samples = [
-            ['auto', 'double', 'remote', 'generic', 1, false, false, 'completed', 'Peugeot 308', 'Paris', '75011', 'Claire Rousseau'],
-            ['auto', 'lost', 'smart', 'original', 2, true, true, 'in_progress', 'BMW Série 3', 'Boulogne-Billancourt', '92100', 'Hugo Bernard'],
-            ['moto', 'double', 'transponder', 'generic', 1, false, false, 'assigned', 'Yamaha MT-07', 'Lyon', '69003', 'Inès Moreau'],
-            ['pl', 'lost', 'remote', 'generic', 2, false, true, 'pending', 'Renault Trucks T', 'Bruxelles', '1000', 'Transports Delcourt'],
-            ['auto', 'opening', 'transponder', 'generic', 1, false, true, 'pending', 'Renault Clio IV', 'Marseille', '13008', 'Léa Fontaine'],
-            ['auto', 'double', 'simple', 'generic', 1, false, false, 'cancelled', 'Dacia Sandero', 'Lille', '59000', 'Paul Girard'],
+            ['auto', 'double', 'remote', 'generic', 1, false, false, 'completed', 'Toyota Corolla', 'Douala', 'Bonapriso', 'Jean-Paul Mbarga'],
+            ['auto', 'lost', 'smart', 'original', 2, true, true, 'in_progress', 'Toyota Land Cruiser Prado', 'Douala', 'Bonanjo', 'Hervé Ekotto'],
+            ['moto', 'double', 'transponder', 'generic', 1, false, false, 'assigned', 'Yamaha Crypton', 'Douala', 'Ndokoti', 'Aïcha Bello'],
+            ['pl', 'lost', 'remote', 'generic', 2, false, true, 'pending', 'Mercedes Actros', 'Douala', 'Bassa', 'Transports Ngono'],
+            ['auto', 'opening', 'transponder', 'generic', 1, false, true, 'pending', 'Hyundai Tucson', 'Yaoundé', 'Bastos', 'Carine Ewane'],
+            ['auto', 'double', 'simple', 'generic', 1, false, false, 'cancelled', 'Nissan Juke', 'Douala', 'Makepe', 'Patrick Fotso'],
         ];
 
-        foreach ($samples as $i => [$vehicle, $need, $keyType, $desired, $qty, $warranty, $emergency, $status, $model, $city, $cp, $name]) {
+        foreach ($samples as $i => [$vehicle, $need, $keyType, $desired, $qty, $warranty, $emergency, $status, $model, $city, $district, $name]) {
             $data = [
                 'vehicle_type' => $vehicle, 'need' => $need, 'key_type' => $keyType, 'desired_key' => $desired,
                 'quantity' => $qty, 'warranty_extension' => $warranty, 'emergency' => $emergency,
             ];
 
             Order::create($data + [
-                'plate' => 'AB-'.(100 + $i * 37).'-CD',
+                'plate' => 'LT '.(100 + $i * 37).' '.['AB', 'MC', 'JS', 'ND', 'CE', 'KL'][$i],
                 'brand_model' => $model,
                 'year' => 2012 + $i * 2,
                 'customer_name' => $name,
-                'customer_phone' => '06 12 34 56 '.str_pad((string) ($i * 11), 2, '0', STR_PAD_LEFT),
+                'customer_phone' => '+237 690 12 34 '.str_pad((string) ($i * 11), 2, '0', STR_PAD_LEFT),
                 'customer_email' => 'client'.($i + 1).'@example.com',
-                'address' => (12 + $i * 7).' rue de la République',
-                'postal_code' => $cp,
+                'address' => ['Rue Joffre, face pharmacie', 'Boulevard de la Liberté', 'Carrefour Ndokoti', 'Zone portuaire, entrepôt 4', 'Rue 1.750, près de l’ambassade', 'Carrefour Makepe Missoké'][$i],
+                'district' => $district,
                 'city' => $city,
                 'estimated_price' => $calculator->estimate($data),
                 'status' => $status,

@@ -6,7 +6,7 @@
 
 @php
     $tel = preg_replace('/\s+/', '', $settings['phone']);
-    $step2Fields = ['customer_name', 'customer_phone', 'customer_email', 'address', 'postal_code', 'city', 'notes'];
+    $step2Fields = ['customer_name', 'customer_phone', 'customer_email', 'address', 'district', 'city', 'notes'];
     $startStep = $errors->hasAny($step2Fields) ? 2 : 1;
     $v = fn ($name, $default = null) => old($name, $default);
     $keyIcons = [
@@ -15,21 +15,25 @@
         'remote' => '<svg viewBox="0 0 48 48" fill="none" stroke="#1a2f5e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="13" y="3" width="22" height="26" rx="7"/><circle cx="24" cy="11" r="2.5" fill="#d6262e" stroke="#d6262e"/><circle cx="24" cy="20" r="2.5"/><path d="M24 29v16M24 37h5M24 42h4"/></svg>',
         'smart' => '<svg viewBox="0 0 48 48" fill="none" stroke="#1a2f5e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="11" width="36" height="26" rx="5"/><path d="M12 19h10M12 25h6"/><path d="M31 20a6 6 0 0 1 0 8M35 17a10 10 0 0 1 0 14" stroke="#d6262e"/></svg>',
     ];
+    $keyGallery = [
+        ['cles-toyota-tacoma.webp', 'Clés Toyota Tacoma'],
+        ['cles-acura-rdx.webp', 'Clés Acura RDX'],
+        ['cles-nissan-juke.webp', 'Clés Nissan Juke'],
+        ['cles-toyota-tundra-blanc.webp', 'Clés Toyota Tundra'],
+        ['cles-toyota-interieur.webp', 'Clés mains libres Toyota'],
+        ['cle-toyota-tundra.webp', 'Double de clé Toyota'],
+        ['atelier-camer-auto-key.webp', 'Clés RAM 1500'],
+        ['cle-lexus.webp', 'Nouvelle clé Lexus'],
+    ];
     $gallery = [
-        ['cles-toyota-tacoma.webp', 'Clés Toyota Tacoma remises au client'],
-        ['mecanicien-capot-toyota.webp', 'Diagnostic sous le capot d’un Toyota Highlander'],
-        ['cles-toyota-interieur.webp', 'Clés mains libres programmées sur Toyota Tundra'],
+        ['facade-camer-auto-key.webp', 'Notre boutique à Akwa, Douala'],
         ['equipe-camer-auto-key.webp', 'L’équipe CAMER AUTO KEY'],
-        ['installation-camera-recul.webp', 'Installation d’une caméra de recul 360°'],
-        ['cles-toyota-tundra-blanc.webp', 'Nouvelles clés pour Toyota Tundra'],
-        ['facade-camer-auto-key.webp', 'Notre boutique CAMER AUTO KEY'],
-        ['decoupe-cle-machine.webp', 'Taille de clé sur machine'],
-        ['f150-pont-elevateur.webp', 'Ford F-150 sur pont élévateur'],
-        ['cles-acura-rdx.webp', 'Clés Acura RDX devant la boutique'],
-        ['atelier-cour.webp', 'Notre atelier'],
-        ['vidange-moteur.webp', 'Entretien et vidange'],
+        ['taille-cle-condor.webp', 'Taille de clé sur machine'],
         ['diagnostic-tablette.webp', 'Programmation par diagnostic'],
-        ['atelier-camer-auto-key.webp', 'Clés RAM devant notre boutique'],
+        ['mecanicien-capot-toyota.webp', 'Diagnostic sous le capot'],
+        ['installation-camera-recul.webp', 'Installation caméra de recul 360°'],
+        ['f150-pont-elevateur.webp', 'Ford F-150 sur pont élévateur'],
+        ['atelier-cour.webp', 'Notre atelier'],
     ];
     $vehicleImages = ['auto' => 'vehicle-car.svg', 'pl' => 'vehicle-truck.svg', 'moto' => 'vehicle-moto.svg'];
 @endphp
@@ -41,9 +45,9 @@
         @foreach ([
             ['cles-toyota-tacoma.webp', '62% 58%'],
             ['decoupe-cle-machine.webp', '70% 45%'],
-            ['f150-pont-elevateur.webp', '60% 55%'],
-            ['mecanicien-capot-toyota.webp', '60% 45%'],
-            ['installation-camera-recul.webp', '62% 50%'],
+            ['cles-toyota-interieur.webp', '55% 50%'],
+            ['taille-cle-condor.webp', '60% 40%'],
+            ['cles-toyota-tundra-blanc.webp', '50% 55%'],
         ] as $i => [$photo, $pos])
             <div @class(['hero-slide', 'active' => $i === 0])>
                 <img class="hero-slide-img" src="{{ asset('images/photos/'.$photo) }}" alt="" style="object-position:{{ $pos }}" @if ($i) loading="lazy" @else fetchpriority="high" @endif>
@@ -52,15 +56,47 @@
     </div>
     <div class="hero-bg"></div>
     <div class="hero-content">
-        <h1>{{ $settings['hero_title'] }}<br>Intervention à domicile</h1>
-        <p><strong>Diagnostic et tarif annoncés avant intervention</strong> · Voitures · Camions · Motos · Partout en France et en Belgique<br>{{ $settings['hero_subtitle'] }}</p>
-        <a href="#form-area" class="hero-cta"><i class="fas fa-bolt"></i> Démarrer ma demande</a>
+        <span class="hero-kicker"><i class="fas fa-key"></i> Spécialiste de la clé automobile au Cameroun</span>
+        <h1>{{ $settings['hero_title'] }}<br>On refait votre clé en <span class="hl">30 minutes</span></h1>
+        <p><strong>Reproduction, refonte et programmation de clés auto</strong> · Voitures · Camions · Motos · Douala, Yaoundé et tout le Cameroun<br>{{ $settings['hero_subtitle'] }}</p>
+        <div class="hero-actions">
+            <a href="#form-area" class="hero-cta"><i class="fas fa-key"></i> Refaire ma clé</a>
+            @if ($settings['whatsapp'])
+                <a href="https://wa.me/{{ $settings['whatsapp'] }}" class="hero-cta hero-cta-ghost" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> Photo de ma clé sur WhatsApp</a>
+            @endif
+        </div>
         <div class="hero-badges">
-            <span class="hbadge"><i class="fas fa-shield-alt"></i> Technicien certifié</span>
-            <span class="hbadge"><i class="fas fa-bolt"></i> Intervention d’urgence</span>
-            <span class="hbadge"><i class="far fa-clock"></i> Service 24h/24 7j/7</span>
-            <span class="hbadge"><i class="far fa-check-circle"></i> Transparence garantie</span>
+            <span class="hbadge"><i class="fas fa-key"></i> Clé refaite sans l’originale</span>
+            <span class="hbadge"><i class="fas fa-cut"></i> Taille &amp; programmation sur place</span>
+            <span class="hbadge"><i class="fas fa-car"></i> Plus de 100 marques</span>
+            <span class="hbadge"><i class="fas fa-shield-alt"></i> Garantie 1 mois</span>
             <span class="hbadge"><i class="fas fa-star"></i> 4,9/5 avis clients</span>
+        </div>
+    </div>
+</section>
+
+{{-- ─── TYPES DE CLÉS ─── --}}
+<section class="keys-band" aria-labelledby="keys-band-title">
+    <div class="container">
+        <div class="keys-band-head">
+            <h2 id="keys-band-title">Toutes vos clés, <em>refaites et programmées</em></h2>
+            <p>Choisissez votre type de clé : nous la reproduisons à l’identique, même sans l’originale.</p>
+        </div>
+        <div class="keys-band-grid">
+            @foreach ($pricing['key_types'] as $key => $opt)
+                <a href="#form-area" class="key-type-card" data-preselect-key="{{ $key }}">
+                    <span class="key-type-icon">{!! $keyIcons[$key] !!}</span>
+                    <b>{{ $opt['label'] }}</b>
+                    <small>{{ $opt['hint'] }}</small>
+                    <span class="key-type-price">Double dès {{ \App\Support\Money::fcfa($pricing['needs']['double']['base'] + $opt['extra']) }}</span>
+                </a>
+            @endforeach
+            <a href="{{ route('services.show', 'reparation-telecommande-voiture') }}" class="key-type-card">
+                <span class="key-type-icon"><svg viewBox="0 0 48 48" fill="none" stroke="#1a2f5e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="13" y="3" width="22" height="26" rx="7"/><path d="M18 36l6-6 6 6M24 30v15" stroke="#d6262e"/><circle cx="24" cy="12" r="2.5"/></svg></span>
+                <b>Réparation de coque</b>
+                <small>Coque cassée, boutons usés, pile</small>
+                <span class="key-type-price">Dès {{ \App\Support\Money::fcfa(15000) }}</span>
+            </a>
         </div>
     </div>
 </section>
@@ -212,10 +248,12 @@
                     <div class="sc-head"><span class="sc-num">8</span><div><h3>Informations du véhicule</h3></div></div>
                     <div class="sc-body">
                         <div class="inp-row">
-                            <div class="inp-wrap"><label class="inp-label" for="plate">Plaque <span class="req">*</span></label><input class="dkp-input" id="plate" name="plate" value="{{ $v('plate') }}" placeholder="AB-123-CD" autocomplete="off"></div>
-                            <div class="inp-wrap"><label class="inp-label" for="brand_model">Marque / modèle <span class="req">*</span></label><input class="dkp-input" id="brand_model" name="brand_model" value="{{ $v('brand_model') }}" placeholder="Renault Clio" list="brand-list"></div>
+                            <div class="inp-wrap"><label class="inp-label" for="plate">Immatriculation <span class="req">*</span></label><input class="dkp-input" id="plate" name="plate" value="{{ $v('plate') }}" placeholder="LT 123 AB" autocomplete="off"></div>
+                            <div class="inp-wrap"><label class="inp-label" for="brand_model">Marque / modèle <span class="req">*</span></label><input class="dkp-input" id="brand_model" name="brand_model" value="{{ $v('brand_model') }}" placeholder="Toyota Corolla" list="brand-list"></div>
                             <div class="inp-wrap"><label class="inp-label" for="year">Année <span class="req">*</span></label><input class="dkp-input" id="year" name="year" type="number" inputmode="numeric" min="1970" max="{{ now()->year + 1 }}" value="{{ $v('year') }}" placeholder="2022"></div>
                         </div>
+                        <datalist id="city-list">@foreach (['Douala', 'Yaoundé', 'Bafoussam', 'Kribi', 'Limbé', 'Buea', 'Edéa', 'Bamenda', 'Garoua', 'Ngaoundéré', 'Bertoua', 'Ebolowa'] as $c)<option value="{{ $c }}">@endforeach</datalist>
+                        <datalist id="district-list">@foreach (['Akwa', 'Bonanjo', 'Bonapriso', 'Bali', 'Deïdo', 'Bonabéri', 'Bonamoussadi', 'Makepe', 'Kotto', 'Logpom', 'Ndokoti', 'Bassa', 'PK14', 'Logbaba', 'New-Bell', 'Bastos', 'Mvan', 'Biyem-Assi', 'Omnisport', 'Nlongkak'] as $d)<option value="{{ $d }}">@endforeach</datalist>
                         <datalist id="brand-list">@foreach ($brands->flatten() as $b)<option value="{{ $b->name }}">@endforeach</datalist>
                         <div class="section-error"></div>
                     </div>
@@ -237,11 +275,11 @@
                         <div class="inp-row two">
                             <div class="inp-wrap full ac-wrap">
                                 <label class="inp-label" for="address">Adresse <span class="req">*</span></label>
-                                <input class="dkp-input" id="address" name="address" value="{{ $v('address') }}" placeholder="12 rue de la République" autocomplete="street-address">
+                                <input class="dkp-input" id="address" name="address" value="{{ $v('address') }}" placeholder="Rue ou repère (ex. face pharmacie du Centre)" autocomplete="street-address">
                                 <div class="ac-list" id="ac-list"></div>
                             </div>
-                            <div class="inp-wrap"><label class="inp-label" for="postal_code">Code postal <span class="req">*</span></label><input class="dkp-input" id="postal_code" name="postal_code" value="{{ $v('postal_code') }}" placeholder="75001" autocomplete="postal-code"></div>
-                            <div class="inp-wrap"><label class="inp-label" for="city">Ville <span class="req">*</span></label><input class="dkp-input" id="city" name="city" value="{{ $v('city') }}" placeholder="Paris" autocomplete="address-level2"></div>
+                            <div class="inp-wrap"><label class="inp-label" for="district">Quartier <span class="req">*</span></label><input class="dkp-input" id="district" name="district" value="{{ $v('district') }}" placeholder="Akwa" list="district-list" autocomplete="address-level3"></div>
+                            <div class="inp-wrap"><label class="inp-label" for="city">Ville <span class="req">*</span></label><input class="dkp-input" id="city" name="city" value="{{ $v('city') }}" placeholder="Douala" list="city-list" autocomplete="address-level2"></div>
                         </div>
                         <div class="section-error"></div>
                     </div>
@@ -251,8 +289,8 @@
                     <div class="sc-body">
                         <div class="inp-row two">
                             <div class="inp-wrap"><label class="inp-label" for="customer_name">Nom complet <span class="req">*</span></label><input class="dkp-input" id="customer_name" name="customer_name" value="{{ $v('customer_name') }}" autocomplete="name"></div>
-                            <div class="inp-wrap"><label class="inp-label" for="customer_phone">Téléphone <span class="req">*</span></label><input class="dkp-input" id="customer_phone" name="customer_phone" type="tel" value="{{ $v('customer_phone') }}" autocomplete="tel" placeholder="06 12 34 56 78"></div>
-                            <div class="inp-wrap full"><label class="inp-label" for="customer_email">E-mail <span class="req">*</span></label><input class="dkp-input" id="customer_email" name="customer_email" type="email" value="{{ $v('customer_email') }}" autocomplete="email" placeholder="vous@exemple.fr"></div>
+                            <div class="inp-wrap"><label class="inp-label" for="customer_phone">Téléphone <span class="req">*</span></label><input class="dkp-input" id="customer_phone" name="customer_phone" type="tel" value="{{ $v('customer_phone') }}" autocomplete="tel" placeholder="+237 6XX XX XX XX"></div>
+                            <div class="inp-wrap full"><label class="inp-label" for="customer_email">E-mail <span class="req">*</span></label><input class="dkp-input" id="customer_email" name="customer_email" type="email" value="{{ $v('customer_email') }}" autocomplete="email" placeholder="vous@exemple.com"></div>
                             <div class="inp-wrap full"><label class="inp-label" for="notes">Précisions (facultatif)</label><textarea class="dkp-textarea" id="notes" name="notes" rows="3" placeholder="Parking, étage, disponibilités…">{{ $v('notes') }}</textarea></div>
                         </div>
                         <div class="section-error"></div>
@@ -295,13 +333,12 @@
                 <button type="button" class="btn-cta" id="btn-next">Continuer vers la localisation →</button>
                 <button type="button" class="btn-back" id="btn-back" hidden>← Retour</button>
                 <button type="button" class="btn-clear-draft" id="btn-clear">Effacer mes informations</button>
-                <div class="pay-row" aria-label="Moyens de paiement acceptés après intervention">
+                <div class="pay-row" aria-label="Moyens de paiement acceptés après intervention : Orange Money, MTN Mobile Money, espèces, carte">
+                    <span class="pay-chip pay-om">Orange<br>Money</span>
+                    <span class="pay-chip pay-momo">MTN<br>MoMo</span>
+                    <span class="pay-chip">ESPÈCES</span>
                     <span class="pay-chip"><i class="fab fa-cc-visa"></i></span>
                     <span class="pay-chip"><i class="fab fa-cc-mastercard"></i></span>
-                    <span class="pay-chip"><i class="fab fa-cc-paypal"></i></span>
-                    <span class="pay-chip"><i class="fab fa-cc-apple-pay"></i></span>
-                    <span class="pay-chip"><i class="fab fa-google-pay"></i></span>
-                    <span class="pay-chip">ESPÈCES</span>
                 </div>
                 <div class="trust-list">
                     <span class="trust-item"><span class="tdot"></span>Paiement uniquement après l’intervention</span>
@@ -314,6 +351,53 @@
         </aside>
     </div>
 </form>
+
+{{-- ─── REFONTE DE CLÉS : NOTRE SPÉCIALITÉ ─── --}}
+<section class="refonte-section" id="refonte-cles">
+    <div class="container refonte-grid">
+        <div class="refonte-media">
+            <img src="{{ asset('images/photos/decoupe-cle-machine.webp') }}" alt="Taille d’une clé sur machine dans l’atelier CAMER AUTO KEY" width="2000" height="1801" loading="lazy">
+            <div class="refonte-badge"><b>30 min</b><span>en moyenne pour<br>une clé complète</span></div>
+        </div>
+        <div class="refonte-content">
+            <span class="eyebrow"><i class="fas fa-key"></i> Notre spécialité</span>
+            <h2>Refonte et reproduction de clés auto</h2>
+            <p>Clé perdue, cassée, usée ou qui ne démarre plus le véhicule : nous fabriquons une <strong>clé neuve identique</strong> — lame taillée sur machine, puce antidémarrage et télécommande programmées — <strong>même sans la clé d’origine</strong>.</p>
+            <ol class="refonte-steps">
+                <li><span>1</span><div><b>Identification</b>Lecture du véhicule et de la clé (carte grise demandée).</div></li>
+                <li><span>2</span><div><b>Taille de la lame</b>Découpe à l’identique sur machine électronique.</div></li>
+                <li><span>3</span><div><b>Programmation</b>Puce antidémarrage, télécommande ou clé mains libres.</div></li>
+                <li><span>4</span><div><b>Test &amp; remise</b>Ouverture et démarrage testés devant vous, garantie 1 mois.</div></li>
+            </ol>
+            <div class="refonte-stats">
+                <div><b>100+</b><span>marques</span></div>
+                <div><b>Toutes</b><span>clés : simple, puce, télécommande, smart</span></div>
+                <div><b>1 mois</b><span>de garantie</span></div>
+            </div>
+            <div class="hero-actions">
+                <a href="#form-area" class="btn-red"><i class="fas fa-key"></i> Refaire ma clé</a>
+                <a href="tel:{{ preg_replace('/\s+/', '', $settings['phone']) }}" class="btn-outline"><i class="fas fa-phone-alt"></i> {{ $settings['phone'] }}</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="keys-gallery">
+    <div class="container">
+        <div class="section-title" style="margin-bottom:30px">
+            <span class="sub-title">Clés réalisées</span>
+            <h2 class="main-title">Ils ont refait leurs clés chez nous</h2>
+        </div>
+        <div class="gallery-grid">
+            @foreach ($keyGallery as [$file, $caption])
+                <button type="button" class="gallery-item" data-full="{{ asset('images/photos/'.$file) }}" data-caption="{{ $caption }}">
+                    <img src="{{ asset('images/photos/thumbs/'.$file) }}" alt="{{ $caption }}" loading="lazy" width="800" height="600">
+                    <span class="gallery-cap"><i class="fas fa-key"></i> {{ $caption }}</span>
+                </button>
+            @endforeach
+        </div>
+    </div>
+</section>
 
 {{-- ─── LOGOS DES MARQUES ─── --}}
 <section class="brands-strip">
@@ -330,8 +414,8 @@
 <section class="gallery-section">
     <div class="container">
         <div class="section-title">
-            <span class="sub-title">Nos réalisations</span>
-            <h2 class="main-title">Nos techniciens sur le terrain</h2>
+            <span class="sub-title">Notre atelier</span>
+            <h2 class="main-title">Nos techniciens au travail</h2>
         </div>
         <div class="gallery-grid">
             @foreach ($gallery as [$file, $caption])
@@ -383,7 +467,7 @@
     <div class="seo-inner">
         <div class="seo-head">
             <h2>{{ $settings['company_name'] }} — votre serrurier automobile à domicile</h2>
-            <p>Spécialiste de la <strong>serrurerie automobile mobile</strong> en France et en Belgique, {{ $settings['company_name'] }} réalise la <strong>reproduction de clé de voiture</strong>, le <strong>double de clé auto</strong> et la <strong>programmation de clé</strong> directement chez vous, 24h/24.</p>
+            <p>Spécialiste de la <strong>clé automobile</strong> à Douala et partout au Cameroun, {{ $settings['company_name'] }} réalise la <strong>reproduction de clé de voiture</strong>, le <strong>double de clé auto</strong> et la <strong>programmation de clé</strong> directement chez vous, 24h/24.</p>
         </div>
         <div class="seo-grid">
             <div class="seo-card">
@@ -476,6 +560,10 @@
                 slides[i].classList.add('active');
             }, 6000);
         })();
+        document.querySelectorAll('[data-preselect-key]').forEach((card) => card.addEventListener('click', () => {
+            const input = document.querySelector(`[name="key_type"][value="${card.dataset.preselectKey}"]`);
+            if (input) { input.checked = true; input.dispatchEvent(new Event('change', { bubbles: true })); }
+        }));
         window.PRICING = @json($pricing);
     </script>
     <script src="{{ asset('js/configurator.js') }}?v=2"></script>

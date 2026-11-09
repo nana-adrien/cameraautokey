@@ -31,14 +31,14 @@ class OrderController extends Controller
             'customer_phone' => ['required', 'string', 'max:30'],
             'customer_email' => ['required', 'email', 'max:150'],
             'address' => ['required', 'string', 'max:200'],
-            'postal_code' => ['required', 'string', 'max:10'],
+            'district' => ['required', 'string', 'max:100'],
             'city' => ['required', 'string', 'max:100'],
             'notes' => ['nullable', 'string', 'max:1000'],
             'accept_terms' => ['accepted'],
         ], [], [
-            'plate' => 'plaque', 'brand_model' => 'marque / modèle', 'year' => 'année',
+            'plate' => 'immatriculation', 'brand_model' => 'marque / modèle', 'year' => 'année',
             'customer_name' => 'nom', 'customer_phone' => 'téléphone', 'customer_email' => 'e-mail',
-            'address' => 'adresse', 'postal_code' => 'code postal', 'city' => 'ville',
+            'address' => 'adresse', 'district' => 'quartier', 'city' => 'ville',
             'accept_terms' => 'conditions générales',
         ]);
 
