@@ -424,7 +424,6 @@ body.brand-garage .site-nav { box-shadow: 0 2px 0 var(--red), 0 2px 12px rgba(26
 
 /* ─── SECTION GARAGE AUTO (3K) ─── */
 .garage-auto { position: relative; padding: 76px 0; color: #fff; background: radial-gradient(1200px 500px at 85% 0%, rgba(214,38,46,.28), transparent 60%), linear-gradient(160deg, #141414 0%, #1d1d22 55%, #2a0f12 100%); overflow: hidden; }
-.garage-auto::before { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(135deg, rgba(255,255,255,.025) 0 2px, transparent 2px 26px); pointer-events: none; }
 .garage-auto .container { position: relative; }
 .garage-auto-head { display: flex; align-items: center; gap: 22px; margin-bottom: 34px; }
 .garage-auto-head > img { width: 96px; height: auto; border-radius: 50%; background: #fff; box-shadow: 0 0 0 4px rgba(214,38,46,.5), 0 14px 34px rgba(0,0,0,.45); flex-shrink: 0; }
