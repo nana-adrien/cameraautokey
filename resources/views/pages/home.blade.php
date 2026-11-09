@@ -16,14 +16,18 @@
         'smart' => '<svg viewBox="0 0 48 48" fill="none" stroke="#1a2f5e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="11" width="36" height="26" rx="5"/><path d="M12 19h10M12 25h6"/><path d="M31 20a6 6 0 0 1 0 8M35 17a10 10 0 0 1 0 14" stroke="#d6262e"/></svg>',
     ];
     $gallery = [
-        ['cles-toyota-boutique.webp', 'Clés Toyota mains libres livrées devant la boutique'],
-        ['diagnostic-tablette.webp', 'Programmation de clé par diagnostic'],
-        ['cle-toyota-tundra.webp', 'Double de clé Toyota Tundra'],
-        ['programmation-tableau-de-bord.webp', 'Intervention sur l’antidémarrage'],
+        ['cles-toyota-tacoma.webp', 'Clés Toyota Tacoma remises au client'],
+        ['mecanicien-capot-toyota.webp', 'Diagnostic sous le capot d’un Toyota Highlander'],
+        ['cles-toyota-interieur.webp', 'Clés mains libres programmées sur Toyota Tundra'],
+        ['equipe-camer-auto-key.webp', 'L’équipe CAMER AUTO KEY'],
+        ['installation-camera-recul.webp', 'Installation d’une caméra de recul 360°'],
+        ['cles-toyota-tundra-blanc.webp', 'Nouvelles clés pour Toyota Tundra'],
+        ['atelier-cour.webp', 'Notre atelier'],
+        ['vidange-moteur.webp', 'Entretien et vidange'],
+        ['cles-toyota-boutique.webp', 'Clés Toyota livrées devant la boutique'],
+        ['diagnostic-tablette.webp', 'Programmation par diagnostic'],
         ['cle-lexus.webp', 'Nouvelle clé Lexus'],
-        ['atelier-camer-auto-key.webp', 'Clés RAM devant notre atelier'],
-        ['pont-elevateur-toyota.webp', 'Toyota Hilux sur pont élévateur'],
-        ['entretien-vidange.webp', 'Entretien et vidange'],
+        ['atelier-camer-auto-key.webp', 'Clés RAM devant notre boutique'],
     ];
     $vehicleImages = ['auto' => 'vehicle-car.svg', 'pl' => 'vehicle-truck.svg', 'moto' => 'vehicle-moto.svg'];
 @endphp
@@ -32,10 +36,9 @@
 {{-- ─── HERO ─── --}}
 <section class="hero-section">
     <div class="hero-slider" aria-hidden="true">
-        @foreach (['cles-toyota-boutique.webp', 'cle-toyota-tundra.webp', 'diagnostic-tablette.webp'] as $i => $photo)
+        @foreach ([['cles-toyota-tacoma.webp', '62% 58%'], ['mecanicien-capot-toyota.webp', '60% 45%'], ['installation-camera-recul.webp', '62% 50%']] as $i => [$photo, $pos])
             <div class="hero-slide">
-                <img class="hero-slide-bg" src="{{ asset('images/photos/'.$photo) }}" alt="" @unless ($i) fetchpriority="high" @endunless>
-                <img class="hero-slide-photo" src="{{ asset('images/photos/'.$photo) }}" alt="">
+                <img class="hero-slide-img" src="{{ asset('images/photos/'.$photo) }}" alt="" style="object-position:{{ $pos }}" @unless ($i) fetchpriority="high" @endunless>
             </div>
         @endforeach
     </div>
@@ -319,7 +322,7 @@
         <div class="gallery-grid">
             @foreach ($gallery as [$file, $caption])
                 <button type="button" class="gallery-item" data-full="{{ asset('images/photos/'.$file) }}" data-caption="{{ $caption }}">
-                    <img src="{{ asset('images/photos/'.$file) }}" alt="{{ $caption }}" loading="lazy" width="414" height="414">
+                    <img src="{{ asset('images/photos/thumbs/'.$file) }}" alt="{{ $caption }}" loading="lazy" width="800" height="600">
                     <span class="gallery-cap"><i class="fas fa-search-plus"></i> {{ $caption }}</span>
                 </button>
             @endforeach

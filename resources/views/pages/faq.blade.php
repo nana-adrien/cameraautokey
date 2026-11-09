@@ -2,7 +2,7 @@
 @section('title', 'FAQ serrurerie automobile')
 
 @section('content')
-@include('partials.page-hero', ['image' => 'photos/cle-toyota-tundra.webp', 'titleHtml' => 'Questions <em>fréquentes</em>', 'title' => 'FAQ', 'subtitle' => 'Tarifs, délais, documents à fournir, garantie : toutes les réponses à vos questions.'])
+@include('partials.page-hero', ['image' => 'photos/cles-toyota-interieur.webp', 'titleHtml' => 'Questions <em>fréquentes</em>', 'title' => 'FAQ', 'subtitle' => 'Tarifs, délais, documents à fournir, garantie : toutes les réponses à vos questions.'])
 <div class="content-wrap grid">
     <div>
         <x-sc icon="far fa-question-circle" title="Questions fréquentes — clé de voiture">

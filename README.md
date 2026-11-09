@@ -38,18 +38,17 @@ Aucun build front n’est nécessaire : le CSS et le JS sont dans `public/css` e
 
 ## Images
 
-**Photos du client** (`public/images/photos/`, format WebP) :
+**Photos du client** (`public/images/photos/`, format WebP, miniatures de galerie dans `photos/thumbs/`) :
 
 | Fichier | Utilisation |
 |---|---|
-| `hero-cles-toyota.webp` | 1ʳᵉ image du diaporama de l’accueil (photo haute définition, 1536 px) |
-| `cle-toyota-tundra.webp`, `diagnostic-tablette.webp` | 2ᵉ et 3ᵉ images du diaporama |
-| `atelier-camer-auto-key.webp`, `programmation-tableau-de-bord.webp`, `cle-lexus.webp`, `pont-elevateur-toyota.webp` | Bandeaux des pages internes, page À propos |
-| toutes (+ `cles-toyota-boutique.webp`, `entretien-vidange.webp`) | Galerie « Nos réalisations » de l’accueil |
+| `cles-toyota-tacoma.webp`, `mecanicien-capot-toyota.webp`, `installation-camera-recul.webp` | Diaporama de l’accueil (pleine largeur) |
+| `equipe-camer-auto-key.webp` | Bandeau et photo de la page À propos |
+| `cles-toyota-tundra-blanc.webp`, `cles-toyota-interieur.webp`, `atelier-cour.webp`, `vidange-moteur.webp`… | Bandeaux des autres pages |
+| 12 photos | Galerie « Nos réalisations » de l’accueil |
 
-⚠️ Les photos reçues font 414 × 414 px, sauf `hero-cles-toyota.webp` / `cles-toyota-boutique.webp`.
-Pour un diaporama net sur grand écran, remplacer `cle-toyota-tundra.webp` et `diagnostic-tablette.webp`
-par les originaux (au moins 1600 px de large), en gardant le même nom.
+Pour remplacer une photo : déposer la nouvelle image (paysage, au moins 1600 px de large) sous le même nom,
+et régénérer sa miniature (`cwebp -q 80 -resize 800 0 photo.webp -o thumbs/photo.webp`).
 
 **Visuels encore provisoires** (`public/images/`) :
 

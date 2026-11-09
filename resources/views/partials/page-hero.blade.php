@@ -3,9 +3,9 @@
 @if ($alert ?? false)
     <div class="alert-bar">🚨 Clé perdue ou véhicule bloqué maintenant ? Appelez en urgence : <a href="tel:{{ $tel }}">{{ $settings['phone'] }}</a> — <a href="{{ route('home') }}#commande">demande en ligne</a> — intervention 24h/24</div>
 @endif
-@php $heroImg = asset('images/'.($image ?? 'photos/atelier-camer-auto-key.webp')); @endphp
+@php $heroImg = asset('images/'.($image ?? 'photos/atelier-cour.webp')); @endphp
 <section class="svc-hero">
-    <img class="svc-hero-bg" src="{{ $heroImg }}" alt="" fetchpriority="high">
+    <img class="svc-hero-bg" src="{{ $heroImg }}" alt="" fetchpriority="high" style="object-position:{{ $position ?? '50% 50%' }}">
     <div class="svc-hero-inner">
     <div class="svc-hero-text">
         <h1>{!! $titleHtml ?? e($title) !!}</h1>
@@ -19,7 +19,6 @@
             </div>
         @endif
     </div>
-    <img class="svc-hero-photo" src="{{ $heroImg }}" alt="" width="414" height="414">
     </div>
 </section>
 @if ($trust ?? true)
