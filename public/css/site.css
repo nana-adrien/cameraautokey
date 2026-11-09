@@ -45,6 +45,7 @@ button { font: inherit; }
 /* ─── NAV ─── */
 .site-nav { background: #fff; border-bottom: 1px solid var(--border); padding: 0 40px; display: flex; align-items: center; justify-content: space-between; height: 68px; position: sticky; top: 0; z-index: 200; box-shadow: 0 2px 12px rgba(26,47,94,.07); }
 .logo-img { height: 38px; width: auto; max-width: 190px; object-fit: contain; }
+.svc-hero .hero-logo img { width: 70px; height: 70px; border-radius: 50%; object-fit: contain; }
 .nav-links { display: flex; align-items: center; gap: 2px; list-style: none; }
 .nav-links li { position: relative; }
 .nav-links a { display: flex; align-items: center; gap: 4px; padding: 8px 11px; font-family: var(--fb); font-size: 13.5px; font-weight: 600; color: var(--text); border-radius: 6px; white-space: nowrap; transition: all .18s; }
@@ -357,6 +358,45 @@ button { font: inherit; }
 .hero-logo { display: inline-flex; width: 84px; height: 84px; border-radius: 50%; background: #fff; align-items: center; justify-content: center; margin-bottom: 16px; box-shadow: var(--sh-lg); }
 .hero-logo img { width: 52px; height: 52px; }
 
+/* ─── IDENTITÉ : logo Camer Auto Key ─── */
+.brand-lockup { display: flex; align-items: center; gap: 10px; }
+.brand-lockup-logo { width: 52px; height: 52px; border-radius: 50%; flex-shrink: 0; }
+.brand-lockup-text { font-family: var(--fb); font-size: 19px; font-weight: 900; color: var(--navy); letter-spacing: -.2px; line-height: 1; white-space: nowrap; }
+.brand-lockup-text b { color: var(--red); font-weight: 900; }
+.brand-lockup-text small { display: block; font-size: 10.5px; font-weight: 600; color: var(--muted); letter-spacing: .4px; text-transform: uppercase; margin-top: 4px; }
+.ft-brands { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; padding: 34px 0 6px; border-bottom: 1px solid rgba(255,255,255,.08); }
+.ft-brand { display: flex; align-items: center; gap: 16px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); border-radius: var(--r); padding: 14px 18px; margin-bottom: 28px; transition: background .2s; }
+.ft-brand:hover { background: rgba(255,255,255,.09); }
+.ft-brand img { width: 64px; height: 64px; border-radius: 50%; background: #fff; object-fit: contain; flex-shrink: 0; }
+.ft-brand b { display: block; color: #fff; font-family: var(--fb); font-size: 16px; margin-bottom: 2px; }
+.ft-brand span { font-size: 13px; line-height: 1.5; }
+
+/* ─── GARAGE 3K ─── */
+.garage-band { background: #fff; border-top: 1px solid var(--border); padding: 40px 0; }
+.garage-band-inner { display: flex; align-items: center; gap: 28px; background: var(--off); border: 1.5px solid var(--border); border-left: 6px solid var(--red); border-radius: var(--r); padding: 24px 28px; }
+.garage-band-inner > img { width: 110px; height: auto; border-radius: 50%; background: #fff; flex-shrink: 0; }
+.garage-band-text { flex: 1; }
+.garage-band-text .eyebrow { font-family: var(--fb); font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: var(--red); }
+.garage-band-text h2 { font-family: var(--fc); font-size: 28px; font-weight: 800; color: var(--navy); margin: 2px 0 6px; }
+.garage-band-text p { font-size: 14.5px; color: var(--muted); line-height: 1.6; }
+.garage-band-actions { display: flex; flex-direction: column; gap: 8px; }
+.garage-band-actions a { justify-content: center; }
+.garage-intro { display: flex; gap: 22px; align-items: center; background: #fff; border: 1.5px solid var(--border); border-radius: var(--r); padding: 22px; margin-bottom: 12px; box-shadow: var(--sh-sm); }
+.garage-intro > img { width: 110px; height: auto; border-radius: 50%; flex-shrink: 0; }
+.garage-intro h2 { font-family: var(--fb); font-size: 20px; font-weight: 800; color: var(--navy); margin-bottom: 6px; }
+.garage-intro p { font-size: 14.5px; line-height: 1.7; }
+.garage-services { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.garage-service { display: flex; gap: 12px; background: var(--off); border: 1.5px solid var(--border); border-radius: var(--r); padding: 14px; transition: border-color .2s, background .2s; }
+.garage-service:hover { border-color: var(--steel); background: #fff; }
+.garage-service > span { width: 40px; height: 40px; border-radius: 9px; background: var(--navy); color: #fff; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.garage-service b { display: block; font-family: var(--fb); font-size: 15px; color: var(--navy); margin-bottom: 2px; }
+.garage-service p { font-size: 13px; color: var(--muted); line-height: 1.5; }
+.garage-gallery { grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.recruit { display: grid; grid-template-columns: 240px 1fr; gap: 22px; align-items: start; }
+.recruit-flyer { aspect-ratio: 1; }
+.recruit-list { list-style: none; display: grid; gap: 8px; font-size: 14.5px; font-weight: 600; }
+.recruit-list i { color: var(--green); margin-right: 6px; }
+
 /* ─── RÉALISATIONS (galerie) ─── */
 .gallery-section { padding: 70px 0 40px; background: var(--off); border-top: 1px solid var(--border); }
 .gallery-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
@@ -560,6 +600,8 @@ a.chip:hover { border-color: var(--red); color: var(--red); }
     .nav-links a { padding: 8px 8px; font-size: 13px; }
 }
 @media (max-width: 980px) {
+    .garage-band-inner { flex-wrap: wrap; }
+    .garage-band-actions { flex-direction: row; flex-wrap: wrap; }
     .keys-band-grid { grid-template-columns: repeat(3, 1fr); }
     .refonte-grid { grid-template-columns: 1fr; gap: 34px; }
     .refonte-media img { aspect-ratio: 4 / 3; }
@@ -598,6 +640,13 @@ a.chip:hover { border-color: var(--red); color: var(--red); }
     .stats-grid > div:nth-child(2) { border-right: 0; }
 }
 @media (max-width: 640px) {
+    .ft-brands, .garage-services, .recruit { grid-template-columns: 1fr; }
+    .garage-gallery { grid-template-columns: repeat(2, 1fr); }
+    .garage-intro { flex-direction: column; text-align: center; }
+    .garage-band-inner { flex-direction: column; text-align: center; }
+    .brand-lockup-text { font-size: 16px; }
+    .brand-lockup-text small { display: none; }
+    .brand-lockup-logo { width: 44px; height: 44px; }
     .keys-band-grid { grid-template-columns: repeat(2, 1fr); }
     .key-type-card:last-child { grid-column: 1 / -1; }
     .refonte-steps { grid-template-columns: 1fr; }

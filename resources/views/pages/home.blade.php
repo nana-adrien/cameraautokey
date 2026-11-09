@@ -432,6 +432,22 @@
     <figure><img src="" alt=""><figcaption></figcaption></figure>
 </div>
 
+{{-- ─── GARAGE PARTENAIRE ─── --}}
+<section class="garage-band">
+    <div class="container"><div class="garage-band-inner">
+        <img src="{{ asset('images/logo-3k-auto-services.webp') }}" alt="Logo {{ $settings['garage_name'] }}" width="120" height="112" loading="lazy">
+        <div class="garage-band-text">
+            <span class="eyebrow">Notre garage partenaire</span>
+            <h2>{{ $settings['garage_name'] }}</h2>
+            <p>Mécanique, entretien, vidange, diagnostic électronique, freinage, alarme, GPS et caméras : la même équipe s’occupe aussi de tout votre véhicule.</p>
+        </div>
+        <div class="garage-band-actions">
+            <a href="{{ route('garage') }}" class="btn-red">Découvrir le garage</a>
+            <a href="tel:{{ preg_replace('/\s+/', '', $settings['garage_phone']) }}" class="btn-outline"><i class="fas fa-phone-alt"></i> {{ $settings['garage_phone'] }}</a>
+        </div>
+    </div></div>
+</section>
+
 {{-- ─── AVIS CLIENTS ─── --}}
 <section class="testimonials-section">
     <div class="container">
@@ -539,17 +555,7 @@
             pagination: { el: '.swiper-pagination', clickable: true },
             breakpoints: { 700: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } },
         });
-        (function () {
-            const box = document.getElementById('lightbox');
-            const img = box.querySelector('img'), cap = box.querySelector('figcaption');
-            document.querySelectorAll('.gallery-item').forEach((item) => item.addEventListener('click', () => {
-                img.src = item.dataset.full; img.alt = item.dataset.caption; cap.textContent = item.dataset.caption;
-                box.hidden = false;
-            }));
-            const close = () => { box.hidden = true; img.src = ''; };
-            box.addEventListener('click', (e) => { if (e.target === box || e.target.closest('.lightbox-close')) close(); });
-            document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !box.hidden) close(); });
-        })();
+
         (function () {
             const slides = document.querySelectorAll('.hero-slide');
             if (slides.length < 2) return;
@@ -566,5 +572,6 @@
         }));
         window.PRICING = @json($pricing);
     </script>
-    <script src="{{ asset('js/configurator.js') }}?v=2"></script>
+    <script src="{{ asset('js/lightbox.js') }}?v=1"></script>
+    <script src="{{ asset('js/configurator.js') }}?v=3"></script>
 @endpush

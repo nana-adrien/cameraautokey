@@ -8,12 +8,15 @@ use Illuminate\Support\Facades\Cache;
 class Setting extends Model
 {
     public const DEFAULTS = [
-        'company_name' => 'CAMERAUTOKEY',
+        'company_name' => 'CAMER AUTO KEY',
         'phone' => '+237 694 02 85 96',
         'phone_secondary' => '',
-        'email' => 'contact@cameraautokey.cm',
+        'email' => 'camerautokeyy@gmail.com',
         'whatsapp' => '237694028596',
         'address' => 'Akwa, Douala — Cameroun',
+        'garage_name' => '3K AUTO SERVICES SARL',
+        'garage_phone' => '+237 678 12 00 47',
+        'garage_whatsapp' => '237678120047',
         'opening_hours' => 'Lundi – samedi, 8h – 18h',
         'social_facebook' => '',
         'social_tiktok' => '',

@@ -13,6 +13,7 @@
                 <div class="step-card"><span class="n">4</span><b>Profil recherché</b><p>Expérience en taille et programmation, matériel de diagnostic, RC Pro.</p></div>
             </div>
         </x-sc>
+        <div class="flash-success" style="display:flex;gap:12px;align-items:center"><i class="fas fa-briefcase"></i><span>Le garage <b>{{ $settings['garage_name'] }}</b> recrute aussi un mécanicien automobile. <a href="{{ route('garage') }}#recrutement" style="text-decoration:underline">Voir l’offre</a></span></div>
         <x-sc num="2" title="Envoyer ma candidature">
             @include('partials.message-form', ['type' => 'intervenant', 'messageLabel' => 'Votre expérience, votre zone et votre matériel', 'button' => 'Postuler'])
         </x-sc>

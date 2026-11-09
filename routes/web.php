@@ -27,6 +27,7 @@ Route::get('/marques', [CatalogController::class, 'brands'])->name('brands.index
 Route::controller(PageController::class)->group(function () {
     Route::get('/qui-sommes-nous', 'about')->name('about');
     Route::get('/professionnels', 'professionals')->name('professionals');
+    Route::get('/garage-3k-auto-services', 'garage')->name('garage');
     Route::get('/devenir-intervenant', 'becomeTechnician')->name('become-technician');
     Route::get('/faq', 'faq')->name('faq');
     Route::get('/contact', 'contact')->name('contact');

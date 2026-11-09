@@ -14,8 +14,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800;900&family=Barlow+Condensed:wght@600;700;800;900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     @stack('head')
-    <link rel="stylesheet" href="{{ asset('css/site.css') }}?v=11">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%231a2f5e'/><path d='M40 25l25 25-25 25h16l25-25-25-25z' fill='%23d6262e'/></svg>">
+    <link rel="stylesheet" href="{{ asset('css/site.css') }}?v=12">
+    <link rel="icon" type="image/png" href="{{ asset('images/favicon-64.png') }}">
+    <link rel="apple-touch-icon" href="{{ asset('images/logo-camer-auto-key-160.png') }}">
 </head>
 <body>
 
@@ -41,8 +42,9 @@
 
 {{-- ─── NAVIGATION ─── --}}
 <header class="site-nav">
-    <a href="{{ route('home') }}" aria-label="{{ $settings['company_name'] }} — accueil">
-        <img src="{{ asset('images/logo.svg') }}" alt="{{ $settings['company_name'] }}" class="logo-img" width="190" height="41">
+    <a href="{{ route('home') }}" class="brand-lockup" aria-label="{{ $settings['company_name'] }} — accueil">
+        <img src="{{ asset('images/logo-camer-auto-key-160.png') }}" alt="" class="brand-lockup-logo" width="52" height="52">
+        <span class="brand-lockup-text">CAMER <b>AUTO KEY</b><small>Clés auto · Programmation</small></span>
     </a>
 
     <button type="button" class="mobile-menu-btn" id="menu-btn" aria-label="Menu" aria-expanded="false">
@@ -51,7 +53,7 @@
 
     <ul class="nav-links" id="nav-links">
         <li class="mobile-menu-header">
-            <img src="{{ asset('images/logo.svg') }}" alt="" class="logo-img">
+            <span class="brand-lockup"><img src="{{ asset('images/logo-camer-auto-key-160.png') }}" alt="" class="brand-lockup-logo" width="44" height="44"><span class="brand-lockup-text">CAMER <b>AUTO KEY</b></span></span>
             <button type="button" data-close-menu aria-label="Fermer">&times;</button>
         </li>
         <li><a href="{{ route('home') }}" @class(['nav-active' => request()->routeIs('home')]) @if (request()->routeIs('home')) aria-current="page" @endif>Accueil</a></li>
@@ -85,6 +87,7 @@
                 </div>
             </div>
         </li>
+        <li><a href="{{ route('garage') }}" @class(['nav-active' => request()->routeIs('garage')]) @if (request()->routeIs('garage')) aria-current="page" @endif><i class="fas fa-tools" style="font-size:11px;opacity:.6"></i> Garage 3K</a></li>
         <li><a href="{{ route('about') }}" @class(['nav-active' => request()->routeIs('about')]) @if (request()->routeIs('about')) aria-current="page" @endif>À propos</a></li>
         <li><a href="{{ route('professionals') }}" @class(['nav-active' => request()->routeIs('professionals')]) @if (request()->routeIs('professionals')) aria-current="page" @endif>Professionnels</a></li>
         <li><a href="{{ route('become-technician') }}" @class(['nav-active' => request()->routeIs('become-technician')]) @if (request()->routeIs('become-technician')) aria-current="page" @endif>Devenir intervenant</a></li>
@@ -101,6 +104,16 @@
 {{-- ─── FOOTER ─── --}}
 <footer class="site-footer">
     <div class="container">
+        <div class="ft-brands">
+            <a href="{{ route('home') }}" class="ft-brand">
+                <img src="{{ asset('images/logo-camer-auto-key-160.png') }}" alt="Logo {{ $settings['company_name'] }}" width="64" height="64" loading="lazy">
+                <span><b>{{ $settings['company_name'] }}</b>Vente, reproduction et programmation de clés auto · {{ $settings['phone'] }}</span>
+            </a>
+            <a href="{{ route('garage') }}" class="ft-brand">
+                <img src="{{ asset('images/logo-3k-auto-services.webp') }}" alt="Logo {{ $settings['garage_name'] }}" width="64" height="64" loading="lazy">
+                <span><b>{{ $settings['garage_name'] }}</b>Garage : mécanique, entretien, diagnostic · {{ $settings['garage_phone'] }}</span>
+            </a>
+        </div>
         <div class="ft-widgets">
             <div>
                 <div class="ft-title">Liens importants</div>
@@ -124,6 +137,7 @@
                     @foreach ($navServices as $s)
                         <li><a href="{{ route('services.show', $s) }}">– {{ $s->title }}</a></li>
                     @endforeach
+                    <li><a href="{{ route('garage') }}">– Garage 3K Auto Services</a></li>
                     <li><a href="{{ route('professionals') }}">– Flottes entreprises</a></li>
                 </ul>
             </div>

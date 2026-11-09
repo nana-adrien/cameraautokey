@@ -20,6 +20,12 @@
                 <p>Nos intervenants sont formés aux technologies des principaux constructeurs et équipés de véhicules-ateliers. Ils interviennent chez les particuliers comme auprès des flottes d’entreprise.</p>
             </div>
         </x-sc>
+        <x-sc icon="fas fa-store" title="Nos deux enseignes" sub="Une même équipe à Akwa, Douala">
+            <div class="steps-grid">
+                <div class="step-card" style="text-align:center"><img src="{{ asset('images/logo-camer-auto-key-160.png') }}" alt="Logo {{ $settings['company_name'] }}" width="90" height="90" style="margin:0 auto 10px;border-radius:50%"><b>{{ $settings['company_name'] }}</b><p>Vente, reproduction et programmation de clés auto, télécommandes et cartes mains libres.</p></div>
+                <a class="step-card" href="{{ route('garage') }}" style="text-align:center;display:block"><img src="{{ asset('images/logo-3k-auto-services.webp') }}" alt="Logo {{ $settings['garage_name'] }}" width="90" height="84" style="margin:0 auto 10px;border-radius:50%"><b>{{ $settings['garage_name'] }}</b><p>Garage : mécanique, entretien, diagnostic, freinage, alarme, GPS et caméras.</p></a>
+            </div>
+        </x-sc>
         <x-sc num="2" title="Nos engagements">
             <div class="steps-grid">
                 <div class="step-card"><span class="n"><i class="fas fa-coins"></i></span><b>Transparence</b><p>Prix annoncé avant toute intervention, sans frais cachés.</p></div>

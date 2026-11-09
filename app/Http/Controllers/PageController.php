@@ -21,6 +21,11 @@ class PageController extends Controller
         return view('pages.professionals');
     }
 
+    public function garage(): View
+    {
+        return view('pages.garage');
+    }
+
     public function becomeTechnician(): View
     {
         return view('pages.become-technician');

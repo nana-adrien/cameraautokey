@@ -50,11 +50,19 @@ Aucun build front n’est nécessaire : le CSS et le JS sont dans `public/css` e
 Pour remplacer une photo : déposer la nouvelle image (paysage, au moins 1600 px de large) sous le même nom,
 et régénérer sa miniature (`cwebp -q 80 -resize 800 0 photo.webp -o thumbs/photo.webp`).
 
+**Logos des deux entreprises du client** (`public/images/`) :
+
+| Fichier | Entreprise | Utilisation |
+|---|---|---|
+| `logo-camer-auto-key.png` (+ `-160.png`, `favicon-64.png`) | CAMER AUTO KEY — vente et reproduction de clés | En-tête, menu mobile, pied de page, onglet du navigateur |
+| `logo-3k-auto-services.webp` | 3K AUTO SERVICES SARL — garage | Page `/garage-3k-auto-services`, bandeau de l’accueil, pied de page |
+
+Le logo 3K est découpé dans l’affiche de recrutement (188 px) : le remplacer par le fichier original si disponible.
+
 **Visuels encore provisoires** (`public/images/`) :
 
 | Fichier | Où | Format conseillé |
 |---|---|---|
-| `logo.svg` / `logo-white.svg` | En-tête, menu mobile | SVG ou PNG transparent, ~190×40 |
 | `placeholders/vehicle-*.svg` | Cartes « Type de véhicule » | PNG transparent 160×80 |
 
 ## Localisation : Cameroun
@@ -62,7 +70,8 @@ et régénérer sa miniature (`cwebp -q 80 -resize 800 0 photo.webp -o thumbs/ph
 - Monnaie : **FCFA** (`config/pricing.php`, formatage via `App\Support\Money::fcfa()`), prix arrondis à 500 FCFA.
 - Fuseau horaire : `Africa/Douala` (modifiable via `APP_TIMEZONE`).
 - Coordonnées par défaut (`app/Models/Setting.php`, modifiables dans l’admin → Paramètres) : atelier à Akwa (Douala),
-  téléphone/WhatsApp **+237 694 02 85 96** (repris de l’enseigne du client — à confirmer), horaires, e-mail.
+  clés : **+237 694 02 85 96** (enseigne), garage 3K : **+237 678 12 00 47**, e-mail **camerautokeyy@gmail.com**
+  (repris de l’affiche du client — à confirmer), horaires.
 - Adresse d’intervention : rue ou repère + **quartier** + ville (pas de code postal).
 - Recherche d’adresse et « Utiliser ma position » : Photon / OpenStreetMap, limité au Cameroun ; la position GPS
   est aussi ajoutée en lien Google Maps dans les précisions de la demande.
