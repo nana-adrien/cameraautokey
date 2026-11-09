@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex">
-    <title>Connexion · Admin CAMERAUTOKEY</title>
+    <title>Connexion · Admin CAMER AUTO KEY</title>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/admin.css') }}?v=1">
 </head>
@@ -14,7 +14,7 @@
         @csrf
         <div style="text-align:center">
             <div style="font-size:2.4rem">🔑</div>
-            <h1 style="font-size:1.4rem">CAMERAUTOKEY</h1>
+            <h1 style="font-size:1.4rem">CAMER AUTO KEY</h1>
             <p class="muted" style="margin:4px 0 0">Espace administrateur</p>
         </div>
         <div class="field">

@@ -18,10 +18,17 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        // Compte administrateur de développement (modifiable via ADMIN_EMAIL / ADMIN_PASSWORD dans .env).
+        // Compte administrateur : ADMIN_EMAIL / ADMIN_PASSWORD.
+        // Le mot de passe « password » n'est accepté qu'en développement local.
+        $adminPassword = env('ADMIN_PASSWORD') ?: (app()->isLocal() ? 'password' : null);
+
+        if ($adminPassword === null) {
+            throw new \RuntimeException('ADMIN_PASSWORD doit être défini hors développement local.');
+        }
+
         User::updateOrCreate(
             ['email' => env('ADMIN_EMAIL', 'admin@cameraautokey.fr')],
-            ['name' => 'Administrateur', 'password' => env('ADMIN_PASSWORD', 'password'), 'is_admin' => true],
+            ['name' => 'Administrateur', 'password' => $adminPassword, 'is_admin' => true],
         );
 
         $this->seedServices();

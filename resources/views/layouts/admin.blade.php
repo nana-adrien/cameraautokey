@@ -4,14 +4,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex">
-    <title>@yield('title', 'Tableau de bord') · Admin CAMERAUTOKEY</title>
+    <title>@yield('title', 'Tableau de bord') · Admin CAMER AUTO KEY</title>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/admin.css') }}?v=1">
 </head>
 <body>
 <div class="app">
     <aside class="sidebar" id="sidebar">
-        <a href="{{ route('admin.dashboard') }}" class="logo"><span class="mark">🔑</span>CAMERAUTOKEY</a>
+        <a href="{{ route('admin.dashboard') }}" class="logo"><span class="mark">🔑</span>CAMER AUTO KEY</a>
         <a href="{{ route('admin.dashboard') }}" @class(['active' => request()->routeIs('admin.dashboard')])>📊 Tableau de bord</a>
 
         <div class="group">Activité</div>
