@@ -22,8 +22,8 @@ class Setting extends Model
         'social_tiktok' => '',
         'social_youtube' => '',
         'social_instagram' => '',
-        'hero_title' => 'Clé de voiture perdue, cassée ou à refaire ?',
-        'hero_subtitle' => 'Nous taillons, programmons et refaisons toutes les clés auto en quelques minutes, à l’atelier d’Akwa ou chez vous.',
+        'hero_title' => 'Clé perdue, abîmée ou en un seul exemplaire ?',
+        'hero_subtitle' => 'Passez sans rendez-vous à la boutique, ou faites venir un technicien.',
     ];
 
     protected $fillable = ['key', 'value'];

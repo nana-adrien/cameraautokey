@@ -6,9 +6,9 @@
 @include('partials.page-hero', ['image' => 'photos/cles-toyota-tundra-blanc.webp', 
     'alert' => true,
     'title' => $service->title,
-    'titleHtml' => e($service->title).' ?<br>Intervention <em>24h/24</em>',
-    'subtitle' => e($service->excerpt).' <strong>Un technicien se déplace à votre adresse en 30 à 90 minutes.</strong>',
-    'badges' => ['🚨 Urgence — disponible maintenant', '⏱️ 30–90 min d’intervention', '🔑 Clé créée sans l’original', '🛡️ Garantie 1 mois'],
+    'titleHtml' => e($service->title).'<br>à <em>Douala</em>',
+    'subtitle' => e($service->excerpt).' <strong>Prix confirmé avant de commencer, paiement après essai.</strong>',
+    'badges' => ['🔑 Clé neuve sans l’ancienne', '📍 Atelier à Akwa', '📱 Orange Money / MTN MoMo', '🛡️ Garantie 1 mois'],
     'crumb' => $service->title,
 ])
 @include('partials.service-body', [

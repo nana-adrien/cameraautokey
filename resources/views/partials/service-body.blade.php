@@ -18,26 +18,26 @@
     <div>
         <p class="lead-text">{!! $lead !!}</p>
 
-        <x-sc icon="far fa-chart-bar" title="{{ $settings['company_name'] }} en chiffres" sub="Le service de référence en serrurerie automobile mobile">
+        <x-sc icon="fas fa-check-double" title="Pourquoi venir chez {{ $settings['company_name'] }}" sub="Une boutique physique, des outils pro, des prix clairs">
             <div class="stats-grid">
-                <div><div class="stat-val">45<em>min</em></div><div class="stat-lbl">Temps d’arrivée moyen</div></div>
-                <div><div class="stat-val">24/7</div><div class="stat-lbl">Disponibilité urgence</div></div>
-                <div><div class="stat-val">100%</div><div class="stat-lbl">Ouverture sans dégât</div></div>
-                <div><div class="stat-val">4,9<em>★</em></div><div class="stat-lbl">Note clients</div></div>
+                <div><div class="stat-val">Akwa</div><div class="stat-lbl">Boutique et atelier à Douala</div></div>
+                <div><div class="stat-val">5</div><div class="stat-lbl">Types de clés pris en charge</div></div>
+                <div><div class="stat-val">FCFA</div><div class="stat-lbl">Prix confirmé avant de commencer</div></div>
+                <div><div class="stat-val">1<em>mois</em></div><div class="stat-lbl">Garantie sur chaque clé</div></div>
             </div>
         </x-sc>
 
-        <x-sc num="1" title="Comment se passe l’intervention ?" sub="Le déroulé étape par étape">
-            <div class="warn-box"><b>⚠️ En cas de vol :</b><span>déposez plainte auprès des autorités avant l’intervention. Votre assurance pourra vous la demander pour un remboursement.</span></div>
+        <x-sc num="1" title="De l’appel à la clé en main" sub="Ce qui va se passer">
+            <div class="warn-box"><b>⚠️ Clés volées ?</b><span>Pensez à faire une déclaration auprès de la police ou de la gendarmerie : elle vous sera utile, notamment pour votre assureur.</span></div>
             <div class="steps-grid">
-                <div class="step-card"><span class="n">1</span><b>Contactez-nous</b><p>Faites votre <a href="{{ route('home') }}#commande" style="color:var(--navy);font-weight:700">demande en ligne</a> ou appelez le {{ $settings['phone'] }}. Un conseiller vous répond 24h/24.</p></div>
-                <div class="step-card"><span class="n">2</span><b>Restez près du véhicule</b><p>Indiquez l’adresse exacte ; le technicien vous tient informé de son heure d’arrivée.</p></div>
-                <div class="step-card"><span class="n">3</span><b>Intervention sur place</b><p>Le technicien utilise un équipement professionnel pour fabriquer et programmer la clé, sans clé d’origine si besoin.</p></div>
-                <div class="step-card"><span class="n">4</span><b>Validation &amp; règlement</b><p>Vous validez la prestation, puis vous réglez. La facture vous est envoyée par e-mail.</p></div>
+                <div class="step-card"><span class="n">1</span><b>Vous nous contactez</b><p>Par le <a href="{{ route('home') }}#commande" style="color:var(--navy);font-weight:700">formulaire</a>, par téléphone au {{ $settings['phone'] }} ou sur WhatsApp, avec une photo de la clé si vous l’avez.</p></div>
+                <div class="step-card"><span class="n">2</span><b>Prix et rendez-vous</b><p>On vous annonce le montant en FCFA et l’heure de passage — ou vous venez à l’atelier d’Akwa.</p></div>
+                <div class="step-card"><span class="n">3</span><b>Fabrication</b><p>Taille de la lame sur machine, puis codage de la puce ou de la télécommande avec nos outils de diagnostic.</p></div>
+                <div class="step-card"><span class="n">4</span><b>Essai et paiement</b><p>Vous ouvrez et démarrez vous-même. Ensuite seulement, vous payez et recevez la facture.</p></div>
             </div>
         </x-sc>
 
-        <x-sc num="2" title="Tarifs {{ $subject }}" sub="Fourchettes indicatives — prix confirmé avant l’intervention">
+        <x-sc num="2" title="Prix indicatifs — {{ $subject }}" sub="Fourchettes indicatives — prix confirmé avant l’intervention">
             <div class="table-scroll">
                 <table class="price-table">
                     <thead><tr><th>Véhicule / situation</th><th>Fourchette</th></tr></thead>
@@ -49,7 +49,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="tip-box"><b>Astuce :</b> votre assurance auto peut couvrir tout ou partie de cette prestation. Demandez-nous une facture détaillée.</div>
+            <div class="tip-box"><b>Bon à savoir :</b> à la boutique d’Akwa, la clé est souvent prête pendant que vous patientez — pensez à apporter la carte grise.</div>
         </x-sc>
 
         @if ($faqs->isNotEmpty())
@@ -68,10 +68,10 @@
                     <x-brand-logo :brand="$b" size="sm" />
                 @endforeach
             </div>
-            <p style="font-size:13px;color:var(--muted);margin-top:14px">Vous ne trouvez pas votre marque ? <a href="tel:{{ $tel }}" style="color:var(--navy);font-weight:700">Appelez-nous</a> : nous vérifions la compatibilité avant de nous déplacer.</p>
+            <p style="font-size:13px;color:var(--muted);margin-top:14px">Votre véhicule n’apparaît pas ? <a href="tel:{{ $tel }}" style="color:var(--navy);font-weight:700">Téléphonez-nous</a> avec le modèle et l’année : nous vous disons tout de suite si c’est faisable.</p>
         </x-sc>
 
-        <x-sc num="5" title="Zones d’intervention" sub="Atelier à Akwa (Douala) — déplacement dans tout le Cameroun">
+        <x-sc num="5" title="Où intervenons-nous ?" sub="Atelier à Akwa (Douala) — déplacement dans tout le Cameroun">
             <div class="chip-cloud">@foreach ($zones as $z)<span class="chip">📍 {{ $z }}</span>@endforeach</div>
         </x-sc>
 
@@ -86,8 +86,8 @@
         @endif
 
         <div class="seo-cta" style="margin-top:12px">
-            <h3>Besoin d’une intervention maintenant ?</h3>
-            <p>Un technicien {{ $settings['company_name'] }} peut être chez vous dans l’heure, 24h/24 et 7j/7.</p>
+            <h3>On s’occupe de votre clé aujourd’hui ?</h3>
+            <p>Passez à la boutique d’Akwa ou appelez-nous : un technicien peut aussi venir jusqu’à votre véhicule.</p>
             <a href="tel:{{ $tel }}" class="btn-white"><i class="fas fa-phone-alt"></i> {{ $settings['phone'] }}</a>
         </div>
     </div>

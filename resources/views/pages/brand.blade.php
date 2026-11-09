@@ -7,9 +7,9 @@
     'alert' => true,
     'logo' => $brand->logoUrl(),
     'title' => 'Reproduction clé '.$brand->name,
-    'titleHtml' => 'Reproduction clé <em>'.e($brand->name).'</em><br>à domicile 24h/24',
-    'subtitle' => e($brand->description).' <strong>Double, perte totale, télécommande ou clé mains libres.</strong>',
-    'badges' => ['🔑 Double de clé '.$brand->name, '💻 Programmation sur place', '⚡ Urgence 24h/24'],
+    'titleHtml' => 'Votre clé <em>'.e($brand->name).'</em><br>refaite à Douala',
+    'subtitle' => e($brand->description).' <strong>Copie, remplacement, télécommande ou clé mains libres.</strong>',
+    'badges' => ['🔑 Copie de clé '.$brand->name, '💻 Codage sur place', '📍 Atelier à Akwa'],
     'crumb' => 'Marques › '.$brand->name,
 ])
 @include('partials.service-body', [

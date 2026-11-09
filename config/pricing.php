@@ -8,27 +8,28 @@
 
 return [
     'vehicle_types' => [
-        'auto' => ['label' => 'Voiture - utilitaires', 'hint' => 'Voiture · SUV · Utilitaire', 'icon' => '🚗', 'multiplier' => 1.0],
-        'pl' => ['label' => 'Camion poids lourd', 'hint' => 'Fourgon · Porteur · Semi', 'icon' => '🚚', 'multiplier' => 1.35],
-        'moto' => ['label' => 'Moto / Scooter', 'hint' => '2 roues · 3 roues · Quad', 'icon' => '🏍️', 'multiplier' => 0.85],
+        'auto' => ['label' => 'Voiture & 4x4', 'hint' => 'Berline, SUV, pick-up, utilitaire', 'icon' => '🚗', 'multiplier' => 1.0],
+        'pl' => ['label' => 'Camion & bus', 'hint' => 'Porteur, tracteur, minibus', 'icon' => '🚚', 'multiplier' => 1.35],
+        'moto' => ['label' => 'Deux-roues', 'hint' => 'Moto, scooter, tricycle', 'icon' => '🏍️', 'multiplier' => 0.85],
     ],
 
     'needs' => [
-        'double' => ['label' => 'Je veux un double de clé', 'hint' => 'J’ai encore au moins une clé qui fonctionne', 'base' => 25000],
-        'lost' => ['label' => 'Aucune clé disponible — perte totale', 'hint' => 'Je n’ai plus aucune clé du véhicule', 'base' => 75000],
-        'opening' => ['label' => 'Ouverture du véhicule sans clé et programmation', 'hint' => 'Clé enfermée ou véhicule bloqué', 'base' => 90000],
+        'double' => ['label' => 'J’ai encore une clé et je veux un double', 'hint' => 'Une clé fonctionne : on la copie à l’identique', 'base' => 25000],
+        'lost' => ['label' => 'Je n’ai plus aucune clé', 'hint' => 'Clés perdues, volées ou toutes hors service', 'base' => 75000],
+        'opening' => ['label' => 'Mon véhicule est fermé et je n’ai pas de clé', 'hint' => 'Ouverture du véhicule, puis fabrication d’une clé', 'base' => 90000],
     ],
 
     'key_types' => [
-        'simple' => ['label' => 'Clé simple', 'hint' => 'Sans puce, sans boutons', 'tooltip' => 'Clé entièrement mécanique : la lame suffit à ouvrir et démarrer. Courante sur les véhicules anciens et certaines motos.', 'extra' => 0],
-        'transponder' => ['label' => 'Clé à transpondeur', 'hint' => 'Puce antivol, sans boutons', 'tooltip' => 'Une puce dans la tête de clé dialogue avec l’antidémarrage : la clé doit être programmée pour que le moteur démarre.', 'extra' => 15000],
-        'remote' => ['label' => 'Clé télécommande', 'hint' => 'Boutons pour ouvrir / fermer les portes', 'tooltip' => 'Clé avec boutons de verrouillage à distance, démarrage en tournant la clé dans le contact.', 'extra' => 30000],
-        'smart' => ['label' => 'Clé Smart / Keyless / Carte', 'hint' => 'Démarrage sans clé dans le contact', 'tooltip' => 'Démarrage par bouton Start/Stop : la clé ou la carte reste dans votre poche (système mains libres).', 'extra' => 60000],
+        'simple' => ['label' => 'Clé mécanique', 'hint' => 'Lame métallique uniquement', 'tooltip' => 'Une lame taillée, sans électronique : fréquente sur les véhicules anciens, les camions et de nombreuses motos.', 'extra' => 0],
+        'transponder' => ['label' => 'Clé à puce', 'hint' => 'Tête en plastique, aucun bouton', 'tooltip' => 'La tête cache une puce codée reconnue par l’antidémarrage. Sans programmation, le moteur ne démarre pas.', 'extra' => 15000],
+        'remote' => ['label' => 'Clé à boutons', 'hint' => 'Fixe ou pliante, avec télécommande', 'tooltip' => 'Lame (fixe ou rétractable) et boutons pour verrouiller les portes. On démarre en tournant la clé.', 'extra' => 30000],
+        'smart' => ['label' => 'Clé mains libres', 'hint' => 'Démarrage par bouton Start / Stop', 'tooltip' => 'Boîtier sans lame apparente : il reste dans la poche, le véhicule démarre par un bouton.', 'extra' => 60000],
+        'card' => ['label' => 'Carte de démarrage', 'hint' => 'Format carte de crédit', 'tooltip' => 'Carte plate glissée dans un lecteur ou gardée sur soi, notamment chez Renault.', 'extra' => 60000],
     ],
 
     'desired_keys' => [
-        'generic' => ['label' => 'Clé générique compatible', 'hint' => 'Économique et fiable, recommandée dans la plupart des cas', 'extra' => 0],
-        'original' => ['label' => 'Clé d’origine constructeur', 'hint' => 'Modèle de marque avec logo constructeur', 'extra' => 50000],
+        'generic' => ['label' => 'Gamme compatible', 'hint' => 'Qualité professionnelle, le meilleur rapport qualité-prix', 'extra' => 0],
+        'original' => ['label' => 'Gamme origine', 'hint' => 'Pièce du constructeur, avec son logo', 'extra' => 50000],
     ],
 
     'second_key_discount' => 0.30,

@@ -13,6 +13,7 @@
         'simple' => '<svg viewBox="0 0 48 48" fill="none" stroke="#1a2f5e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="15" cy="24" r="8"/><path d="M23 24h20M37 24v6M42 24v4"/></svg>',
         'transponder' => '<svg viewBox="0 0 48 48" fill="none" stroke="#1a2f5e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="14" y="4" width="20" height="22" rx="6"/><rect x="20" y="10" width="8" height="8" rx="1.5" fill="#d6262e" stroke="#d6262e"/><path d="M24 26v18M24 34h5M24 40h4"/></svg>',
         'remote' => '<svg viewBox="0 0 48 48" fill="none" stroke="#1a2f5e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="13" y="3" width="22" height="26" rx="7"/><circle cx="24" cy="11" r="2.5" fill="#d6262e" stroke="#d6262e"/><circle cx="24" cy="20" r="2.5"/><path d="M24 29v16M24 37h5M24 42h4"/></svg>',
+        'card' => '<svg viewBox="0 0 48 48" fill="none" stroke="#1a2f5e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10" width="38" height="28" rx="4"/><rect x="10" y="16" width="9" height="7" rx="1.5" stroke="#d6262e"/><path d="M10 31h20M34 31h4"/></svg>',
         'smart' => '<svg viewBox="0 0 48 48" fill="none" stroke="#1a2f5e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="11" width="36" height="26" rx="5"/><path d="M12 19h10M12 25h6"/><path d="M31 20a6 6 0 0 1 0 8M35 17a10 10 0 0 1 0 14" stroke="#d6262e"/></svg>',
     ];
     $keyGallery = [
@@ -56,9 +57,8 @@
     </div>
     <div class="hero-bg"></div>
     <div class="hero-content">
-        <span class="hero-kicker"><i class="fas fa-key"></i> Spécialiste de la clé automobile au Cameroun</span>
-        <h1>{{ $settings['hero_title'] }}<br>On refait votre clé en <span class="hl">30 minutes</span></h1>
-        <p><strong>Reproduction, refonte et programmation de clés auto</strong> · Voitures · Camions · Motos · Douala, Yaoundé et tout le Cameroun<br>{{ $settings['hero_subtitle'] }}</p>
+        <h1>{{ $settings['hero_title'] }}<br>Une nouvelle clé en <span class="hl">30 minutes</span></h1>
+        <p><strong>Taille, codage et remplacement de clés</strong> pour voitures, camions et deux-roues — atelier à Akwa, interventions à Douala, Yaoundé et dans tout le pays.<br>{{ $settings['hero_subtitle'] }}</p>
         <div class="hero-actions">
             <a href="#form-area" class="hero-cta"><i class="fas fa-key"></i> Refaire ma clé</a>
             @if ($settings['whatsapp'])
@@ -70,7 +70,7 @@
             <span class="hbadge"><i class="fas fa-cut"></i> Taille &amp; programmation sur place</span>
             <span class="hbadge"><i class="fas fa-car"></i> Plus de 100 marques</span>
             <span class="hbadge"><i class="fas fa-shield-alt"></i> Garantie 1 mois</span>
-            <span class="hbadge"><i class="fas fa-star"></i> 4,9/5 avis clients</span>
+            <span class="hbadge"><i class="fas fa-mobile-alt"></i> Orange Money &amp; MTN MoMo</span>
         </div>
     </div>
 </section>
@@ -79,8 +79,8 @@
 <section class="keys-band" aria-labelledby="keys-band-title">
     <div class="container">
         <div class="keys-band-head">
-            <h2 id="keys-band-title">Toutes vos clés, <em>refaites et programmées</em></h2>
-            <p>Choisissez votre type de clé : nous la reproduisons à l’identique, même sans l’originale.</p>
+            <h2 id="keys-band-title">Quelle clé <em>avez-vous ?</em></h2>
+            <p>Touchez votre modèle pour préparer votre demande — même si vous n’avez plus la clé.</p>
         </div>
         <div class="keys-band-grid">
             @foreach ($pricing['key_types'] as $key => $opt)
@@ -88,7 +88,7 @@
                     <span class="key-type-icon">{!! $keyIcons[$key] !!}</span>
                     <b>{{ $opt['label'] }}</b>
                     <small>{{ $opt['hint'] }}</small>
-                    <span class="key-type-price">Double dès {{ \App\Support\Money::fcfa($pricing['needs']['double']['base'] + $opt['extra']) }}</span>
+                    <span class="key-type-price">Copie dès {{ \App\Support\Money::fcfa($pricing['needs']['double']['base'] + $opt['extra']) }}</span>
                 </a>
             @endforeach
             <a href="{{ route('services.show', 'reparation-telecommande-voiture') }}" class="key-type-card">
@@ -103,10 +103,10 @@
 
 {{-- ─── BARRE D'ÉTAPES ─── --}}
 <nav class="step-bar" id="commande" aria-label="Étapes de la demande">
-    <div class="step-tab active" data-tab="1"><span class="sn">1</span><span class="sl">Configuration</span></div>
-    <div class="step-tab step-future" data-tab="2"><span class="sn">2</span><span class="sl">Localisation</span></div>
-    <div class="step-tab step-future" data-tab="3"><span class="sn">3</span><span class="sl">Validation</span></div>
-    <div class="step-tab step-future" data-tab="4"><span class="sn">4</span><span class="sl">Confirmation</span></div>
+    <div class="step-tab active" data-tab="1"><span class="sn">1</span><span class="sl">Votre clé</span></div>
+    <div class="step-tab step-future" data-tab="2"><span class="sn">2</span><span class="sl">Adresse</span></div>
+    <div class="step-tab step-future" data-tab="3"><span class="sn">3</span><span class="sl">Vérification</span></div>
+    <div class="step-tab step-future" data-tab="4"><span class="sn">4</span><span class="sl">Envoyé</span></div>
 </nav>
 
 <form method="POST" action="{{ route('orders.store') }}" id="order-form" data-start-step="{{ $startStep }}" novalidate>
@@ -123,19 +123,19 @@
             {{-- ═════════ ÉTAPE 1 : CONFIGURATION ═════════ --}}
             <div class="step-panel" data-step="1">
                 <div class="sc">
-                    <div class="sc-head"><span class="sc-num ico">ℹ️</span><div><h2>Comment fonctionne votre intervention ?</h2><p>De votre demande à la facture — simple, sécurisé, transparent</p></div></div>
+                    <div class="sc-head"><span class="sc-num ico">ℹ️</span><div><h2>Comment ça se passe ?</h2><p>Quatre étapes, et rien à payer d’avance</p></div></div>
                     <div class="sc-body">
                         <div class="how-it-works-grid">
-                            <div class="hiw-card"><span class="hiw-icon"><i class="far fa-calendar-check"></i></span><div><div class="hiw-title">1. Demande en ligne</div><div class="hiw-desc">Configurez votre besoin dans le formulaire. <strong>Aucun paiement</strong> n’est demandé à cette étape.</div></div></div>
-                            <div class="hiw-card"><span class="hiw-icon"><i class="fas fa-user-friends"></i></span><div><div class="hiw-title">2. Traitement &amp; attribution</div><div class="hiw-desc">Notre équipe 24/7 vous attribue un technicien. <strong>Urgence :</strong> départ immédiat. <strong>Standard :</strong> prise de rendez-vous.</div></div></div>
-                            <div class="hiw-card"><span class="hiw-icon"><i class="fas fa-tools"></i></span><div><div class="hiw-title">3. Intervention sur site</div><div class="hiw-desc">Le technicien certifié se déplace et réalise la prestation : fabrication, programmation ou ouverture.</div></div></div>
-                            <div class="hiw-card"><span class="hiw-icon"><i class="far fa-check-circle"></i></span><div><div class="hiw-title">4. Validation &amp; règlement</div><div class="hiw-desc">Vous validez la fin de la prestation → règlement → <strong>facture envoyée par e-mail</strong>.</div></div></div>
+                            <div class="hiw-card"><span class="hiw-icon"><i class="far fa-calendar-check"></i></span><div><div class="hiw-title">1. Vous décrivez votre clé</div><div class="hiw-desc">Quelques questions sur le véhicule et la clé, <strong>sans paiement</strong> ni engagement.</div></div></div>
+                            <div class="hiw-card"><span class="hiw-icon"><i class="fas fa-user-friends"></i></span><div><div class="hiw-title">2. On vous rappelle</div><div class="hiw-desc">Un conseiller confirme le prix et fixe le passage : <strong>tout de suite</strong> ou au moment qui vous arrange.</div></div></div>
+                            <div class="hiw-card"><span class="hiw-icon"><i class="fas fa-tools"></i></span><div><div class="hiw-title">3. On fabrique la clé</div><div class="hiw-desc">À l’atelier d’Akwa ou devant votre véhicule : taille de la lame, codage, essais.</div></div></div>
+                            <div class="hiw-card"><span class="hiw-icon"><i class="far fa-check-circle"></i></span><div><div class="hiw-title">4. Vous essayez, puis vous payez</div><div class="hiw-desc">La clé ouvre et démarre ? Vous réglez (Mobile Money, espèces, carte) et recevez <strong>votre facture</strong>.</div></div></div>
                         </div>
                     </div>
                 </div>
 
                 <div class="sc" data-section="vehicle_type">
-                    <div class="sc-head"><span class="sc-num">1</span><div><h3>Type de véhicule *</h3><p>Choisissez le type de véhicule concerné par la demande.</p></div></div>
+                    <div class="sc-head"><span class="sc-num">1</span><div><h3>Quel véhicule ? *</h3><p>Sélectionnez sa catégorie.</p></div></div>
                     <div class="sc-body">
                         <div class="veh-cards">
                             @foreach ($pricing['vehicle_types'] as $key => $opt)
@@ -153,7 +153,7 @@
                 </div>
 
                 <div class="sc" data-section="need">
-                    <div class="sc-head"><span class="sc-num">2</span><div><h3>Quel est votre besoin ? *</h3></div></div>
+                    <div class="sc-head"><span class="sc-num">2</span><div><h3>Votre situation *</h3></div></div>
                     <div class="sc-body">
                         <div class="opt-list">
                             @foreach ($pricing['needs'] as $key => $opt)
@@ -169,7 +169,7 @@
                 </div>
 
                 <div class="sc" data-section="key_type">
-                    <div class="sc-head"><span class="sc-num">3</span><div><h3>Type de clé du véhicule *</h3><p>Choisissez ce qui ressemble le plus à votre clé actuelle.</p></div></div>
+                    <div class="sc-head"><span class="sc-num">3</span><div><h3>Votre clé actuelle *</h3><p>Repérez le modèle le plus proche de la clé que vous avez — ou que vous aviez.</p></div></div>
                     <div class="sc-body">
                         <div class="key-grid">
                             @foreach ($pricing['key_types'] as $key => $opt)
@@ -190,14 +190,14 @@
                 </div>
 
                 <div class="sc" data-section="desired_key">
-                    <div class="sc-head"><span class="sc-num">4</span><div><h3>Type de clé souhaitée *</h3><p>Les clés génériques sont des modèles compatibles de qualité professionnelle. Les clés d’origine sont des modèles de marque constructeur.</p></div></div>
+                    <div class="sc-head"><span class="sc-num">4</span><div><h3>Gamme de la nouvelle clé *</h3><p>Compatible : qualité pro au juste prix. Origine : pièce du constructeur.</p></div></div>
                     <div class="sc-body">
                         <div class="opt-list">
                             @foreach ($pricing['desired_keys'] as $key => $opt)
                                 <label class="opt-row" data-group="desired_key">
                                     <input class="dkp-hidden-input" type="radio" name="desired_key" value="{{ $key }}" @checked($v('desired_key', 'generic') === $key)>
                                     <span class="opt-radio"></span>
-                                    <span class="opt-content"><span class="opt-name">{{ $opt['label'] }}</span>@if ($key === 'generic')<span class="opt-rec">Recommandé</span>@endif<span class="opt-desc" style="display:block">({{ $opt['hint'] }})</span></span>
+                                    <span class="opt-content"><span class="opt-name">{{ $opt['label'] }}</span>@if ($key === 'generic')<span class="opt-rec">Le plus choisi</span>@endif<span class="opt-desc" style="display:block">({{ $opt['hint'] }})</span></span>
                                 </label>
                             @endforeach
                         </div>
@@ -205,7 +205,7 @@
                 </div>
 
                 <div class="sc" data-section="quantity">
-                    <div class="sc-head"><span class="sc-num">5</span><div><h3>Nombre de clés souhaitées *</h3><p>Il est fortement recommandé d’avoir au moins deux clés. La 2ᵉ clé bénéficie automatiquement d’une réduction de {{ $pricing['second_key_discount'] * 100 }} %.</p></div></div>
+                    <div class="sc-head"><span class="sc-num">5</span><div><h3>Combien de clés ? *</h3><p>Conseil : gardez toujours une clé de secours — la deuxième coûte {{ $pricing['second_key_discount'] * 100 }} % de moins.</p></div></div>
                     <div class="sc-body">
                         <div class="count-grid">
                             <label class="count-card" data-group="quantity">
@@ -215,37 +215,37 @@
                             <label class="count-card" data-group="quantity">
                                 <input class="dkp-hidden-input" type="radio" name="quantity" value="2" @checked((string) $v('quantity') === '2')>
                                 <span class="kchk">✓</span><div class="count-big">2</div><div class="count-lbl">Clés</div>
-                                <span class="count-badge">2ᵉ clé −{{ $pricing['second_key_discount'] * 100 }} %</span>
+                                <span class="count-badge">−{{ $pricing['second_key_discount'] * 100 }} % sur la 2ᵉ</span>
                             </label>
                         </div>
                     </div>
                 </div>
 
                 <div class="sc">
-                    <div class="sc-head"><span class="sc-num">6</span><div><h3>Protection <span class="sc-tag">Optionnel</span></h3><p>Un mois de garantie est inclus pour chaque clé fabriquée. Vous pouvez prolonger la garantie d’un an.</p></div></div>
+                    <div class="sc-head"><span class="sc-num">6</span><div><h3>Garantie <span class="sc-tag">Au choix</span></h3><p>Chaque clé est couverte 1 mois. Passez à 12 mois si vous le souhaitez.</p></div></div>
                     <div class="sc-body">
-                        <div class="gar-incl"><i class="fas fa-shield-alt"></i> Une garantie d’un mois est incluse dans le prix pour chaque clé fabriquée</div>
+                        <div class="gar-incl"><i class="fas fa-shield-alt"></i> Inclus : 1 mois de garantie sur chaque clé</div>
                         <label class="tog-row" data-toggle>
                             <input class="dkp-hidden-input" type="checkbox" name="warranty_extension" value="1" @checked($v('warranty_extension'))>
                             <span class="tog-sw"><span class="tog-knob"></span></span>
-                            <span class="tog-txt"><span class="tog-name" style="display:block">Extension de garantie de 1 an</span><span class="tog-desc" style="display:block">(couvre chaque clé pendant 1 an au total — dysfonctionnement électronique)</span></span>
+                            <span class="tog-txt"><span class="tog-name" style="display:block">Garantie 12 mois</span><span class="tog-desc" style="display:block">Pannes électroniques prises en charge pendant un an</span></span>
                         </label>
                     </div>
                 </div>
 
                 <div class="sc">
-                    <div class="sc-head"><span class="sc-num">7</span><div><h3>Options d’intervention <span class="sc-tag">Optionnel</span></h3></div></div>
+                    <div class="sc-head"><span class="sc-num">7</span><div><h3>Délai <span class="sc-tag">Au choix</span></h3></div></div>
                     <div class="sc-body">
                         <label class="tog-row" data-toggle>
                             <input class="dkp-hidden-input" type="checkbox" name="emergency" value="1" @checked($v('emergency'))>
                             <span class="tog-sw"><span class="tog-knob"></span></span>
-                            <span class="tog-txt"><span class="tog-name" style="display:block">Intervention d’urgence</span><span class="tog-desc" style="display:block">Week-end — soir de 20h à 8h — ou besoin de passage rapide</span></span>
+                            <span class="tog-txt"><span class="tog-name" style="display:block">Passage express</span><span class="tog-desc" style="display:block">Le soir, le dimanche ou dès que possible</span></span>
                         </label>
                     </div>
                 </div>
 
                 <div class="sc" data-section="vehicle_info">
-                    <div class="sc-head"><span class="sc-num">8</span><div><h3>Informations du véhicule</h3></div></div>
+                    <div class="sc-head"><span class="sc-num">8</span><div><h3>Votre véhicule</h3></div></div>
                     <div class="sc-body">
                         <div class="inp-row">
                             <div class="inp-wrap"><label class="inp-label" for="plate">Immatriculation <span class="req">*</span></label><input class="dkp-input" id="plate" name="plate" value="{{ $v('plate') }}" placeholder="LT 123 AB" autocomplete="off"></div>
@@ -263,7 +263,7 @@
             {{-- ═════════ ÉTAPE 2 : LOCALISATION ═════════ --}}
             <div class="step-panel" data-step="2">
                 <div class="sc" data-section="address">
-                    <div class="sc-head"><span class="sc-num ico"><i class="fas fa-map-marker-alt"></i></span><div><h3>Adresse d’intervention</h3><p>Où se trouve le véhicule ?</p></div></div>
+                    <div class="sc-head"><span class="sc-num ico"><i class="fas fa-map-marker-alt"></i></span><div><h3>Où êtes-vous ?</h3><p>L’endroit où se trouve le véhicule.</p></div></div>
                     <div class="sc-body">
                         <button type="button" class="geo-btn" id="geo-btn">
                             <span class="geo-icon">📍</span>
@@ -285,7 +285,7 @@
                     </div>
                 </div>
                 <div class="sc" data-section="contact">
-                    <div class="sc-head"><span class="sc-num ico"><i class="far fa-user"></i></span><div><h3>Vos coordonnées</h3><p>Pour que le technicien puisse vous joindre.</p></div></div>
+                    <div class="sc-head"><span class="sc-num ico"><i class="far fa-user"></i></span><div><h3>Vos coordonnées</h3><p>Pour vous rappeler et confirmer le prix.</p></div></div>
                     <div class="sc-body">
                         <div class="inp-row two">
                             <div class="inp-wrap"><label class="inp-label" for="customer_name">Nom complet <span class="req">*</span></label><input class="dkp-input" id="customer_name" name="customer_name" value="{{ $v('customer_name') }}" autocomplete="name"></div>
@@ -311,7 +311,7 @@
                 <div class="sc">
                     <div class="sc-head"><span class="sc-num ico"><i class="fas fa-file-invoice"></i></span><div><h3>Tarif &amp; règlement</h3></div></div>
                     <div class="sc-body">
-                        <div class="gar-incl" style="margin:0"><i class="fas fa-check-circle"></i> Aucun paiement maintenant : un conseiller vous confirme le prix avant le départ du technicien, et vous réglez uniquement après l’intervention.</div>
+                        <div class="gar-incl" style="margin:0"><i class="fas fa-check-circle"></i> Rien à payer maintenant : le prix vous est confirmé par téléphone, et vous réglez une fois la clé essayée.</div>
                     </div>
                 </div>
             </div>
@@ -321,18 +321,18 @@
         <aside>
             <div class="sidebar-sticky">
                 <div class="recap-wrap">
-                    <div class="rh"><h3>Vos sélections</h3><span class="rc-badge" id="rc-count">0</span></div>
+                    <div class="rh"><h3>Récapitulatif</h3><span class="rc-badge" id="rc-count">0</span></div>
                     <div class="rb" id="recap">
-                        <div class="recap-empty"><span class="recap-empty-icon">🔑</span>Sélectionnez vos options<br>pour voir votre récapitulatif</div>
+                        <div class="recap-empty"><span class="recap-empty-icon">🔑</span>Vos choix<br>s’afficheront ici</div>
                     </div>
                 </div>
                 <label class="terms-box" id="terms-box">
                     <input type="checkbox" name="accept_terms" value="1" id="accept_terms" @checked($v('accept_terms'))>
-                    <span>J’ai lu et j’accepte les <a href="{{ route('terms') }}" target="_blank">Conditions générales d’intervention</a> — obligatoire pour valider votre demande.</span>
+                    <span>J’accepte les <a href=\"{{ route('terms') }}\" target=\"_blank\">conditions générales d’intervention</a>.</span>
                 </label>
-                <button type="button" class="btn-cta" id="btn-next">Continuer vers la localisation →</button>
+                <button type="button" class="btn-cta" id="btn-next">Étape suivante : l’adresse →</button>
                 <button type="button" class="btn-back" id="btn-back" hidden>← Retour</button>
-                <button type="button" class="btn-clear-draft" id="btn-clear">Effacer mes informations</button>
+                <button type="button" class="btn-clear-draft" id="btn-clear">Tout recommencer</button>
                 <div class="pay-row" aria-label="Moyens de paiement acceptés après intervention : Orange Money, MTN Mobile Money, espèces, carte">
                     <span class="pay-chip pay-om">Orange<br>Money</span>
                     <span class="pay-chip pay-momo">MTN<br>MoMo</span>
@@ -341,11 +341,11 @@
                     <span class="pay-chip"><i class="fab fa-cc-mastercard"></i></span>
                 </div>
                 <div class="trust-list">
-                    <span class="trust-item"><span class="tdot"></span>Paiement uniquement après l’intervention</span>
-                    <span class="trust-item"><span class="tdot"></span>Garantie 1 mois incluse sur chaque clé</span>
-                    <span class="trust-item"><span class="tdot"></span>Prix annoncé avant toute intervention</span>
-                    <span class="trust-item"><span class="tdot"></span>Annulation gratuite avant départ du technicien</span>
-                    <span class="trust-item"><span class="tdot"></span>Technicien certifié — RC Pro assurée</span>
+                    <span class="trust-item"><span class="tdot"></span>Vous payez seulement une fois la clé essayée</span>
+                    <span class="trust-item"><span class="tdot"></span>1 mois de garantie sur chaque clé</span>
+                    <span class="trust-item"><span class="tdot"></span>Prix confirmé par téléphone avant le déplacement</span>
+                    <span class="trust-item"><span class="tdot"></span>Changement d’avis ? Annulation sans frais avant le départ</span>
+                    <span class="trust-item"><span class="tdot"></span>Techniciens formés, assurés en responsabilité civile</span>
                 </div>
             </div>
         </aside>
@@ -452,8 +452,8 @@
 <section class="testimonials-section">
     <div class="container">
         <div class="section-title">
-            <span class="sub-title">Consultez les avis des clients</span>
-            <h2 class="main-title">Les meilleures recommandations sont celles de nos clients</h2>
+            <span class="sub-title">Avis clients</span>
+            <h2 class="main-title">Ce que disent nos clients</h2>
         </div>
         <div class="swiper testimonial-swiper">
             <div class="swiper-wrapper">
@@ -482,50 +482,50 @@
 <section class="seo-section">
     <div class="seo-inner">
         <div class="seo-head">
-            <h2>{{ $settings['company_name'] }} — votre serrurier automobile à domicile</h2>
-            <p>Spécialiste de la <strong>clé automobile</strong> à Douala et partout au Cameroun, {{ $settings['company_name'] }} réalise la <strong>reproduction de clé de voiture</strong>, le <strong>double de clé auto</strong> et la <strong>programmation de clé</strong> directement chez vous, 24h/24.</p>
+            <h2>{{ $settings['company_name'] }}, l’atelier de la clé automobile à Akwa</h2>
+            <p>Depuis notre boutique d’Akwa, nous <strong>taillons, codons et remplaçons</strong> les clés de voitures, de camions et de deux-roues pour les particuliers, les garages et les entreprises de Douala et de tout le Cameroun.</p>
         </div>
         <div class="seo-grid">
             <div class="seo-card">
-                <h3>Clé de voiture perdue ? Dépannage 24h/24</h3>
-                <p>Plus aucune clé ? Pas d’inquiétude. Un technicien {{ $settings['company_name'] }} se déplace en urgence avec tout son matériel pour <strong>créer une nouvelle clé sur place</strong>, sans l’originale et sans passer par le concessionnaire.</p>
-                <p class="note">Besoin d’aide immédiate ? Appelez le {{ $settings['phone'] }} : un serrurier auto part vers vous.</p>
+                <h3>Plus aucune clé ? On repart de zéro</h3>
+                <p>Clés perdues au marché, volées ou tombées en panne en même temps : nos techniciens lisent les données du véhicule et <strong>fabriquent une clé neuve</strong>, puis effacent les anciennes de la mémoire du véhicule si vous le demandez.</p>
+                <p class="note">Une urgence ? Appelez le {{ $settings['phone'] }}.</p>
             </div>
             <div class="seo-card">
-                <h3>Double de clé voiture &amp; reproduction rapide</h3>
-                <p>Vous avez encore une clé qui fonctionne ? Nous réalisons un <strong>double de clé</strong> à domicile : clé à transpondeur, télécommande, clé électronique ou mains libres, sur plus de 100 marques.</p>
-                <p class="note">Prix communiqué à l’avance, sans surprise.</p>
+                <h3>Une clé de secours, avant la panne</h3>
+                <p>Une seule clé pour le véhicule familial ou de service ? Faites-en une <strong>deuxième pendant qu’elle fonctionne</strong> : c’est plus rapide, et bien moins cher qu’après une perte.</p>
+                <p class="note">−30 % sur la deuxième clé.</p>
             </div>
             <div class="seo-card">
-                <h3>Programmer &amp; reprogrammer une clé</h3>
-                <p>Codage par prise OBD, synchronisation de transpondeur, clé qui ne démarre plus : nos techniciens utilisent du <strong>matériel professionnel</strong> pour programmer votre clé en quelques minutes.</p>
-                <p class="note">Intervention rapide, sur place.</p>
+                <h3>Codage et antidémarrage</h3>
+                <p>Clé qui ouvre mais ne démarre plus, voyant d’antidémarrage allumé, télécommande désynchronisée : nous relisons et <strong>recodons</strong> la clé avec nos outils de diagnostic.</p>
+                <p class="note">Souvent réglé en moins d’une heure.</p>
             </div>
             <div class="seo-card">
-                <h3>Ouverture de véhicule sans clé</h3>
-                <p>Clé enfermée dans l’habitacle ou dans le coffre ? Nous ouvrons votre véhicule <strong>sans aucun dégât</strong>, de jour comme de nuit, week-ends et jours fériés compris.</p>
-                <p class="note">Une nouvelle clé peut être fabriquée dans la foulée.</p>
+                <h3>Clés enfermées dans le véhicule</h3>
+                <p>Portières verrouillées avec les clés à l’intérieur ? Nous ouvrons <strong>sans forcer ni abîmer</strong> la serrure, puis nous pouvons fabriquer une clé de secours sur place.</p>
+                <p class="note">Le soir et le dimanche aussi, sur demande.</p>
             </div>
             <div class="seo-card">
-                <h3>Toutes marques, auto, moto et poids lourd</h3>
-                <p>Peugeot, Renault, Citroën, Volkswagen, BMW, Mercedes, Audi, Toyota… mais aussi <strong>camions et motos</strong> : nos techniciens connaissent les systèmes antidémarrage des principaux constructeurs.</p>
-                <p class="note"><a href="{{ route('brands.index') }}" style="color:var(--navy);font-weight:700">Voir toutes les marques →</a></p>
+                <h3>Toyota, Hyundai, Mercedes… et camions</h3>
+                <p>Corolla, RAV4, Hilux, Prado, Land Cruiser, mais aussi Hyundai, Kia, Nissan, Mercedes, Ford, ainsi que <strong>camions et motos</strong> : nous avons les outils pour la grande majorité des véhicules qui roulent au Cameroun.</p>
+                <p class="note"><a href="{{ route('brands.index') }}" style="color:var(--navy);font-weight:700">Voir les marques →</a></p>
             </div>
             <div class="seo-card">
-                <h3>Tarifs transparents</h3>
-                <p>Le tarif dépend du véhicule, du type de clé et des options. Il vous est <strong>communiqué avant le départ</strong> du technicien, sur la base de votre carte grise ou de votre plaque et de l’adresse d’intervention.</p>
-                <p class="note">Règlement après l’intervention, par carte ou virement.</p>
+                <h3>Des prix en FCFA, connus d’avance</h3>
+                <p>Le prix dépend du véhicule, de la clé et de la gamme choisie. Envoyez-nous la carte grise ou une photo de la clé : <strong>vous connaissez le montant avant</strong> que l’on commence.</p>
+                <p class="note">Orange Money, MTN Mobile Money, espèces ou carte.</p>
             </div>
         </div>
         <div class="seo-cta">
-            <h3>Comment refaire une clé de voiture sans double ?</h3>
-            <p>C’est simple : même <strong>sans clé d’origine</strong>, nos techniciens fabriquent une nouvelle clé à partir des données du véhicule, la programment sur place et peuvent <strong>désactiver les anciennes clés</strong> pour votre sécurité.</p>
+            <h3>Vous avez perdu votre seule clé ?</h3>
+            <p>Ce n’est pas une raison pour remorquer le véhicule chez le concessionnaire : nous créons une <strong>clé neuve sans l’ancienne</strong>, directement à Akwa ou là où se trouve votre véhicule.</p>
             <a href="tel:{{ $tel }}" class="btn-white"><i class="fas fa-phone-alt"></i> {{ $settings['phone'] }}</a>
         </div>
 
         @if ($faqs->isNotEmpty())
             <div class="seo-sub">
-                <h3>Questions fréquentes — clé de voiture</h3>
+                <h3>Vos questions</h3>
                 <div class="faq-list">
                     @foreach ($faqs as $faq)
                         <details class="faq-item"><summary>{{ $faq->question }}</summary><div class="faq-a">{{ $faq->answer }}</div></details>
@@ -535,7 +535,7 @@
         @endif
 
         <div class="seo-sub">
-            <h3>Ressources utiles</h3>
+            <h3>Pour aller plus loin</h3>
             <div class="res-grid">
                 <a class="res-card" href="{{ route('services.index') }}"><b>Toutes nos prestations</b><span>Perte totale, double, ouverture, programmation, réparation.</span></a>
                 <a class="res-card" href="{{ route('brands.index') }}"><b>Clés par marque</b><span>Retrouvez votre constructeur et nos solutions dédiées.</span></a>

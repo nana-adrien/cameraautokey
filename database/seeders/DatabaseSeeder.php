@@ -49,13 +49,13 @@ class DatabaseSeeder extends Seeder
     private function seedServices(): void
     {
         $services = [
-            ['🔑', 'Perte totale de clés auto', 'cle-voiture-perdue', 75000, 'Plus aucune clé ? Nous fabriquons et programmons une nouvelle clé sur place, sans passer par le concessionnaire.'],
-            ['🚚', 'Perte totale poids lourd', 'cle-camion-perdue', 110000, 'Camions, porteurs et semi-remorques : remise en route rapide de votre flotte, directement sur votre site.'],
-            ['🏍️', 'Perte totale moto', 'cle-moto-perdue', 60000, 'Clé de moto ou de scooter perdue : fabrication et codage d’une nouvelle clé là où se trouve votre deux-roues.'],
-            ['🚪', 'Ouverture de véhicule', 'ouverture-vehicule-sans-cle', 35000, 'Clé enfermée dans l’habitacle ? Ouverture sans dégât par technique professionnelle, de jour comme de nuit.'],
-            ['💻', 'Programmation de clé', 'programmation-cle-automobile', 40000, 'Codage OBD, synchronisation de transpondeur et de télécommande sur la grande majorité des marques.'],
-            ['🛠️', 'Réparation de télécommande', 'reparation-telecommande-voiture', 15000, 'Boutons usés, coque cassée, pile ou circuit défaillant : réparation à moindre coût de votre clé actuelle.'],
-            ['🩺', 'Diagnostic automobile', 'diagnostic-auto-voiture', 20000, 'Lecture des codes défaut et diagnostic électronique de l’antidémarrage et des calculateurs.'],
+            ['🔑', 'Remplacement de toutes les clés', 'cle-voiture-perdue', 75000, 'Plus une seule clé pour votre voiture ? Nous en créons une neuve à partir du véhicule, sans aucun double.'],
+            ['🚚', 'Clés de camions et bus', 'cle-camion-perdue', 110000, 'Porteurs, tracteurs routiers, minibus : nous remettons votre véhicule de travail en service, sur votre parc ou à l’atelier.'],
+            ['🏍️', 'Clés de motos et tricycles', 'cle-moto-perdue', 60000, 'Moto, scooter ou tricycle immobilisé faute de clé : taille et codage d’une clé neuve.'],
+            ['🚪', 'Ouverture sans clé', 'ouverture-vehicule-sans-cle', 35000, 'Clés oubliées à l’intérieur ? Nous ouvrons votre véhicule proprement, sans casse.'],
+            ['💻', 'Codage de clé', 'programmation-cle-automobile', 40000, 'Clé qui ouvre mais ne démarre plus, télécommande muette : nous la recodons avec nos outils de diagnostic.'],
+            ['🛠️', 'Réparation de télécommande', 'reparation-telecommande-voiture', 15000, 'Coque fendue, boutons enfoncés, pile ou circuit fatigué : on remet votre clé en état.'],
+            ['🩺', 'Diagnostic électronique', 'diagnostic-auto-voiture', 20000, 'Lecture des défauts, voyants allumés, antidémarrage : on cherche la vraie panne avant de remplacer quoi que ce soit.'],
         ];
 
         foreach ($services as $i => [$icon, $title, $slug, $price, $excerpt]) {
@@ -65,7 +65,7 @@ class DatabaseSeeder extends Seeder
                 'price_from' => $price,
                 'excerpt' => $excerpt,
                 'position' => $i,
-                'content' => $excerpt."\n\nNos techniciens CAMERAUTOKEY se déplacent avec un atelier mobile complet : machine de taille, programmateurs et stock de clés compatibles. Le prix vous est communiqué avant le départ du technicien et vous ne réglez qu’une fois la prestation terminée et validée.\n\nChaque clé fabriquée est garantie un mois, avec une extension de garantie possible d’un an.",
+                'content' => $excerpt."\n\nLe travail se fait à notre boutique d’Akwa (Douala) ou là où se trouve votre véhicule, avec nos machines de taille, nos outils de codage et un stock de clés vierges. Le prix vous est annoncé en FCFA avant de commencer, et vous ne payez qu’après avoir essayé la clé.\n\nGarantie d’un mois sur chaque clé, extensible à douze mois.",
             ]);
         }
     }
@@ -83,7 +83,7 @@ class DatabaseSeeder extends Seeder
                 Brand::updateOrCreate(['slug' => Str::slug($name)], [
                     'name' => $name,
                     'category' => $category,
-                    'description' => "Reproduction, programmation et remplacement de clés {$name} à domicile. Nos techniciens disposent du matériel de diagnostic adapté aux systèmes antidémarrage {$name}.",
+                    'description' => "Copie, codage et remplacement des clés {$name} à Douala, avec des outils de diagnostic compatibles avec l’antidémarrage {$name}.",
                 ]);
             }
         }
@@ -107,12 +107,12 @@ class DatabaseSeeder extends Seeder
     private function seedFaqs(): void
     {
         $faqs = [
-            ['Combien coûte un double de clé de voiture ?', 'Nos tarifs démarrent à 25 000 FCFA pour une clé simple. Le prix dépend du type de clé, du véhicule et des options. Il est toujours annoncé avant l’intervention.'],
-            ['Pouvez-vous refaire une clé sans l’originale ?', 'Oui. En cas de perte totale, nous fabriquons une nouvelle clé à partir de la serrure ou des données du véhicule, puis nous la programmons sur place.'],
-            ['En combien de temps intervenez-vous ?', 'À Douala, un technicien se met en route immédiatement, généralement en 30 à 60 minutes selon le quartier et la circulation. Vous pouvez aussi venir directement à notre atelier d’Akwa.'],
-            ['Comment puis-je payer ?', 'Aucun paiement à la demande. Vous réglez à la fin de la prestation, une fois que vous l’avez validée : espèces, Orange Money, MTN Mobile Money ou carte bancaire.'],
-            ['Quels documents dois-je fournir ?', 'La carte grise du véhicule et une pièce d’identité au même nom sont demandées avant toute fabrication de clé, pour des raisons de sécurité.'],
-            ['Ma clé est-elle garantie ?', 'Chaque clé fabriquée est garantie un mois. Vous pouvez souscrire une extension de garantie d’un an lors de votre demande.'],
+            ['Quel est le prix d’une clé de voiture ?', 'Comptez à partir de 25 000 FCFA pour la copie d’une clé mécanique. Le montant dépend du véhicule, du type de clé et de la gamme choisie ; il vous est toujours confirmé avant de commencer.'],
+            ['Peut-on faire une clé si je n’ai plus l’ancienne ?', 'Oui. Nous lisons les informations du véhicule pour tailler et coder une clé neuve, puis nous pouvons effacer les clés perdues de la mémoire du véhicule.'],
+            ['Combien de temps faut-il ?', 'À l’atelier d’Akwa, une copie de clé prend souvent une trentaine de minutes. Pour un déplacement, le délai dépend du quartier et de la circulation : nous vous donnons une heure de passage au téléphone.'],
+            ['Comment se passe le paiement ?', 'Rien à payer lors de la demande. Vous réglez après avoir essayé la clé : Orange Money, MTN Mobile Money, espèces ou carte bancaire.'],
+            ['Que dois-je présenter ?', 'La carte grise du véhicule et une pièce d’identité au même nom. Sans ces documents, nous ne fabriquons pas de clé : c’est une protection contre le vol.'],
+            ['La clé est-elle garantie ?', 'Oui, un mois sur chaque clé. Vous pouvez choisir une garantie de douze mois au moment de la demande.'],
         ];
 
         foreach ($faqs as $i => [$question, $answer]) {

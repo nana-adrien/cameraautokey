@@ -7,14 +7,14 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@yield('title', 'Reproduction et refonte de clé de voiture à Douala') | {{ $settings['company_name'] }} — Serrurier auto mobile</title>
+    <title>@yield('title', 'Reproduction et refonte de clé de voiture à Douala') | {{ $settings['company_name'] }} — clés auto à Douala</title>
     <meta name="description" content="@yield('description', 'Reproduction, refonte et programmation de clés auto, moto et poids lourd à Douala, Yaoundé et partout au Cameroun.')">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800;900&family=Barlow+Condensed:wght@600;700;800;900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     @stack('head')
-    <link rel="stylesheet" href="{{ asset('css/site.css') }}?v=12">
+    <link rel="stylesheet" href="{{ asset('css/site.css') }}?v=14">
     <link rel="icon" type="image/png" href="{{ asset('images/favicon-64.png') }}">
     <link rel="apple-touch-icon" href="{{ asset('images/logo-camer-auto-key-160.png') }}">
 </head>
@@ -23,7 +23,7 @@
 {{-- ─── TOPBAR ─── --}}
 <div class="topbar">
     <div class="tb-left">
-        <span class="tb-item"><span class="tb-dot"></span> Disponible 24h/24 — 7j/7</span>
+        <span class="tb-item"><span class="tb-dot"></span> Ouvert : {{ $settings['opening_hours'] }}</span>
         <span class="tb-item"><i class="fas fa-map-marker-alt"></i> {{ $settings['address'] }}</span>
         <a class="tb-item" href="mailto:{{ $settings['email'] }}"><i class="far fa-envelope"></i> {{ $settings['email'] }}</a>
     </div>
@@ -58,16 +58,16 @@
         </li>
         <li><a href="{{ route('home') }}" @class(['nav-active' => request()->routeIs('home')]) @if (request()->routeIs('home')) aria-current="page" @endif>Accueil</a></li>
         <li @class(['has-sub', 'has-mega', 'nav-active' => request()->routeIs('services.*', 'brands.*')])>
-            <a href="{{ route('services.index') }}">Nos Services</a>
+            <a href="{{ route('services.index') }}">Services</a>
             <div class="sub-menu mega-menu">
                 <div class="mega-col">
-                    <div class="mega-title">Nos expertises</div>
+                    <div class="mega-title">Prestations</div>
                     @foreach ($navServices as $s)
                         <a href="{{ route('services.show', $s) }}" @class(['current' => request()->is('service/'.$s->slug)])>{{ $s->title }}</a>
                     @endforeach
                 </div>
                 <div class="mega-col">
-                    <div class="mega-title">Toutes les marques automobiles</div>
+                    <div class="mega-title">Marques auto</div>
                     <div class="mega-brand-grid">
                         @foreach ($navBrands['auto'] ?? [] as $b)
                             <a href="{{ route('brands.show', $b) }}" @class(['current' => request()->is('service/reproduction-cle-'.$b->slug)])>{{ $b->name }}</a>
@@ -75,15 +75,15 @@
                     </div>
                 </div>
                 <div class="mega-col">
-                    <div class="mega-title">Poids lourds</div>
+                    <div class="mega-title">Camions</div>
                     @foreach ($navBrands['pl'] ?? [] as $b)
                         <a href="{{ route('brands.show', $b) }}">{{ $b->name }}</a>
                     @endforeach
-                    <div class="mega-title" style="margin-top:14px">Motos</div>
+                    <div class="mega-title" style="margin-top:14px">Deux-roues</div>
                     @foreach (($navBrands['moto'] ?? collect())->take(5) as $b)
                         <a href="{{ route('brands.show', $b) }}">{{ $b->name }}</a>
                     @endforeach
-                    <a href="{{ route('brands.index') }}" class="is-highlight-link">Toutes les marques →</a>
+                    <a href="{{ route('brands.index') }}" class="is-highlight-link">Voir les {{ $navBrands->flatten()->count() }} marques →</a>
                 </div>
             </div>
         </li>
@@ -93,7 +93,7 @@
         <li><a href="{{ route('become-technician') }}" @class(['nav-active' => request()->routeIs('become-technician')]) @if (request()->routeIs('become-technician')) aria-current="page" @endif>Devenir intervenant</a></li>
         <li><a href="{{ route('faq') }}" @class(['nav-active' => request()->routeIs('faq')]) @if (request()->routeIs('faq')) aria-current="page" @endif>FAQ</a></li>
         <li><a href="{{ route('contact') }}" @class(['nav-active' => request()->routeIs('contact')]) @if (request()->routeIs('contact')) aria-current="page" @endif>Contact</a></li>
-        <li><a href="{{ route('home') }}#commande" class="nav-cta"><i class="fas fa-bolt"></i> Intervention</a></li>
+        <li><a href="{{ route('home') }}#commande" class="nav-cta"><i class="fas fa-key"></i> Ma clé</a></li>
     </ul>
 </header>
 
@@ -116,23 +116,21 @@
         </div>
         <div class="ft-widgets">
             <div>
-                <div class="ft-title">Liens importants</div>
+                <div class="ft-title">Navigation</div>
                 <ul class="ft-links">
                     <li><a href="{{ route('home') }}">– Accueil</a></li>
                     <li><a href="{{ route('orders.track') }}">– Suivre ma demande</a></li>
                     <li><a href="{{ route('about') }}">– Qui sommes-nous ?</a></li>
                     <li><a href="{{ route('terms') }}">– Conditions d’intervention</a></li>
                     <li><a href="{{ route('brands.index') }}">– Clés par marque</a></li>
-                    <li><a href="{{ route('services.show', 'cle-voiture-perdue') }}">– Perte totale des clés</a></li>
-                    <li><a href="{{ route('faq') }}">– FAQ complète</a></li>
+                                        <li><a href="{{ route('faq') }}">– Questions fréquentes</a></li>
                     <li><a href="{{ route('contact') }}">– Contact</a></li>
-                    <li><a href="{{ route('professionals') }}">– Devenir partenaire</a></li>
-                    <li><a href="{{ route('become-technician') }}">– Devenir intervenant</a></li>
+                                        <li><a href="{{ route('become-technician') }}">– Devenir intervenant</a></li>
                     <li><a href="{{ route('legal') }}">– Mentions légales</a></li>
                 </ul>
             </div>
             <div>
-                <div class="ft-title">Nos expertises</div>
+                <div class="ft-title">Prestations</div>
                 <ul class="ft-links">
                     @foreach ($navServices as $s)
                         <li><a href="{{ route('services.show', $s) }}">– {{ $s->title }}</a></li>
@@ -142,14 +140,14 @@
                 </ul>
             </div>
             <div>
-                <div class="ft-title">Marques couvertes</div>
-                <div class="ft-sub">Automobiles &amp; prestige</div>
+                <div class="ft-title">Marques</div>
+                <div class="ft-sub">Voitures</div>
                 <div class="bt-pills">
                     @foreach ($navBrands['auto'] ?? [] as $b)
                         <a href="{{ route('brands.show', $b) }}">{{ $b->name }}</a>
                     @endforeach
                 </div>
-                <div class="ft-sub">Poids lourds &amp; motos</div>
+                <div class="ft-sub">Camions &amp; deux-roues</div>
                 <div class="bt-pills">
                     @foreach (collect($navBrands['pl'] ?? [])->merge($navBrands['moto'] ?? []) as $b)
                         <a href="{{ route('brands.show', $b) }}">{{ $b->name }}</a>
@@ -157,7 +155,7 @@
                 </div>
             </div>
             <div>
-                <div class="ft-title">Contact &amp; newsletter</div>
+                <div class="ft-title">Nous joindre</div>
                 <ul class="ft-address">
                     <li><i class="fas fa-phone-alt"></i><a href="tel:{{ $tel }}">{{ $settings['phone'] }}</a></li>
                     @if ($settings['phone_secondary'])
@@ -166,7 +164,7 @@
                     <li><i class="fas fa-envelope"></i><a href="mailto:{{ $settings['email'] }}">{{ $settings['email'] }}</a></li>
                     <li><i class="fas fa-map-marker-alt"></i><span>{{ $settings['address'] }}</span></li>
                 </ul>
-                <p style="margin:16px 0 0">Restez informé(e) de nos actualités :</p>
+                <p style="margin:16px 0 0">Recevez nos offres par e-mail :</p>
                 <form class="ft-news" method="POST" action="{{ route('newsletter') }}">
                     @csrf
                     <input type="email" name="email" placeholder="Votre e-mail" required aria-label="Votre e-mail">
@@ -187,31 +185,31 @@
         <div class="ft-boxes">
             <div class="ft-box">
                 <div>
-                    <h4>Accès intervenants</h4>
-                    <p>Espace dédié aux techniciens et partenaires {{ $settings['company_name'] }} : recevez des demandes près de chez vous et développez votre activité avec notre réseau.</p>
+                    <h4>Vous êtes technicien ?</h4>
+                    <p>Serrurier auto ou spécialiste de l’électronique embarquée ? Travaillez avec {{ $settings['company_name'] }} sur des demandes proches de chez vous.</p>
                 </div>
-                <a href="{{ route('become-technician') }}" class="btn-ft">Voir plus</a>
+                <a href="{{ route('become-technician') }}" class="btn-ft">Nous rejoindre</a>
             </div>
             <div class="ft-box">
                 <div>
-                    <h4>Espace entreprises</h4>
-                    <p>Pour les flottes et les professionnels : demandes groupées, contrats, suivi et accompagnement personnalisé.</p>
+                    <h4>Vous gérez des véhicules ?</h4>
+                    <p>Taxis, transporteurs, loueurs, sociétés : clés de secours pour toute la flotte et un interlocuteur unique.</p>
                 </div>
-                <a href="{{ route('professionals') }}" class="btn-ft">Voir plus</a>
+                <a href="{{ route('professionals') }}" class="btn-ft">Offre pro</a>
             </div>
         </div>
     </div>
     <div class="ft-trust">
-        <span><i class="fas fa-shield-alt"></i>RC Pro — techniciens assurés</span>
+        <span><i class="fas fa-shield-alt"></i>Techniciens assurés</span>
         <span><i class="fas fa-map-marker-alt"></i>Atelier à Akwa, Douala — interventions dans tout le Cameroun</span>
-        <span><i class="fas fa-star"></i>4,9/5 avis clients</span>
+        <span><i class="fas fa-star"></i>Clients satisfaits à Douala</span>
     </div>
     <div class="ft-copy">© Copyright {{ date('Y') }} {{ $settings['company_name'] }} — Tous droits réservés · <a href="{{ route('legal') }}">Mentions légales</a></div>
 </footer>
 
 @if ($settings['whatsapp'])
-    <a class="wa-float" href="https://wa.me/{{ $settings['whatsapp'] }}" target="_blank" rel="noopener" aria-label="Besoin d’aide ? Écrivez-nous sur WhatsApp">
-        <i class="fab fa-whatsapp"></i><span class="wa-label">Besoin d’aide ?</span>
+    <a class="wa-float" href="https://wa.me/{{ $settings['whatsapp'] }}" target="_blank" rel="noopener" aria-label="Écrivez-nous sur WhatsApp">
+        <i class="fab fa-whatsapp"></i><span class="wa-label">Écrivez-nous</span>
     </a>
 @endif
 
