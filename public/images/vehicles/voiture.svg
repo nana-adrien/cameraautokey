@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 100" role="img" aria-labelledby="t"><title id="t">Voiture</title>
+  <!-- Carrosserie (citadine / SUV, vue de profil vers la droite) -->
+  <path fill="#1a2f5e" d="M17 76c-6 0-9-4-9-10V55c0-7 4-11 11-13l20-5L60 19c4-4 9-6 15-6h41c7 0 13 2 18 7l21 17 23 5c8 2 14 8 14 16v8c0 6-3 10-9 10Z"/>
+  <!-- Vitres -->
+  <path fill="#fff" d="M66 23c2-2 5-3 8-3h22v17H48Z"/>
+  <path fill="#fff" d="M102 20h15c4 0 7 1 10 4l15 13h-40Z"/>
+  <!-- Bande latérale rouge + optiques -->
+  <path fill="#d6262e" d="M22 60h156c2 0 4 2 4 4s-2 4-4 4H22c-2 0-4-2-4-4s2-4 4-4Z"/>
+  <rect x="176" y="45" width="12" height="6" rx="3" fill="#d6262e"/>
+  <rect x="9" y="47" width="7" height="8" rx="2" fill="#d6262e"/>
+  <rect x="104" y="44" width="10" height="3" rx="1.5" fill="#fff"/>
+  <rect x="70" y="44" width="10" height="3" rx="1.5" fill="#fff"/>
+  <!-- Roues (passages découpés) -->
+  <circle cx="52" cy="76" r="20" fill="#fff"/><circle cx="150" cy="76" r="20" fill="#fff"/>
+  <circle cx="52" cy="76" r="15" fill="#1a2f5e"/><circle cx="150" cy="76" r="15" fill="#1a2f5e"/>
+  <circle cx="52" cy="76" r="7" fill="#fff"/><circle cx="150" cy="76" r="7" fill="#fff"/>
+  <circle cx="52" cy="76" r="3" fill="#d6262e"/><circle cx="150" cy="76" r="3" fill="#d6262e"/>
+</svg>

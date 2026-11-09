@@ -35,7 +35,7 @@
         ['f150-pont-elevateur.webp', 'Ford F-150 sur pont élévateur'],
         ['atelier-cour.webp', 'Notre atelier'],
     ];
-    $vehicleImages = ['auto' => 'vehicle-car.svg', 'pl' => 'vehicle-truck.svg', 'moto' => 'vehicle-moto.svg'];
+    $vehicleImages = ['auto' => 'voiture.svg', 'pl' => 'camion.svg', 'moto' => 'moto.svg'];
 @endphp
 
 @section('content')
@@ -141,7 +141,7 @@
                             @foreach ($pricing['vehicle_types'] as $key => $opt)
                                 <label class="veh-card" data-group="vehicle_type">
                                     <input class="dkp-hidden-input" type="radio" name="vehicle_type" value="{{ $key }}" @checked($v('vehicle_type') === $key)>
-                                    <div class="veh-icon-wrap"><img src="{{ asset('images/placeholders/'.$vehicleImages[$key]) }}" alt="" width="140" height="70"></div>
+                                    <div class="veh-icon-wrap"><img src="{{ asset('images/vehicles/'.$vehicleImages[$key]) }}" alt="" width="140" height="70"></div>
                                     <div class="veh-sel-dot"></div>
                                     <div class="veh-name">{{ $opt['label'] }}</div>
                                     <div class="veh-sub">{{ $opt['hint'] }}</div>

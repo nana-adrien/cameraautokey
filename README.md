@@ -59,11 +59,9 @@ et régénérer sa miniature (`cwebp -q 80 -resize 800 0 photo.webp -o thumbs/ph
 
 Le logo 3K est découpé dans l’affiche de recrutement (188 px) : le remplacer par le fichier original si disponible.
 
-**Visuels encore provisoires** (`public/images/`) :
+**Pictogrammes des véhicules** : `public/images/vehicles/{voiture,camion,moto}.svg` — dessins originaux (SVG, couleurs du site).
 
-| Fichier | Où | Format conseillé |
-|---|---|---|
-| `placeholders/vehicle-*.svg` | Cartes « Type de véhicule » | PNG transparent 160×80 |
+Il ne reste plus d’image provisoire sur le site.
 
 ## Localisation : Cameroun
 

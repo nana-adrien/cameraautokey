@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 110" role="img" aria-labelledby="t"><title id="t">Moto / scooter</title>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Roues -->
+    <circle cx="42" cy="80" r="23" stroke="#1a2f5e" stroke-width="9"/>
+    <circle cx="160" cy="80" r="23" stroke="#1a2f5e" stroke-width="9"/>
+    <!-- Cadre : bras oscillant, boucle arrière, tube supérieur, tube avant, fourche, guidon -->
+    <path stroke="#1a2f5e" stroke-width="8" d="M42 80 92 74M60 46l32 16M98 44l42-10M140 34 114 64M160 80 140 30l-8-10h-11"/>
+    <!-- Échappement rouge -->
+    <path stroke="#d6262e" stroke-width="6" d="M106 86H62"/>
+  </g>
+  <!-- Moteur -->
+  <rect x="84" y="56" width="34" height="25" rx="7" fill="#1a2f5e"/>
+  <rect x="92" y="62" width="18" height="4" rx="2" fill="#fff"/>
+  <rect x="92" y="70" width="18" height="4" rx="2" fill="#fff"/>
+  <!-- Réservoir et selle -->
+  <path fill="#1a2f5e" d="M95 47c2-11 14-17 28-17l16 3-5 14H97Z"/>
+  <path fill="#1a2f5e" d="M52 38h46v9H60c-5 0-8-3-8-9Z"/>
+  <!-- Coque arrière et phare rouges -->
+  <path fill="#d6262e" d="M30 31l25 6-2 10-21-6c-4-1-5-5-2-10Z"/>
+  <circle cx="151" cy="40" r="7" fill="#d6262e"/>
+  <!-- Moyeux -->
+  <circle cx="42" cy="80" r="4.5" fill="#d6262e"/><circle cx="160" cy="80" r="4.5" fill="#d6262e"/>
+</svg>
