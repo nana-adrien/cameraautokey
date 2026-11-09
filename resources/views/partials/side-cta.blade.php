@@ -18,4 +18,11 @@
             </div>
         </x-sc>
     @endisset
+    <x-sc icon="fas fa-tools" title="Besoin d’un garage ?" sub="{{ $settings['garage_name'] }}">
+        <div class="key-cross">
+            <img src="{{ asset('images/logo-3k-auto-services.webp') }}" alt="" width="54" height="50" loading="lazy">
+            <p style="font-size:13.5px;color:var(--muted)">Mécanique, vidange, diagnostic, freins, clim : notre garage partenaire à Ndogsimbi.</p>
+        </div>
+        <a href="{{ route('garage') }}" class="btn-outline" style="justify-content:center;width:100%;margin-top:10px"><i class="fas fa-wrench"></i> Découvrir le garage 3K</a>
+    </x-sc>
 </div>

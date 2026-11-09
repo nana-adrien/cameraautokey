@@ -11,6 +11,7 @@ class ContactMessage extends Model
         'intervenant' => 'Candidature intervenant',
         'professionnel' => 'Demande professionnelle',
         'newsletter' => 'Inscription newsletter',
+        'garage' => 'Demande garage 3K',
     ];
 
     protected $fillable = ['type', 'name', 'email', 'phone', 'company', 'subject', 'message', 'read_at'];

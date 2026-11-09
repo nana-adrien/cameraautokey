@@ -26,10 +26,17 @@ Route::get('/service/reproduction-cle-{brand}', [CatalogController::class, 'bran
 Route::get('/service/{service}', [CatalogController::class, 'service'])->name('services.show');
 Route::get('/marques', [CatalogController::class, 'brands'])->name('brands.index');
 
+/*
+| Mini-site du garage 3K AUTO SERVICES
+*/
+Route::prefix('garage-3k-auto-services')->controller(\App\Http\Controllers\GarageController::class)->group(function () {
+    Route::get('/', 'home')->name('garage');
+    Route::get('/prestations/{slug}', 'service')->where('slug', '[a-z0-9-]+')->name('garage.service');
+});
+
 Route::controller(PageController::class)->group(function () {
     Route::get('/qui-sommes-nous', 'about')->name('about');
     Route::get('/professionnels', 'professionals')->name('professionals');
-    Route::get('/garage-3k-auto-services', 'garage')->name('garage');
     Route::get('/devenir-intervenant', 'becomeTechnician')->name('become-technician');
     Route::get('/faq', 'faq')->name('faq');
     Route::get('/contact', 'contact')->name('contact');

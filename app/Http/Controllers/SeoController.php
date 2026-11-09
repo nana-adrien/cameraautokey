@@ -25,7 +25,8 @@ class SeoController extends Controller
             [route('legal'), '0.1', 'yearly', null],
         ])
             ->merge(Service::active()->get()->map(fn (Service $s) => [route('services.show', $s), '0.8', 'monthly', $s->updated_at]))
-            ->merge(Brand::active()->get()->map(fn (Brand $b) => [route('brands.show', $b), '0.6', 'monthly', $b->updated_at]));
+            ->merge(Brand::active()->get()->map(fn (Brand $b) => [route('brands.show', $b), '0.6', 'monthly', $b->updated_at]))
+            ->merge(collect(config('garage.services'))->keys()->map(fn ($slug) => [route('garage.service', $slug), '0.8', 'monthly', null]));
 
         $xml = '<?xml version="1.0" encoding="UTF-8"?>'."\n".'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'."\n";
         foreach ($urls as [$loc, $priority, $freq, $updated]) {

@@ -40,5 +40,10 @@ class AppServiceProvider extends ServiceProvider
         });
 
         View::composer('pages.*', fn ($view) => $view->with('settings', Setting::all_values()));
+
+        View::composer(['layouts.site', 'pages.garage.*'], fn ($view) => $view->with([
+            'settings' => Setting::all_values(),
+            'garageServices' => config('garage.services'),
+        ]));
     }
 }

@@ -45,9 +45,6 @@
 @push('jsonld')
 <script type="application/ld+json">{!! \App\Support\Seo::json(\App\Support\Seo::shop()) !!}</script>
 @endpush
-@push('jsonld')
-<script type="application/ld+json">{!! \App\Support\Seo::json(\App\Support\Seo::garage()) !!}</script>
-@endpush
 
 @section('content')
 {{-- ─── HERO ─── --}}
@@ -445,14 +442,7 @@
 {{-- ─── GARAGE AUTO : 3K AUTO SERVICES (le logo de l'en-tête bascule sur 3K dans cette section) ─── --}}
 @php
     $gTel = preg_replace('/\s+/', '', $settings['garage_phone']);
-    $garageServices = [
-        ['fas fa-cogs', 'Mécanique générale', 'Moteur, embrayage, distribution, suspensions'],
-        ['fas fa-oil-can', 'Entretien & vidange', 'Huile, filtres, niveaux, révision complète'],
-        ['fas fa-laptop-medical', 'Diagnostic électronique', 'Voyants, codes défaut, calculateurs'],
-        ['fas fa-compact-disc', 'Freinage', 'Plaquettes, disques, liquide de frein'],
-        ['fas fa-shield-alt', 'Alarme & GPS', 'Protection et suivi de votre véhicule'],
-        ['fas fa-video', 'Caméras & écrans', 'Recul 360°, multimédia, accessoires'],
-    ];
+    $garageServices = array_slice(config('garage.services'), 0, 6, true);
 @endphp
 <section class="garage-auto" id="garage-auto" data-brand-switch="garage" aria-labelledby="garage-auto-title">
     <div class="container">
@@ -467,8 +457,8 @@
 
         <div class="garage-auto-grid">
             <div class="garage-auto-services">
-                @foreach ($garageServices as [$icon, $name, $desc])
-                    <div class="ga-service"><span><i class="{{ $icon }}"></i></span><div><b>{{ $name }}</b><small>{{ $desc }}</small></div></div>
+                @foreach ($garageServices as $gslug => $gs)
+                    <a class="ga-service" href="{{ route('garage.service', $gslug) }}"><span><i class="{{ $gs['icon'] }}"></i></span><div><b>{{ $gs['title'] }}</b><small>{{ \Illuminate\Support\Str::limit($gs['excerpt'], 70) }}</small></div></a>
                 @endforeach
             </div>
             <div class="garage-auto-photos">
@@ -484,7 +474,7 @@
             <span><i class="fas fa-phone-alt"></i> <a href="tel:{{ $gTel }}">{{ $settings['garage_phone'] }}</a></span>
         </div>
         <div class="garage-auto-actions">
-            <a href="{{ route('garage') }}" class="ga-btn ga-btn-primary">Découvrir le garage</a>
+            <a href="{{ route('garage') }}" class="ga-btn ga-btn-primary">Découvrir le garage 3K →</a>
             @if ($settings['garage_whatsapp'])
                 <a href="https://wa.me/{{ $settings['garage_whatsapp'] }}" class="ga-btn" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> Rendez-vous</a>
             @endif
@@ -603,16 +593,6 @@
             breakpoints: { 700: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } },
         });
 
-        (function () {
-            const slides = document.querySelectorAll('.hero-slide');
-            if (slides.length < 2) return;
-            let i = 0;
-            setInterval(() => {
-                slides[i].classList.remove('active');
-                i = (i + 1) % slides.length;
-                slides[i].classList.add('active');
-            }, 6000);
-        })();
         document.querySelectorAll('[data-preselect-key]').forEach((card) => card.addEventListener('click', () => {
             const input = document.querySelector(`[name="key_type"][value="${card.dataset.preselectKey}"]`);
             if (input) { input.checked = true; input.dispatchEvent(new Event('change', { bubbles: true })); }

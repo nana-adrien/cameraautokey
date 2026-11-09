@@ -7,45 +7,19 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    @php
-        $seoTitle = trim($__env->yieldContent('title', 'Clés de voiture à Douala : copie et codage')).' | '.trim($__env->yieldContent('title_suffix', $settings['company_name']));
-        $seoDescription = trim($__env->yieldContent('description', 'Clé perdue, cassée ou à dupliquer ? '.$settings['company_name'].' taille et code vos clés de voiture, camion et moto à Akwa, Douala. Prix en FCFA, payé après essai.'));
-        $seoImage = asset(trim($__env->yieldContent('og_image', config('seo.og_image'))));
-        $seoIndex = config('seo.indexing') && ! trim($__env->yieldContent('noindex'));
-        $seoGeo = trim($__env->yieldContent('geo', $settings['shop_lat'].';'.$settings['shop_lng']));
-    @endphp
-    <title>{{ $seoTitle }}</title>
-    <meta name="description" content="{{ $seoDescription }}">
-    <meta name="robots" content="{{ $seoIndex ? 'index, follow, max-image-preview:large' : 'noindex, nofollow' }}">
-    <link rel="canonical" href="{{ url()->current() }}">
-    <meta name="theme-color" content="#1a2f5e">
-    {{-- Aperçus WhatsApp / Facebook / X --}}
-    <meta property="og:type" content="website">
-    <meta property="og:locale" content="fr_CM">
-    <meta property="og:site_name" content="{{ $settings['company_name'] }}">
-    <meta property="og:title" content="{{ $seoTitle }}">
-    <meta property="og:description" content="{{ $seoDescription }}">
-    <meta property="og:url" content="{{ url()->current() }}">
-    <meta property="og:image" content="{{ $seoImage }}">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    <meta name="twitter:card" content="summary_large_image">
-    {{-- Référencement local --}}
-    <meta name="geo.region" content="{{ config('seo.region') }}">
-    <meta name="geo.placename" content="Douala">
-    @if (str_contains($seoGeo, ';') && $seoGeo !== ';')
-        <meta name="geo.position" content="{{ $seoGeo }}">
-        <meta name="ICBM" content="{{ str_replace(';', ', ', $seoGeo) }}">
-    @endif
-    @stack('jsonld')
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800;900&family=Barlow+Condensed:wght@600;700;800;900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    @stack('head')
-    <link rel="stylesheet" href="{{ asset('css/site.css') }}?v=20">
-    <link rel="icon" type="image/png" href="{{ asset('images/favicon-64.png') }}">
-    <link rel="apple-touch-icon" href="{{ asset('images/logo-camer-auto-key-160.png') }}">
+    @include('partials.seo-head', [
+        'seoDefaults' => [
+            'title' => 'Clés de voiture à Douala : copie et codage',
+            'suffix' => $settings['company_name'],
+            'description' => 'Clé perdue, cassée ou à dupliquer ? '.$settings['company_name'].' taille et code vos clés de voiture, camion et moto à Akwa, Douala. Prix en FCFA, payé après essai.',
+            'og_image' => config('seo.og_image'),
+            'geo' => $settings['shop_lat'].';'.$settings['shop_lng'],
+            'site_name' => $settings['company_name'],
+            'theme' => '#1a2f5e',
+            'icon' => 'images/favicon-64.png',
+            'touch_icon' => 'images/logo-camer-auto-key-160.png',
+        ],
+    ])
 </head>
 <body>
 
@@ -125,7 +99,24 @@
                 </div>
             </div>
         </li>
-        <li><a href="{{ route('garage') }}" @class(['nav-active' => request()->routeIs('garage')]) @if (request()->routeIs('garage')) aria-current="page" @endif><i class="fas fa-tools" style="font-size:11px;opacity:.6"></i> Garage 3K</a></li>
+        <li @class(['has-sub', 'has-mega', 'nav-active' => request()->routeIs('garage', 'garage.*')])>
+            <a href="{{ route('garage') }}">Garage 3K</a>
+            <div class="sub-menu mega-menu garage-menu">
+                <div class="mega-col">
+                    <div class="mega-title">Mécanique &amp; entretien</div>
+                    @foreach (array_slice($garageServices, 0, 5, true) as $gslug => $gs)
+                        <a href="{{ route('garage.service', $gslug) }}" @class(['current' => request()->is('garage-3k-auto-services/prestations/'.$gslug)])>{{ $gs['title'] }}</a>
+                    @endforeach
+                </div>
+                <div class="mega-col">
+                    <div class="mega-title">Équipements &amp; carrosserie</div>
+                    @foreach (array_slice($garageServices, 5, null, true) as $gslug => $gs)
+                        <a href="{{ route('garage.service', $gslug) }}" @class(['current' => request()->is('garage-3k-auto-services/prestations/'.$gslug)])>{{ $gs['title'] }}</a>
+                    @endforeach
+                    <a href="{{ route('garage') }}" class="is-highlight-link">Voir le garage 3K →</a>
+                </div>
+            </div>
+        </li>
         <li><a href="{{ route('about') }}" @class(['nav-active' => request()->routeIs('about')]) @if (request()->routeIs('about')) aria-current="page" @endif>À propos</a></li>
         <li><a href="{{ route('professionals') }}" @class(['nav-active' => request()->routeIs('professionals')]) @if (request()->routeIs('professionals')) aria-current="page" @endif>Professionnels</a></li>
         <li><a href="{{ route('become-technician') }}" @class(['nav-active' => request()->routeIs('become-technician')]) @if (request()->routeIs('become-technician')) aria-current="page" @endif>Devenir intervenant</a></li>
@@ -252,35 +243,7 @@
     </a>
 @endif
 
-<script>
-(function () {
-    const btn = document.getElementById('menu-btn'), nav = document.getElementById('nav-links');
-    const toggle = (open) => {
-        nav.classList.toggle('show', open); btn.classList.toggle('active', open);
-        document.body.classList.toggle('nav-open', open); btn.setAttribute('aria-expanded', open);
-    };
-    btn.addEventListener('click', () => toggle(!nav.classList.contains('show')));
-    nav.querySelector('[data-close-menu]').addEventListener('click', () => toggle(false));
-    nav.querySelectorAll('.has-sub > a').forEach((a) => a.addEventListener('click', (e) => {
-        if (window.innerWidth > 900) return;
-        e.preventDefault(); a.parentElement.classList.toggle('active-mobile');
-    }));
-    nav.querySelectorAll('a[href*="#"]').forEach((a) => a.addEventListener('click', () => toggle(false)));
-
-    // Logo de l'en-tête : bascule vers le logo du garage quand sa section passe au milieu de l'écran.
-    const zone = document.querySelector('[data-brand-switch="garage"]');
-    const roll = document.querySelector('.brand-roll');
-    if (zone && roll && 'IntersectionObserver' in window) {
-        const faces = roll.querySelectorAll('.brand-face');
-        new IntersectionObserver(([entry]) => {
-            const garage = entry.isIntersecting;
-            document.body.classList.toggle('brand-garage', garage);
-            faces[0].setAttribute('aria-hidden', garage ? 'true' : 'false');
-            faces[1].setAttribute('aria-hidden', garage ? 'false' : 'true');
-        }, { rootMargin: '-45% 0px -45% 0px' }).observe(zone);
-    }
-})();
-</script>
+<script src="{{ asset('js/site.js') }}?v=1"></script>
 @stack('scripts')
 </body>
 </html>

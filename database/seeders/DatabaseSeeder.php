@@ -55,7 +55,7 @@ class DatabaseSeeder extends Seeder
             ['🚪', 'Ouverture sans clé', 'ouverture-vehicule-sans-cle', 35000, 'Clés oubliées à l’intérieur ? Nous ouvrons votre véhicule proprement, sans casse.'],
             ['💻', 'Codage de clé', 'programmation-cle-automobile', 40000, 'Clé qui ouvre mais ne démarre plus, télécommande muette : nous la recodons avec nos outils de diagnostic.'],
             ['🛠️', 'Réparation de télécommande', 'reparation-telecommande-voiture', 15000, 'Coque fendue, boutons enfoncés, pile ou circuit fatigué : on remet votre clé en état.'],
-            ['🩺', 'Diagnostic électronique', 'diagnostic-auto-voiture', 20000, 'Lecture des défauts, voyants allumés, antidémarrage : on cherche la vraie panne avant de remplacer quoi que ce soit.'],
+            ['🩺', 'Diagnostic antidémarrage', 'diagnostic-auto-voiture', 20000, 'Clé non reconnue, voyant d’antidémarrage, démarrage impossible : on lit le système antidémarrage avant de refaire ou recoder la clé.'],
         ];
 
         foreach ($services as $i => [$icon, $title, $slug, $price, $excerpt]) {

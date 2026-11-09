@@ -76,8 +76,10 @@ class Seo
             'areaServed' => self::areaServed(),
             'currenciesAccepted' => 'XAF',
             'paymentAccepted' => 'Espèces, Orange Money, MTN Mobile Money',
-            'makesOffer' => collect(['Mécanique générale', 'Entretien et vidange', 'Diagnostic électronique', 'Freinage', 'Alarme et GPS', 'Caméras de recul et écrans'])
-                ->map(fn ($name) => ['@type' => 'Offer', 'itemOffered' => ['@type' => 'Service', 'name' => $name]])->all(),
+            'makesOffer' => collect(config('garage.services'))
+                ->map(fn ($gs, $slug) => ['@type' => 'Offer', 'itemOffered' => ['@type' => 'Service', 'name' => $gs['title'], 'url' => route('garage.service', $slug)]])
+                ->values()->all(),
+            'sameAs' => array_values(array_filter([$s['garage_maps_url'] ?? null])) ?: null,
         ]);
     }
 
@@ -94,10 +96,13 @@ class Seo
         ];
     }
 
-    /** @param array<int, array{0:string, 1:?string}> $items [libellé, url] — le dernier élément est la page courante */
-    public static function breadcrumb(array $items): array
+    /**
+     * @param array<int, array{0:string, 1:?string}> $items [libellé, url] — le dernier élément est la page courante
+     * @param array{0:string, 1:string}|null $root racine (par défaut : accueil du site des clés)
+     */
+    public static function breadcrumb(array $items, ?array $root = null): array
     {
-        $items = array_merge([['Accueil', url('/')]], $items);
+        $items = array_merge([$root ?? ['Accueil', url('/')]], $items);
 
         return [
             '@context' => 'https://schema.org',
@@ -129,6 +134,27 @@ class Seo
     public static function brandService(Brand $brand): array
     {
         return self::service('Clé '.$brand->name.' à Douala', (string) $brand->description);
+    }
+
+    /** Prestation du garage : fournie par 3K Auto Services. */
+    public static function garageService(array $service): array
+    {
+        return [
+            '@context' => 'https://schema.org',
+            '@type' => 'Service',
+            'name' => $service['seo_title'],
+            'description' => $service['excerpt'],
+            'serviceType' => $service['title'],
+            'provider' => ['@id' => route('garage').'#3k-auto-services'],
+            'areaServed' => self::areaServed(),
+            'url' => url()->current(),
+        ];
+    }
+
+    /** @param array<int, array{0:string, 1:string}> $faqs [question, réponse] */
+    public static function faqFromArray(array $faqs): array
+    {
+        return self::faq(collect($faqs)->map(fn ($f) => (object) ['question' => $f[0], 'answer' => $f[1]]));
     }
 
     public static function faq(Collection $faqs): array

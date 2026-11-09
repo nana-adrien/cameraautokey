@@ -1,5 +1,5 @@
 @push('jsonld')
-<script type="application/ld+json">{!! \App\Support\Seo::json(\App\Support\Seo::breadcrumb($breadcrumbItems ?? [[strip_tags($crumb ?? ($title ?? '')), null]])) !!}</script>
+<script type="application/ld+json">{!! \App\Support\Seo::json(\App\Support\Seo::breadcrumb($breadcrumbItems ?? [[strip_tags($crumb ?? ($title ?? '')), null]], $breadcrumbRoot ?? null)) !!}</script>
 @endpush
 {{-- Bandeau de page : $title (HTML autorisé via $titleHtml), $subtitle, $cta (bool), $badges (array) --}}
 @php $tel = preg_replace('/\s+/', '', $settings['phone']); @endphp
@@ -35,4 +35,4 @@
         <span><i class="fas fa-mobile-alt"></i> Mobile Money accepté</span>
     </div>
 @endif
-<div class="breadcrumb"><a href="{{ route('home') }}">Accueil</a> › <b>{{ $crumb ?? strip_tags($title ?? '') }}</b></div>
+<div class="breadcrumb"><a href="{{ ($breadcrumbRoot ?? null) ? $breadcrumbRoot[1] : route('home') }}">{{ ($breadcrumbRoot ?? null) ? $breadcrumbRoot[0] : 'Accueil' }}</a> › <b>{{ $crumb ?? strip_tags($title ?? '') }}</b></div>
