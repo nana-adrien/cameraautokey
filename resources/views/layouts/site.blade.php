@@ -243,7 +243,7 @@
     </a>
 @endif
 
-<script src="{{ asset('js/site.js') }}?v=1"></script>
+<script src="{{ asset('js/site.js') }}?v=2"></script>
 @stack('scripts')
 </body>
 </html>

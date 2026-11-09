@@ -43,3 +43,19 @@
         }, 6000);
     });
 })();
+
+// Menus déroulants larges : centrés sous leur onglet, recalés pour ne jamais sortir de l'écran.
+document.querySelectorAll('.nav-links li.has-mega').forEach(function (li) {
+    var menu = li.querySelector('.mega-menu');
+    if (!menu) return;
+    function place() {
+        if (window.innerWidth <= 980) return;
+        menu.style.setProperty('--mega-shift', '0px');
+        var r = menu.getBoundingClientRect(), margin = 16, shift = 0;
+        if (r.right > window.innerWidth - margin) shift = window.innerWidth - margin - r.right;
+        if (r.left + shift < margin) shift = margin - r.left;
+        menu.style.setProperty('--mega-shift', Math.round(shift) + 'px');
+    }
+    li.addEventListener('mouseenter', place);
+    li.addEventListener('focusin', place);
+});
