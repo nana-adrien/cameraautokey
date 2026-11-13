@@ -3,7 +3,10 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\URL;
 use Tests\TestCase;
 
 class TelegramNotificationTest extends TestCase
@@ -61,6 +64,44 @@ class TelegramNotificationTest extends TestCase
             ->assertRedirect();
 
         Http::assertNothingSent();
+    }
+
+    public function test_admin_button_is_added_only_for_public_urls(): void
+    {
+        Http::fake();
+        config([
+            'services.telegram.bot_token' => 'test-token',
+            'services.telegram.chat_id' => '123456',
+        ]);
+
+        URL::forceRootUrl('http://localhost:8000');
+        $this->post(route('orders.store'), $this->orderPayload())->assertRedirect();
+
+        URL::forceRootUrl('https://cameraautokey.cm');
+        $this->post(route('orders.store'), $this->orderPayload())->assertRedirect();
+
+        $markups = Http::recorded()->map(fn ($pair) => collect($pair[0]->data())->firstWhere('name', 'reply_markup')['contents'] ?? null)->values();
+
+        $this->assertNull($markups[0]);
+        $this->assertSame('cameraautokey.cm', parse_url(json_decode($markups[1], true)['inline_keyboard'][0][0]['url'], PHP_URL_HOST));
+    }
+
+    public function test_bot_token_is_not_written_to_logs(): void
+    {
+        Http::fake(['*' => Http::response(['ok' => false, 'description' => 'Bad Request'], 400)]);
+        Log::spy();
+        config([
+            'services.telegram.bot_token' => 'secret-token',
+            'services.telegram.chat_id' => '123456',
+        ]);
+
+        $this->post(route('orders.store'), $this->orderPayload())->assertRedirect();
+
+        Http::fake(fn () => throw new ConnectionException('cURL error 28 for https://api.telegram.org/botsecret-token/sendMessage'));
+        $this->post(route('orders.store'), $this->orderPayload())->assertRedirect();
+
+        Log::shouldHaveReceived('warning')->withArgs(fn ($message, $context) => str_contains($context['error'], '[TOKEN]'));
+        Log::shouldNotHaveReceived('warning', fn ($message, $context) => str_contains($context['error'], 'secret-token'));
     }
 
     private function orderPayload(): array

@@ -19,19 +19,21 @@ class TelegramNotifier
             return;
         }
 
-        $caption = $this->orderCaption($order);
+        $this->later(function () use ($order): void {
+            $caption = $this->orderCaption($order);
 
-        try {
-            $pdf = app(OrderPdf::class)->render($order);
-            $this->sendDocument($pdf, "demande-{$order->reference}.pdf", $caption, 'admin.orders.show', $order);
-        } catch (\Throwable $e) {
-            Log::warning('Telegram: envoi de la demande échoué', [
-                'reference' => $order->reference,
-                'error' => $e->getMessage(),
-            ]);
+            try {
+                $pdf = app(OrderPdf::class)->render($order);
+                $this->sendDocument($pdf, "demande-{$order->reference}.pdf", $caption, 'admin.orders.show', $order);
+            } catch (\Throwable $e) {
+                Log::warning('Telegram: envoi de la demande échoué', [
+                    'reference' => $order->reference,
+                    'error' => $this->redact($e->getMessage()),
+                ]);
 
-            $this->sendText($caption, 'admin.orders.show', $order);
-        }
+                $this->sendText($caption, 'admin.orders.show', $order);
+            }
+        });
     }
 
     public function sendContactMessage(ContactMessage $message): void
@@ -40,19 +42,21 @@ class TelegramNotifier
             return;
         }
 
-        $caption = $this->messageCaption($message);
+        $this->later(function () use ($message): void {
+            $caption = $this->messageCaption($message);
 
-        try {
-            $pdf = app(ContactMessagePdf::class)->render($message);
-            $this->sendDocument($pdf, "message-{$message->id}.pdf", $caption, 'admin.messages.show', $message);
-        } catch (\Throwable $e) {
-            Log::warning('Telegram: envoi du message échoué', [
-                'message_id' => $message->id,
-                'error' => $e->getMessage(),
-            ]);
+            try {
+                $pdf = app(ContactMessagePdf::class)->render($message);
+                $this->sendDocument($pdf, "message-{$message->id}.pdf", $caption, 'admin.messages.show', $message);
+            } catch (\Throwable $e) {
+                Log::warning('Telegram: envoi du message échoué', [
+                    'message_id' => $message->id,
+                    'error' => $this->redact($e->getMessage()),
+                ]);
 
-            $this->sendText($caption, 'admin.messages.show', $message);
-        }
+                $this->sendText($caption, 'admin.messages.show', $message);
+            }
+        });
     }
 
     public function sendJobApplication(JobApplication $application): void
@@ -61,30 +65,47 @@ class TelegramNotifier
             return;
         }
 
-        $caption = $this->applicationCaption($application);
+        $this->later(function () use ($application): void {
+            $caption = $this->applicationCaption($application);
 
-        try {
-            $this->sendDocument(Storage::get($application->cv_path), $application->cv_original_name, $caption, 'admin.applications.show', $application);
-        } catch (\Throwable $e) {
-            Log::warning('Telegram: envoi de la candidature échoué', [
-                'application_id' => $application->id,
-                'error' => $e->getMessage(),
-            ]);
+            try {
+                $this->sendDocument(Storage::get($application->cv_path), $application->cv_original_name, $caption, 'admin.applications.show', $application);
+            } catch (\Throwable $e) {
+                Log::warning('Telegram: envoi de la candidature échoué', [
+                    'application_id' => $application->id,
+                    'error' => $this->redact($e->getMessage()),
+                ]);
 
-            $this->sendText($caption, 'admin.applications.show', $application);
+                $this->sendText($caption, 'admin.applications.show', $application);
+            }
+        });
+    }
+
+    /**
+     * Envoie après la réponse au visiteur : l'API Telegram peut mettre plusieurs
+     * secondes à répondre, le visiteur ne doit pas attendre. TELEGRAM_DEFER=false
+     * repasse en envoi immédiat si l'hébergeur coupe le travail après la réponse.
+     */
+    private function later(callable $send): void
+    {
+        if (config('services.telegram.defer') && ! app()->runningInConsole()) {
+            defer($send);
+
+            return;
         }
+
+        $send();
     }
 
     private function sendDocument(string $pdf, string $filename, string $caption, string $route, object $model): void
     {
-        $response = Http::timeout(15)
+        $response = Http::timeout(30)
             ->attach('document', $pdf, $filename)
-            ->post($this->url('sendDocument'), [
+            ->post($this->url('sendDocument'), $this->withKeyboard([
                 'chat_id' => $this->chatId(),
                 'caption' => Str::limit($caption, 1000, '…'),
                 'parse_mode' => 'HTML',
-                'reply_markup' => $this->keyboard($route, $model),
-            ]);
+            ], $route, $model));
 
         if ($response->failed()) {
             throw new \RuntimeException($response->body());
@@ -94,19 +115,18 @@ class TelegramNotifier
     private function sendText(string $text, string $route, object $model): void
     {
         try {
-            $response = Http::timeout(8)->post($this->url('sendMessage'), [
+            $response = Http::timeout(15)->post($this->url('sendMessage'), $this->withKeyboard([
                 'chat_id' => $this->chatId(),
                 'text' => Str::limit($text, 3900, '…'),
                 'parse_mode' => 'HTML',
                 'disable_web_page_preview' => true,
-                'reply_markup' => $this->keyboard($route, $model),
-            ]);
+            ], $route, $model));
 
             if ($response->failed()) {
                 throw new \RuntimeException($response->body());
             }
         } catch (\Throwable $e) {
-            Log::warning('Telegram: notification texte échouée', ['error' => $e->getMessage()]);
+            Log::warning('Telegram: notification texte échouée', ['error' => $this->redact($e->getMessage())]);
         }
     }
 
@@ -166,13 +186,37 @@ class TelegramNotifier
         return implode("\n", $lines);
     }
 
-    private function keyboard(string $route, object $model): string
+    /**
+     * Ajoute le bouton « Ouvrir dans l'admin ». Telegram refuse les adresses locales
+     * (localhost, IP) : le message part alors sans bouton plutôt que d'être rejeté.
+     *
+     * @param  array<string, mixed>  $payload
+     * @return array<string, mixed>
+     */
+    private function withKeyboard(array $payload, string $route, object $model): array
     {
-        return json_encode([
-            'inline_keyboard' => [[
-                ['text' => 'Ouvrir dans l’admin', 'url' => route($route, $model)],
-            ]],
-        ], JSON_UNESCAPED_UNICODE);
+        $url = route($route, $model);
+        $host = (string) parse_url($url, PHP_URL_HOST);
+
+        if ($host === 'localhost' || ! str_contains($host, '.') || filter_var($host, FILTER_VALIDATE_IP)) {
+            return $payload;
+        }
+
+        return $payload + [
+            'reply_markup' => json_encode([
+                'inline_keyboard' => [[
+                    ['text' => 'Ouvrir dans l’admin', 'url' => $url],
+                ]],
+            ], JSON_UNESCAPED_UNICODE),
+        ];
+    }
+
+    /**
+     * Retire le token du bot des messages d'erreur avant de les journaliser.
+     */
+    private function redact(string $message): string
+    {
+        return $this->token() === '' ? $message : str_replace($this->token(), '[TOKEN]', $message);
     }
 
     private function url(string $method): string

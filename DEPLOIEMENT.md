@@ -76,6 +76,10 @@ Les demandes d’intervention et les messages (sauf newsletter) partent vers Tel
    `https://api.telegram.org/bot<TOKEN>/getUpdates` pour récupérer le `chat_id`.
    Pour un groupe, l’identifiant est négatif (ex. `-1001234567890`).
 3. Renseignez `TELEGRAM_BOT_TOKEN` et `TELEGRAM_CHAT_ID` dans Vercel (Preview **et** Production).
+4. Le bouton « Ouvrir dans l’admin » utilise `APP_URL` : il n’apparaît pas en local (Telegram refuse `localhost`),
+   seulement quand `APP_URL` est une vraie adresse (`https://…`).
+5. L’alerte part **après** la réponse au visiteur (`TELEGRAM_DEFER=true`). Si les alertes n’arrivent plus en ligne,
+   passez `TELEGRAM_DEFER=false` (envoi immédiat, le visiteur attend quelques secondes de plus).
 
 L’API Bot Telegram est gratuite, officielle, et accepte directement les PDF (contrairement à WhatsApp Cloud API
 qui exige des templates validés). Aucune passerelle non officielle n’est utilisée.
