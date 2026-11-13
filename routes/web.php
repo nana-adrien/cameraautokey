@@ -41,16 +41,16 @@ Route::get('/cron/analytics-prune', function (Request $request) {
 })->middleware('throttle:6,1')->name('cron.analytics-prune');
 
 Route::get('/services', [CatalogController::class, 'services'])->name('services.index');
-Route::get('/service/reproduction-cle-{brand}', [CatalogController::class, 'brand'])->name('brands.show');
+Route::get('/service/reproduction-cle-{brand}', [CatalogController::class, 'brand'])->middleware('feature:brands')->name('brands.show');
 Route::get('/service/{service}', [CatalogController::class, 'service'])->name('services.show');
-Route::get('/marques', [CatalogController::class, 'brands'])->name('brands.index');
+Route::get('/marques', [CatalogController::class, 'brands'])->middleware('feature:brands')->name('brands.index');
 
 /*
 | Mini-site du garage 3K AUTO SERVICES
 */
 Route::prefix('garage-3k-auto-services')->controller(GarageController::class)->group(function () {
     Route::get('/', 'home')->name('garage');
-    Route::get('/prestations/{slug}', 'service')->where('slug', '[a-z0-9-]+')->name('garage.service');
+    Route::get('/prestations/{slug}', 'service')->where('slug', '[a-z0-9-]+')->middleware('feature:garage_services')->name('garage.service');
 });
 
 /*
@@ -63,10 +63,10 @@ Route::prefix('recrutement')->name('careers.')->middleware('feature:recruitment'
 });
 
 Route::controller(PageController::class)->group(function () {
-    Route::get('/qui-sommes-nous', 'about')->name('about');
-    Route::get('/professionnels', 'professionals')->name('professionals');
-    Route::get('/devenir-intervenant', 'becomeTechnician')->name('become-technician');
-    Route::get('/faq', 'faq')->name('faq');
+    Route::get('/qui-sommes-nous', 'about')->middleware('feature:info_pages')->name('about');
+    Route::get('/professionnels', 'professionals')->middleware('feature:info_pages')->name('professionals');
+    Route::get('/devenir-intervenant', 'becomeTechnician')->middleware('feature:info_pages')->name('become-technician');
+    Route::get('/faq', 'faq')->middleware('feature:info_pages')->name('faq');
     Route::get('/contact', 'contact')->name('contact');
     Route::get('/mentions-legales', 'legal')->name('legal');
     Route::get('/conditions-intervention', 'terms')->name('terms');
@@ -88,13 +88,13 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/', Admin\DashboardController::class)->name('dashboard');
         Route::get('/analytics', Admin\AnalyticsController::class)->middleware('feature:analytics')->name('analytics');
 
-        Route::resource('orders', Admin\OrderController::class)->only(['index', 'show', 'update', 'destroy']);
+        Route::resource('orders', Admin\OrderController::class)->only(['index', 'show', 'update', 'destroy'])->middleware('feature:orders_admin');
         Route::get('/orders/{order}/pdf', [Admin\OrderController::class, 'pdf'])->middleware('feature:pdf')->name('orders.pdf');
-        Route::resource('messages', Admin\MessageController::class)->only(['index', 'show', 'destroy']);
+        Route::resource('messages', Admin\MessageController::class)->only(['index', 'show', 'destroy'])->middleware('feature:messages_admin');
         Route::get('/messages/{message}/pdf', [Admin\MessageController::class, 'pdf'])->middleware('feature:pdf')->name('messages.pdf');
 
-        Route::resource('services', Admin\ServiceController::class)->except('show');
-        Route::resource('brands', Admin\BrandController::class)->except('show');
+        Route::resource('services', Admin\ServiceController::class)->except('show')->middleware('feature:catalog_admin');
+        Route::resource('brands', Admin\BrandController::class)->except('show')->middleware('feature:catalog_admin');
         Route::resource('technicians', Admin\TechnicianController::class)->except('show')->middleware('feature:technicians');
         Route::resource('testimonials', Admin\TestimonialController::class)->except('show')->middleware('feature:testimonials');
         Route::resource('faqs', Admin\FaqController::class)->except('show')->middleware('feature:faqs');
@@ -105,7 +105,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::get('/applications/{application}/cv', [Admin\JobApplicationController::class, 'cv'])->name('applications.cv');
         });
 
-        Route::get('/settings', [Admin\SettingController::class, 'edit'])->name('settings.edit');
-        Route::put('/settings', [Admin\SettingController::class, 'update'])->name('settings.update');
+        Route::get('/settings', [Admin\SettingController::class, 'edit'])->middleware('feature:settings_admin')->name('settings.edit');
+        Route::put('/settings', [Admin\SettingController::class, 'update'])->middleware('feature:settings_admin')->name('settings.update');
     });
 });

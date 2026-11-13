@@ -20,21 +20,21 @@
         <a href="{{ route('admin.dashboard') }}" @class(['active' => request()->routeIs('admin.dashboard')])>📊 Tableau de bord</a>
 
         <div class="group">Activité</div>
-        <a href="{{ route('admin.orders.index') }}" @class(['active' => request()->routeIs('admin.orders.*')])>🧾 Demandes @if ($pendingOrders)<span class="count">{{ $pendingOrders }}</span>@endif</a>
-        <a href="{{ route('admin.messages.index') }}" @class(['active' => request()->routeIs('admin.messages.*')])>✉️ Messages @if ($unreadMessages)<span class="count">{{ $unreadMessages }}</span>@endif</a>
+        <a href="{{ route('admin.orders.index') }}" @class(['active' => request()->routeIs('admin.orders.*')])>🧾 Demandes @if (\App\Services\DemoFeatures::isLocked('orders_admin'))<span class="soon">Bientôt</span>@elseif ($pendingOrders)<span class="count">{{ $pendingOrders }}</span>@endif</a>
+        <a href="{{ route('admin.messages.index') }}" @class(['active' => request()->routeIs('admin.messages.*')])>✉️ Messages @if (\App\Services\DemoFeatures::isLocked('messages_admin'))<span class="soon">Bientôt</span>@elseif ($unreadMessages)<span class="count">{{ $unreadMessages }}</span>@endif</a>
         <a href="{{ route('admin.analytics') }}" @class(['active' => request()->routeIs('admin.analytics')])>📈 Statistiques @if (\App\Services\DemoFeatures::isLocked('analytics'))<span class="soon">Bientôt</span>@endif</a>
         <a href="{{ route('admin.technicians.index') }}" @class(['active' => request()->routeIs('admin.technicians.*')])>👷 Techniciens @if (\App\Services\DemoFeatures::isLocked('technicians'))<span class="soon">Bientôt</span>@endif</a>
         <a href="{{ route('admin.applications.index') }}" @class(['active' => request()->routeIs('admin.applications.*')])>📄 Candidatures @if (\App\Services\DemoFeatures::isLocked('recruitment'))<span class="soon">Bientôt</span>@elseif ($newApplications)<span class="count">{{ $newApplications }}</span>@endif</a>
 
         <div class="group">Contenu du site</div>
-        <a href="{{ route('admin.services.index') }}" @class(['active' => request()->routeIs('admin.services.*')])>🛠️ Services</a>
-        <a href="{{ route('admin.brands.index') }}" @class(['active' => request()->routeIs('admin.brands.*')])>🚗 Marques</a>
+        <a href="{{ route('admin.services.index') }}" @class(['active' => request()->routeIs('admin.services.*')])>🛠️ Services @if (\App\Services\DemoFeatures::isLocked('catalog_admin'))<span class="soon">Bientôt</span>@endif</a>
+        <a href="{{ route('admin.brands.index') }}" @class(['active' => request()->routeIs('admin.brands.*')])>🚗 Marques @if (\App\Services\DemoFeatures::isLocked('catalog_admin'))<span class="soon">Bientôt</span>@endif</a>
         <a href="{{ route('admin.testimonials.index') }}" @class(['active' => request()->routeIs('admin.testimonials.*')])>⭐ Avis clients @if (\App\Services\DemoFeatures::isLocked('testimonials'))<span class="soon">Bientôt</span>@endif</a>
         <a href="{{ route('admin.faqs.index') }}" @class(['active' => request()->routeIs('admin.faqs.*')])>❓ FAQ @if (\App\Services\DemoFeatures::isLocked('faqs'))<span class="soon">Bientôt</span>@endif</a>
         <a href="{{ route('admin.job-offers.index') }}" @class(['active' => request()->routeIs('admin.job-offers.*')])>💼 Offres d’emploi @if (\App\Services\DemoFeatures::isLocked('recruitment'))<span class="soon">Bientôt</span>@endif</a>
 
         <div class="group">Configuration</div>
-        <a href="{{ route('admin.settings.edit') }}" @class(['active' => request()->routeIs('admin.settings.*')])>⚙️ Paramètres</a>
+        <a href="{{ route('admin.settings.edit') }}" @class(['active' => request()->routeIs('admin.settings.*')])>⚙️ Paramètres @if (\App\Services\DemoFeatures::isLocked('settings_admin'))<span class="soon">Bientôt</span>@endif</a>
         <a href="{{ route('home') }}" target="_blank">🌐 Voir le site</a>
     </aside>
 

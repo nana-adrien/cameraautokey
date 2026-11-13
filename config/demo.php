@@ -28,6 +28,13 @@ return [
         'testimonials' => 'Gestion des avis clients',
         'faqs' => 'Gestion de la FAQ',
         'recruitment' => 'Espace recrutement',
+        'brands' => 'Pages par marque',
+        'garage_services' => 'Pages des prestations du garage',
+        'info_pages' => 'Pages d’information',
+        'orders_admin' => 'Gestion des demandes',
+        'messages_admin' => 'Messages reçus',
+        'catalog_admin' => 'Gestion des services et des marques',
+        'settings_admin' => 'Paramètres du site',
     ],
 
 ];

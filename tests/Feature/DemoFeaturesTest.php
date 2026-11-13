@@ -47,6 +47,27 @@ class DemoFeaturesTest extends TestCase
         $this->assertDatabaseCount('faqs', 0);
     }
 
+    public function test_presentation_locks_keep_home_contact_and_order_creation(): void
+    {
+        config(['demo.locked' => ['brands', 'garage_services', 'info_pages', 'tracking', 'orders_admin']]);
+        $this->actingAs(User::factory()->create(['is_admin' => true]));
+
+        $this->get(route('home'))->assertOk()->assertDontSee('En cours de développement');
+        $this->get(route('contact'))->assertOk()->assertDontSee('En cours de développement');
+        $this->get(route('faq'))->assertOk()->assertSee('Pages d’information');
+        $this->get(route('garage.service', 'freinage'))->assertOk()->assertSee('Pages des prestations du garage');
+        $this->get(route('admin.orders.index'))->assertOk()->assertSee('Gestion des demandes');
+
+        $this->post(route('orders.store'), [
+            'vehicle_type' => 'auto', 'need' => 'double', 'key_type' => 'transponder', 'desired_key' => 'generic',
+            'quantity' => 1, 'warranty_extension' => 0, 'emergency' => 0,
+            'plate' => 'lt 123 ab', 'brand_model' => 'Toyota Corolla', 'year' => 2015,
+            'customer_name' => 'Jean Test', 'customer_phone' => '+237 600 00 00 00', 'customer_email' => 'jean@example.com',
+            'address' => 'Rue 1', 'district' => 'Akwa', 'city' => 'Douala', 'accept_terms' => 1,
+        ])->assertRedirect();
+        $this->assertDatabaseCount('orders', 1);
+    }
+
     public function test_locked_telegram_sends_nothing(): void
     {
         Http::fake();
