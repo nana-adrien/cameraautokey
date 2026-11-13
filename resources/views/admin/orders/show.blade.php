@@ -7,7 +7,10 @@
         <a href="{{ route('admin.orders.index') }}" class="muted">← Demandes</a>
         <h1 style="margin-top:6px">{{ $order->reference }} @if ($order->emergency)<span class="status status-pending">⚡ Urgence</span>@endif</h1>
     </div>
-    <span class="status status-{{ $order->status }}" style="font-size:.9rem">{{ $order->statusLabel() }}</span>
+    <div class="actions">
+        <a href="{{ route('admin.orders.pdf', $order) }}" class="btn btn-dark">Télécharger le PDF</a>
+        <span class="status status-{{ $order->status }}" style="font-size:.9rem">{{ $order->statusLabel() }}</span>
+    </div>
 </div>
 
 <div class="grid-2">

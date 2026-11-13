@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ContactMessage;
 use App\Models\Faq;
+use App\Services\TelegramNotifier;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -70,7 +71,10 @@ class PageController extends Controller
             'message' => ['required', 'string', 'max:3000'],
         ]);
 
-        ContactMessage::create($data);
+        $message = ContactMessage::create($data);
+
+        // Même pipeline que les demandes : notification interne, invisible pour le visiteur.
+        app(TelegramNotifier::class)->sendContactMessage($message);
 
         return back()->with('success', 'Merci ! Votre message a bien été envoyé. Nous vous répondons rapidement.');
     }

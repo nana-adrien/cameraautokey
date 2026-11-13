@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Middleware\EnsureFeatureIsUnlocked;
+use App\Http\Middleware\EnsureUserIsAdmin;
+use App\Http\Middleware\SeoRobotsHeader;
+use App\Http\Middleware\TrackVisit;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -12,11 +16,17 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        $middleware->alias(['admin' => \App\Http\Middleware\EnsureUserIsAdmin::class]);
+        $middleware->alias([
+            'admin' => EnsureUserIsAdmin::class,
+            'feature' => EnsureFeatureIsUnlocked::class,
+        ]);
         // Derrière le proxy HTTPS de Vercel : URLs en https et liens signés valides.
         $middleware->trustProxies(at: '*');
         // Référencement : noindex hors production (voir config/seo.php).
-        $middleware->web(append: [\App\Http\Middleware\SeoRobotsHeader::class]);
+        $middleware->web(append: [
+            SeoRobotsHeader::class,
+            TrackVisit::class,
+        ]);
         $middleware->redirectGuestsTo(fn () => route('admin.login'));
     })
     ->withExceptions(function (Exceptions $exceptions): void {

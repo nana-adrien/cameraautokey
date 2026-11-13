@@ -5,10 +5,12 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\Technician;
+use App\Services\OrderPdf;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
+use Symfony\Component\HttpFoundation\Response;
 
 class OrderController extends Controller
 {
@@ -16,6 +18,8 @@ class OrderController extends Controller
     {
         $orders = Order::with('technician')
             ->when($request->filled('status'), fn ($q) => $q->where('status', $request->string('status')))
+            ->when($request->filled('from'), fn ($q) => $q->whereDate('created_at', '>=', $request->date('from')))
+            ->when($request->filled('to'), fn ($q) => $q->whereDate('created_at', '<=', $request->date('to')))
             ->when($request->filled('q'), function ($q) use ($request) {
                 $term = '%'.$request->string('q').'%';
                 $q->where(fn ($w) => $w->where('reference', 'like', $term)
@@ -36,6 +40,15 @@ class OrderController extends Controller
         return view('admin.orders.show', [
             'order' => $order->load('technician'),
             'technicians' => Technician::where('is_active', true)->orderBy('name')->get(),
+        ]);
+    }
+
+    public function pdf(Order $order, OrderPdf $pdf): Response
+    {
+        return response($pdf->render($order), 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'attachment; filename="demande-'.$order->reference.'.pdf"',
+            'Cache-Control' => 'private, no-store',
         ]);
     }
 

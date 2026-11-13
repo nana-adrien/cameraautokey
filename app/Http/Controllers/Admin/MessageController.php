@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\ContactMessage;
+use App\Services\ContactMessagePdf;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Symfony\Component\HttpFoundation\Response;
 
 class MessageController extends Controller
 {
@@ -28,6 +30,15 @@ class MessageController extends Controller
         }
 
         return view('admin.messages.show', compact('message'));
+    }
+
+    public function pdf(ContactMessage $message, ContactMessagePdf $pdf): Response
+    {
+        return response($pdf->render($message), 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'attachment; filename="message-'.$message->id.'.pdf"',
+            'Cache-Control' => 'private, no-store',
+        ]);
     }
 
     public function destroy(ContactMessage $message): RedirectResponse

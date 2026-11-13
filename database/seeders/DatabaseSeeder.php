@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Brand;
 use App\Models\ContactMessage;
 use App\Models\Faq;
+use App\Models\JobOffer;
 use App\Models\Order;
 use App\Models\Service;
 use App\Models\Technician;
@@ -131,6 +132,27 @@ class DatabaseSeeder extends Seeder
             'zone' => $t[2],
             'email' => Str::slug($t[0], '.').'@cameraautokey.cm',
         ]));
+
+        $jobOffers = [
+            ['3k', 'Mécanicien automobile', 'CDI', 'Douala – Ndogsimbi', 'Le garage 3K Auto Services renforce son atelier : entretien, diagnostic et réparation de véhicules toutes marques.', "Réaliser les vidanges, l’entretien et les réparations mécaniques\nEffectuer les diagnostics électroniques à la valise\nRemplacer freins, embrayages et organes de suspension\nConseiller les clients et rédiger les comptes rendus", "Permis de conduire\n4 années d’expérience\nFormation reconnue en mécanique automobile"],
+            ['3k', 'Électricien automobile', 'CDD 6 mois', 'Douala – Ndogsimbi', 'Diagnostic et réparation des circuits électriques, installation d’alarmes, de GPS et de caméras de recul.', "Diagnostiquer les pannes électriques et électroniques\nInstaller alarmes, traceurs GPS, caméras et écrans\nRéparer faisceaux, démarreurs et alternateurs", "2 ans d’expérience en électricité automobile\nMaîtrise du multimètre et de la valise de diagnostic"],
+            ['cak', 'Technicien clés et programmation', 'CDI', 'Douala – Akwa', 'Taille, codage et programmation de clés pour voitures, camions et deux-roues, en boutique et en intervention.', "Tailler les lames sur machine électronique\nProgrammer transpondeurs, télécommandes et clés mains libres\nIntervenir chez les clients pour l’ouverture et la reproduction de clés", "Expérience en serrurerie automobile ou électronique embarquée\nRigueur et sens du service client\nPermis moto ou voiture apprécié"],
+            ['cak', 'Technicien intervenant à Yaoundé', 'Prestataire', 'Yaoundé', 'Vous réalisez les interventions CAMER AUTO KEY à Yaoundé et dans les environs, avec notre outil de suivi.', "Recevoir et traiter les demandes de la zone de Yaoundé\nRéaliser copies, codages et ouvertures sur place\nMettre à jour l’avancement des interventions", "Matériel de programmation personnel\nDisponibilité, y compris en urgence\nRésidence à Yaoundé"],
+        ];
+
+        foreach ($jobOffers as [$company, $title, $contract, $location, $summary, $description, $requirements]) {
+            JobOffer::updateOrCreate(['slug' => Str::slug($title)], [
+                'company' => $company,
+                'title' => $title,
+                'contract_type' => $contract,
+                'location' => $location,
+                'summary' => $summary,
+                'description' => $description,
+                'requirements' => $requirements,
+                'closes_at' => now()->addMonth()->toDateString(),
+                'is_published' => true,
+            ]);
+        }
 
         if (Order::exists()) {
             return;

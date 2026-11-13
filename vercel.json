@@ -1,6 +1,9 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": "container",
+  "crons": [
+    { "path": "/cron/analytics-prune", "schedule": "30 3 * * *" }
+  ],
   "headers": [
     {
       "source": "/(.*)",

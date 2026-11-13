@@ -77,7 +77,7 @@ button { font: inherit; }
 .mobile-menu-header { display: none; }
 
 /* ─── HERO (accueil) ─── */
-.hero-section { position: relative; min-height: 520px; display: flex; align-items: center; overflow: hidden; }
+.hero-section { position: relative; min-height: 820px; display: flex; align-items: center; overflow: hidden; }
 .hero-slider { position: absolute; inset: 0; z-index: 0; }
 .hero-slide { position: absolute; inset: 0; opacity: 0; transition: opacity 1.4s ease; }
 .hero-slide.active { opacity: 1; }
@@ -773,3 +773,17 @@ input:focus-visible, select:focus-visible, textarea:focus-visible, button:focus-
   .g-partner-inner, .g-two, .g-service-detail { grid-template-columns: 1fr; }
   .g-section, .g-partner { padding: 50px 0; }
 }
+
+/* ─── Recrutement ─── */
+.job-filter { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 22px; }
+.job-filter a { padding: 8px 16px; border-radius: 999px; border: 1.5px solid var(--border); background: #fff; color: var(--navy); font-weight: 600; font-size: 14px; }
+.job-filter a.active, .job-filter a:hover { background: var(--navy); border-color: var(--navy); color: #fff; }
+.job-card .job-company { display: inline-block; align-self: flex-start; font-size: 11px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--red); }
+.job-meta { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 13px; color: var(--steel); margin: 4px 0 8px; }
+.job-meta i { color: var(--red); margin-right: 4px; }
+.job-h3 { font-size: 16px; color: var(--navy); margin: 18px 0 8px; }
+.job-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+.job-list i { color: #1a9b4b; margin-right: 6px; }
+.job-file { padding: 10px; background: var(--off); }
+.job-consent { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; }
+.job-consent input { margin-top: 3px; }

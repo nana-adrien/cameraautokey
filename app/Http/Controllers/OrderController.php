@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Services\OrderPdf;
 use App\Services\PriceCalculator;
+use App\Services\TelegramNotifier;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
+use Symfony\Component\HttpFoundation\Response;
 
 class OrderController extends Controller
 {
@@ -52,12 +55,25 @@ class OrderController extends Controller
 
         $order = Order::create($data);
 
+        // Notification interne : la demande part vers Telegram avec son PDF.
+        // Le visiteur ne voit jamais ce canal, et un échec ne bloque pas sa demande.
+        app(TelegramNotifier::class)->sendOrder($order);
+
         return redirect(URL::signedRoute('orders.confirmation', $order));
     }
 
     public function confirmation(Order $order): View
     {
         return view('pages.order-confirmation', compact('order'));
+    }
+
+    public function pdf(Order $order, OrderPdf $pdf): Response
+    {
+        return response($pdf->render($order), 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="demande-'.$order->reference.'.pdf"',
+            'Cache-Control' => 'private, no-store',
+        ]);
     }
 
     public function trackForm(): View

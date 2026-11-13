@@ -14,7 +14,7 @@
         <div style="text-align:center;padding:10px 0">
             <div class="success-icon"><i class="fas fa-check"></i></div>
             <h2 style="font-family:var(--fb);font-size:24px;font-weight:800;color:var(--navy)">Merci {{ \Illuminate\Support\Str::before($order->customer_name, ' ') }} !</h2>
-            <p style="color:var(--muted);max-width:480px;margin:8px auto 0">Un conseiller vous appelle très rapidement pour confirmer le tarif et l’horaire d’intervention. Un e-mail de confirmation vous sera envoyé.</p>
+            <p style="color:var(--muted);max-width:480px;margin:8px auto 0">Un conseiller vous appelle très rapidement pour confirmer le tarif et l’horaire d’intervention. Vous pouvez télécharger le récapitulatif de votre demande ci-dessous.</p>
             <div class="success-receipt">
                 <div class="receipt-row"><span class="receipt-lbl">Référence</span><span class="receipt-val">{{ $order->reference }}</span></div>
                 <div class="receipt-row"><span class="receipt-lbl">Statut</span><span class="badge-status status-{{ $order->status }}">{{ $order->statusLabel() }}</span></div>
@@ -25,7 +25,10 @@
                 <div class="receipt-row"><span class="receipt-lbl">Urgence</span><span class="receipt-val">{{ $order->emergency ? 'Oui' : 'Non' }}</span></div>
             </div>
             <p style="font-size:13px;color:var(--muted)">Conservez votre référence pour <a href="{{ route('orders.track') }}" style="color:var(--navy);font-weight:700">suivre votre demande</a>.</p>
-            <a href="{{ route('home') }}" class="btn-red" style="margin-top:16px">Retour à l’accueil</a>
+            <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:16px">
+                <a href="{{ URL::signedRoute('orders.pdf', $order) }}" class="btn-red">Télécharger ma demande (PDF)</a>
+                <a href="{{ route('home') }}" class="btn-red" style="background:var(--navy)">Retour à l’accueil</a>
+            </div>
         </div>
     </x-sc>
 </div>

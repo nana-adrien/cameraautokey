@@ -19,6 +19,17 @@
     const btnBack = document.getElementById('btn-back');
     const labels = { 1: 'Continuer vers la localisation →', 2: 'Vérifier ma demande →', 3: 'Envoyer ma demande ✓' };
     let current = parseInt(form.dataset.startStep || '1', 10);
+    let trackedStart = false;
+    let trackedSubmit = false;
+    let trackedAbandon = false;
+    const track = (event, data) => {
+        if (typeof window.cakTrack === 'function') window.cakTrack(event, data);
+    };
+    const trackStart = () => {
+        if (trackedStart) return;
+        trackedStart = true;
+        track('form_start', { form: 'order' });
+    };
 
     const $ = (sel, root = form) => root.querySelector(sel);
     const val = (name) => {
@@ -158,18 +169,31 @@
 
     btnNext.addEventListener('click', () => {
         if (current < 3) {
-            if (validate(current)) show(current + 1);
+            if (validate(current)) {
+                track('form_step', { form: 'order', step: current + 1 });
+                show(current + 1);
+            }
             return;
         }
         if (validate(1) && validate(2)) {
+            trackedSubmit = true;
+            track('form_submit', { form: 'order', step: 3 });
             btnNext.disabled = true;
             btnNext.textContent = 'Envoi en cours…';
             try { localStorage.removeItem(DRAFT_KEY); } catch (e) {}
             form.submit();
         }
     });
-    btnBack.addEventListener('click', () => show(current - 1));
-    tabs.forEach((t) => t.addEventListener('click', () => { if (t.classList.contains('done')) show(+t.dataset.tab); }));
+    btnBack.addEventListener('click', () => {
+        track('form_step', { form: 'order', step: current - 1 });
+        show(current - 1);
+    });
+    tabs.forEach((t) => t.addEventListener('click', () => {
+        if (t.classList.contains('done')) {
+            track('form_step', { form: 'order', step: +t.dataset.tab });
+            show(+t.dataset.tab);
+        }
+    }));
     form.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' && e.target.tagName === 'INPUT') { e.preventDefault(); btnNext.click(); }
     });
@@ -275,8 +299,14 @@
 
     /* ---------- Initialisation ---------- */
     function refresh() { syncSelection(); renderRecap(); }
-    form.addEventListener('change', () => { refresh(); saveDraft(); });
-    form.addEventListener('input', () => { renderRecap(); saveDraft(); });
+    form.addEventListener('change', () => { trackStart(); refresh(); saveDraft(); });
+    form.addEventListener('input', () => { trackStart(); renderRecap(); saveDraft(); });
+
+    window.addEventListener('pagehide', () => {
+        if (!trackedStart || trackedSubmit || trackedAbandon) return;
+        trackedAbandon = true;
+        track('form_abandon', { form: 'order', step: current });
+    });
 
     restoreDraft();
     refresh();

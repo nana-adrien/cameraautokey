@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\ContactMessage;
 use App\Models\Order;
 use App\Models\Technician;
+use App\Services\DemoFeatures;
 use Illuminate\Support\Carbon;
 use Illuminate\View\View;
 
@@ -39,6 +40,12 @@ class DashboardController extends Controller
             'statusCounts' => $statusCounts,
             'chart' => $chart,
             'latestOrders' => Order::with('technician')->latest()->take(8)->get(),
+            'telegram' => [
+                'configured' => (string) config('services.telegram.bot_token') !== ''
+                    && (string) config('services.telegram.chat_id') !== '',
+                'locked' => DemoFeatures::isLocked('telegram'),
+                'chat_id' => (string) config('services.telegram.chat_id'),
+            ],
         ]);
     }
 }

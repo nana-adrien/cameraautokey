@@ -12,7 +12,7 @@
                 <td><b>{{ \App\Support\Money::fcfa($order->estimated_price) }}</b></td>
                 <td><span class="status status-{{ $order->status }}">{{ $order->statusLabel() }}</span></td>
                 <td class="muted">{{ $order->created_at->format('d/m/Y H:i') }}</td>
-                <td class="actions"><a href="{{ route('admin.orders.show', $order) }}" class="btn btn-light btn-sm">Ouvrir</a></td>
+                <td class="actions"><a href="{{ route('admin.orders.show', $order) }}" class="btn btn-light btn-sm">Ouvrir</a><a href="{{ route('admin.orders.pdf', $order) }}" class="btn btn-light btn-sm">PDF</a></td>
             </tr>
         @empty
             <tr><td colspan="9" class="muted" style="text-align:center;padding:30px">Aucune demande.</td></tr>

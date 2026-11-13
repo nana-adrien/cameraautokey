@@ -9,6 +9,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     @include('partials.seo-head', [
         'seoDefaults' => [
             'title' => 'Clés de voiture à Douala : copie et codage',
@@ -126,6 +127,7 @@
         <li><a href="{{ route('about') }}" @class(['nav-active' => request()->routeIs('about')]) @if (request()->routeIs('about')) aria-current="page" @endif>À propos</a></li>
         <li><a href="{{ route('professionals') }}" @class(['nav-active' => request()->routeIs('professionals')]) @if (request()->routeIs('professionals')) aria-current="page" @endif>Professionnels</a></li>
         <li><a href="{{ route('become-technician') }}" @class(['nav-active' => request()->routeIs('become-technician')]) @if (request()->routeIs('become-technician')) aria-current="page" @endif>Devenir intervenant</a></li>
+        <li><a href="{{ route('careers.index') }}" @class(['nav-active' => request()->routeIs('careers.*')]) @if (request()->routeIs('careers.*')) aria-current="page" @endif>Recrutement</a></li>
         <li><a href="{{ route('faq') }}" @class(['nav-active' => request()->routeIs('faq')]) @if (request()->routeIs('faq')) aria-current="page" @endif>FAQ</a></li>
         <li><a href="{{ route('contact') }}" @class(['nav-active' => request()->routeIs('contact')]) @if (request()->routeIs('contact')) aria-current="page" @endif>Contact</a></li>
         <li><a href="{{ route('home') }}#commande" class="nav-cta"><i class="fas fa-key"></i> Ma clé</a></li>
@@ -160,6 +162,7 @@
                     <li><a href="{{ route('brands.index') }}">– Clés par marque</a></li>
                                         <li><a href="{{ route('faq') }}">– Questions fréquentes</a></li>
                     <li><a href="{{ route('contact') }}">– Contact</a></li>
+                    <li><a href="{{ route('careers.index') }}">– Recrutement</a></li>
                                         <li><a href="{{ route('become-technician') }}">– Devenir intervenant</a></li>
                     <li><a href="{{ route('legal') }}">– Mentions légales</a></li>
                 </ul>
@@ -200,7 +203,7 @@
                     <li><i class="fas fa-map-marker-alt"></i><span>{{ $settings['address'] }}</span></li>
                 </ul>
                 <p style="margin:16px 0 0">Recevez nos offres par e-mail :</p>
-                <form class="ft-news" method="POST" action="{{ route('newsletter') }}">
+                <form class="ft-news" method="POST" action="{{ route('newsletter') }}" data-track-form="newsletter">
                     @csrf
                     <input type="email" name="email" placeholder="Votre e-mail" required aria-label="Votre e-mail">
                     <button class="btn-ft">OK</button>

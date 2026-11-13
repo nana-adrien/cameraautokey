@@ -6,7 +6,7 @@
 @include('partials.page-hero', ['image' => 'photos/cles-toyota-tacoma.webp', 'titleHtml' => 'Suivre ma <em>demande</em>', 'title' => 'Suivre ma demande', 'subtitle' => 'Saisissez la référence reçue lors de votre demande et votre adresse e-mail.', 'cta' => false, 'trust' => false])
 <div class="content-wrap" style="max-width:760px">
     <x-sc icon="fas fa-search" title="Retrouver ma demande">
-        <form method="POST" action="{{ route('orders.track.search') }}">
+        <form method="POST" action="{{ route('orders.track.search') }}" data-track-form="track">
             @csrf
             <div class="inp-row two">
                 <div class="inp-wrap"><label class="inp-label" for="reference">Référence <span class="req">*</span></label><input class="dkp-input" id="reference" name="reference" value="{{ old('reference', request('reference')) }}" placeholder="CAK-261109-XXXXX" required>@error('reference')<span class="inp-err">{{ $message }}</span>@enderror</div>

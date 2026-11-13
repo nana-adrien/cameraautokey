@@ -11,8 +11,10 @@
             <option value="{{ $key }}" @selected(request('status') === $key)>{{ $label }}</option>
         @endforeach
     </select>
+    <input type="date" name="from" value="{{ request('from') }}" aria-label="Du" title="Du">
+    <input type="date" name="to" value="{{ request('to') }}" aria-label="Au" title="Au">
     <button class="btn btn-dark">Filtrer</button>
-    @if (request()->hasAny(['q', 'status']))<a href="{{ route('admin.orders.index') }}" class="btn btn-light">Réinitialiser</a>@endif
+    @if (request()->hasAny(['q', 'status', 'from', 'to']))<a href="{{ route('admin.orders.index') }}" class="btn btn-light">Réinitialiser</a>@endif
 </form>
 <div class="table-wrap">@include('admin.orders._table')</div>
 {{ $orders->links() }}

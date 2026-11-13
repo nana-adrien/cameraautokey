@@ -14,6 +14,40 @@
     <div class="card stat"><span class="ic" style="background:#e6eeff">👷</span><div><div class="val">{{ $stats['technicians'] }}</div><div class="lbl">Techniciens actifs · {{ $stats['unread_messages'] }} message(s) non lu(s)</div></div></div>
 </div>
 
+<div class="card analytics-cta">
+    <div>
+        <div class="card-title" style="margin:0">Statistiques visiteurs</div>
+        <p class="muted" style="margin:4px 0 0">Pays, pages vues, temps passé et abandons du formulaire de demande.</p>
+    </div>
+    <a href="{{ route('admin.analytics') }}" class="btn btn-dark">Voir les statistiques</a>
+</div>
+
+<div class="card telegram-card">
+    <div class="tg-head">
+        <span class="tg-ic">✈️</span>
+        <div>
+            <div class="card-title" style="margin:0">Notifications Telegram</div>
+            <p class="muted" style="margin:4px 0 0">Les demandes, messages de contact et candidatures sont envoyés à ce chat, avec leur PDF.</p>
+        </div>
+    </div>
+    <div class="tg-dest">
+        @if ($telegram['locked'])
+            <span class="pill pill-amber">Version démo : envois suspendus</span>
+        @elseif ($telegram['configured'])
+            <span class="pill pill-green">Actives</span>
+        @else
+            <span class="pill pill-red">Non configurées</span>
+        @endif
+        @if ($telegram['chat_id'] !== '')
+            <span class="tg-lbl">Chat de destination</span>
+            <code>{{ $telegram['chat_id'] }}</code>
+        @endif
+    </div>
+    @unless ($telegram['configured'])
+        <p class="tg-help">Renseignez <code>TELEGRAM_BOT_TOKEN</code> et <code>TELEGRAM_CHAT_ID</code> dans l’environnement du serveur, puis redéployez.</p>
+    @endunless
+</div>
+
 <div class="grid-2">
     <div class="card">
         <div class="card-title">Demandes reçues (14 derniers jours)</div>

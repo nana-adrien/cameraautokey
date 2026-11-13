@@ -5,15 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex">
     <title>Connexion · Admin CAMER AUTO KEY</title>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('css/admin.css') }}?v=1">
+    <link rel="icon" type="image/png" href="{{ asset('images/favicon-64.png') }}">
+    <link rel="apple-touch-icon" href="{{ asset('images/logo-camer-auto-key-160.png') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@500;600;700;800;900&family=Barlow+Condensed:wght@700;800;900&family=DM+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/admin.css') }}?v=4">
 </head>
 <body>
 <div class="login-page">
     <form method="POST" action="{{ route('admin.login.attempt') }}" class="login-card form">
         @csrf
         <div style="text-align:center">
-            <div style="font-size:2.4rem">🔑</div>
+            <img src="{{ asset('images/logo-camer-auto-key-160.png') }}" alt="CAMER AUTO KEY" width="76" height="76" class="login-logo">
             <h1 style="font-size:1.4rem">CAMER AUTO KEY</h1>
             <p class="muted" style="margin:4px 0 0">Espace administrateur</p>
         </div>

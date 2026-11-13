@@ -2,7 +2,7 @@
 @if (session('success'))
     <div class="flash-success">✓ {{ session('success') }}</div>
 @endif
-<form method="POST" action="{{ route('contact.send') }}">
+<form method="POST" action="{{ route('contact.send') }}" data-track-form="{{ $type }}">
     @csrf
     <input type="hidden" name="type" value="{{ $type }}">
     <div class="inp-row two">

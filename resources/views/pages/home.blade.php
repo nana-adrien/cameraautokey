@@ -10,11 +10,11 @@
     $startStep = $errors->hasAny($step2Fields) ? 2 : 1;
     $v = fn ($name, $default = null) => old($name, $default);
     $keyIcons = [
-        'simple' => '<svg viewBox="0 0 48 48" fill="none" stroke="#1a2f5e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="15" cy="24" r="8"/><path d="M23 24h20M37 24v6M42 24v4"/></svg>',
-        'transponder' => '<svg viewBox="0 0 48 48" fill="none" stroke="#1a2f5e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="14" y="4" width="20" height="22" rx="6"/><rect x="20" y="10" width="8" height="8" rx="1.5" fill="#d6262e" stroke="#d6262e"/><path d="M24 26v18M24 34h5M24 40h4"/></svg>',
-        'remote' => '<svg viewBox="0 0 48 48" fill="none" stroke="#1a2f5e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="13" y="3" width="22" height="26" rx="7"/><circle cx="24" cy="11" r="2.5" fill="#d6262e" stroke="#d6262e"/><circle cx="24" cy="20" r="2.5"/><path d="M24 29v16M24 37h5M24 42h4"/></svg>',
-        'card' => '<svg viewBox="0 0 48 48" fill="none" stroke="#1a2f5e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10" width="38" height="28" rx="4"/><rect x="10" y="16" width="9" height="7" rx="1.5" stroke="#d6262e"/><path d="M10 31h20M34 31h4"/></svg>',
-        'smart' => '<svg viewBox="0 0 48 48" fill="none" stroke="#1a2f5e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="11" width="36" height="26" rx="5"/><path d="M12 19h10M12 25h6"/><path d="M31 20a6 6 0 0 1 0 8M35 17a10 10 0 0 1 0 14" stroke="#d6262e"/></svg>',
+        'simple' => '<svg viewBox="0 0 64 64" fill="none"><g transform="rotate(-26 32 32)" filter="url(#soft)"><path d="M26 27.5h30a4 4 0 0 1 4 4v2.5H51v5.5h-4v-5h-4v6.5h-4v-6.5h-4v5h-4v-5H26Z" fill="url(#metal)" stroke="#4a5a76" stroke-width="1.5" stroke-opacity=".55" stroke-linejoin="round"/><path d="M27 30.2h29" stroke="#fff" stroke-width="1.5" stroke-opacity=".8" stroke-linecap="round"/><path d="M17 21.5a11 11 0 1 0 0 22a11 11 0 0 0 0-22Zm0 6.4a4.6 4.6 0 1 1 0 9.2a4.6 4.6 0 0 1 0-9.2Z" fill="url(#metal)" stroke="#4a5a76" stroke-width="1.5" stroke-opacity=".55" fill-rule="evenodd"/><path d="M9.8 27.2a10 10 0 0 1 8.2-4" stroke="#fff" stroke-width="2.2" stroke-opacity=".8" stroke-linecap="round"/></g></svg>',
+        'transponder' => '<svg viewBox="0 0 64 64" fill="none"><g filter="url(#soft)"><path d="M29 27.5h26a4 4 0 0 1 4 4v2.5H51.5V38h-4.2v-4H43v4.8h-4.2V38H35v-3.5H29Z" fill="url(#metal)" stroke="#4a5a76" stroke-width="1.5" stroke-opacity=".55" stroke-linejoin="round"/><path d="M30 30h26.5" stroke="#fff" stroke-opacity=".75" stroke-width="1.4" stroke-linecap="round"/><rect x="5" y="15.5" width="26" height="31" rx="11" fill="url(#plastic)" stroke="#0b1322" stroke-opacity=".6" stroke-width="1.4"/><rect x="8.8" y="19.3" width="18.4" height="23.4" rx="8" fill="none" stroke="#fff" stroke-opacity=".13" stroke-width="1.4"/><circle cx="12.5" cy="22.5" r="3" fill="#0b1322" stroke="url(#chrome)" stroke-width="2"/><rect x="16.5" y="33.5" width="8" height="5.4" rx="1.3" fill="url(#gold)" stroke="#8a6b2c" stroke-opacity=".55" stroke-width=".9"/><path d="M8 34.6h20" stroke="#000" stroke-opacity=".22" stroke-width="1.1"/><path d="M8 22.5c1.7-3 4.2-4.7 7.4-5.1" stroke="#fff" stroke-opacity=".2" stroke-width="2.6" stroke-linecap="round"/></g></svg>',
+        'remote' => '<svg viewBox="0 0 64 64" fill="none"><g filter="url(#soft)"><path d="M27.5 41h9.5v12.5h4v4h-4v3h-9.5z" fill="url(#metal)" stroke="#4a5a76" stroke-opacity=".55" stroke-width="1.4" stroke-linejoin="round"/><path d="M29.2 43h7" stroke="#fff" stroke-opacity=".75" stroke-width="1.3" stroke-linecap="round"/><rect x="16.5" y="4.5" width="31" height="37" rx="10" fill="url(#plastic)" stroke="#0b1322" stroke-opacity=".6" stroke-width="1.4"/><rect x="20" y="8" width="24" height="30" rx="7" fill="none" stroke="#fff" stroke-opacity=".12" stroke-width="1.4"/><circle cx="32" cy="10.5" r="2.6" fill="#0b1322" stroke="url(#chrome)" stroke-width="1.8"/><circle cx="23" cy="13" r="1.4" fill="#e2493f"/><rect x="22.5" y="17.5" width="19" height="7.2" rx="3.6" fill="#0b1526" stroke="#fff" stroke-opacity=".09"/><rect x="22.5" y="26.4" width="19" height="7.2" rx="3.6" fill="#0b1526" stroke="#fff" stroke-opacity=".09"/><rect x="22.5" y="35.3" width="19" height="7.2" rx="3.6" fill="url(#red)" stroke="#7d0f15" stroke-opacity=".6"/><path d="M29.5 21.6v-1.6a2.5 2.5 0 0 1 5 0v1.6M28.8 21.6h6.4v3.6h-6.4z" stroke="#e8eef7" stroke-width="1.4" stroke-linejoin="round"/><path d="M28.8 30.5h6.4v3.6h-6.4zM29.5 30.7v-1.5a2.4 2.4 0 0 1 4.3-1.2" stroke="#e8eef7" stroke-width="1.4" stroke-linejoin="round"/><path d="M30 39.5h4l-2-2.4z" fill="#fff" fill-opacity=".9"/></g></svg>',
+        'smart' => '<svg viewBox="0 0 64 64" fill="none"><g filter="url(#soft)"><path d="M32 4.5c13 0 22 8.4 22 20.2 0 11.4-6.6 17.4-11.3 22.1l-2.4 2.4H23.7l-2.4-2.4C16.6 42.1 10 36.1 10 24.7 10 12.9 19 4.5 32 4.5Z" fill="url(#plastic2)" stroke="#0b1322" stroke-opacity=".55" stroke-width="1.4"/><path d="M20 15c3-4.6 7-7 12-7.4" stroke="#fff" stroke-opacity=".2" stroke-width="3.8" stroke-linecap="round"/><path d="M16.5 31.5c1.8 5.2 5 9 9.2 12.2" stroke="#fff" stroke-opacity=".08" stroke-width="2.8" stroke-linecap="round"/><rect x="20" y="21.5" width="7.4" height="10" rx="2.4" fill="#152238" stroke="#fff" stroke-opacity=".22"/><rect x="28.3" y="21.5" width="7.4" height="10" rx="2.4" fill="#152238" stroke="#fff" stroke-opacity=".22"/><rect x="36.6" y="21.5" width="7.4" height="10" rx="2.4" fill="url(#red)" stroke="#7d0f15" stroke-opacity=".6"/><path d="M22.3 26.3v-1.5a1.9 1.9 0 0 1 3.8 0v1.5M21.6 26.3h5.2v3.2h-5.2z" stroke="#e8eef7" stroke-width="1.3" stroke-linejoin="round"/><path d="M30.6 26.3v-1.5a1.9 1.9 0 0 1 3.8 0v1.5M29.9 26.3H35v3.2h-5.1z" stroke="#e8eef7" stroke-width="1.3" stroke-linejoin="round"/><circle cx="40.3" cy="26.5" r="1.4" fill="#fff" fill-opacity=".9"/><circle cx="32" cy="51" r="5.2" fill="none" stroke="url(#chrome)" stroke-width="3.2"/><circle cx="32" cy="51" r="1.8" fill="#0b1322"/></g></svg>',
+        'card' => '<svg viewBox="0 0 64 64" fill="none"><g filter="url(#soft)"><rect x="4" y="15" width="56" height="34" rx="7" fill="url(#card)" stroke="#8fa0b7" stroke-width="1.3"/><path d="M4 23.5V22a7 7 0 0 1 7-7h42a7 7 0 0 1 7 7v1.5Z" fill="url(#plastic)"/><rect x="4" y="23.5" width="56" height="2.6" fill="url(#red)"/><rect x="8.5" y="29" width="18" height="12" rx="3" fill="#1a2f5e" stroke="#0b1322" stroke-opacity=".4"/><rect x="8.5" y="30.7" width="18" height="1.8" fill="#fff" fill-opacity=".14"/><path d="M11.8 35.5v-1.6a2.4 2.4 0 0 1 4.8 0v1.6M11 35.5h6.4v3.8H11z" stroke="#e8eef7" stroke-width="1.4" stroke-linejoin="round"/><path d="M20 35.5v-1.6a2.4 2.4 0 0 1 4.8 0v1.6M19.2 35.5h6.4v3.8h-6.4z" stroke="#e8eef7" stroke-width="1.4" stroke-linejoin="round"/><circle cx="52" cy="19.5" r="2.5" fill="#0b1322" stroke="url(#chrome)" stroke-width="1.7"/><rect x="31" y="30.5" width="21" height="3.2" rx="1.6" fill="#c7d2e0" opacity=".9"/><rect x="31" y="36" width="15" height="3.2" rx="1.6" fill="#d8e0ec" opacity=".85"/><path d="M8.5 43.5h47" stroke="#9aa8bd" stroke-opacity=".35" stroke-width=".9"/></g></svg>',
     ];
     $keyGallery = [
         ['cles-toyota-tacoma.webp', 'Clés Toyota Tacoma'],
@@ -47,6 +47,35 @@
 @endpush
 
 @section('content')
+{{-- Dégradés et ombre partagés par les icônes de clés (SVG inline, viewBox 64) --}}
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <defs>
+        <linearGradient id="metal" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#f4f7fb"/><stop offset=".45" stop-color="#c9d4e2"/><stop offset="1" stop-color="#8d9bb0"/>
+        </linearGradient>
+        <linearGradient id="plastic" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#3a4a68"/><stop offset="1" stop-color="#141d30"/>
+        </linearGradient>
+        <linearGradient id="plastic2" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#61779b"/><stop offset="1" stop-color="#2b3a55"/>
+        </linearGradient>
+        <linearGradient id="chrome" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#ffffff"/><stop offset=".5" stop-color="#aeb9c9"/><stop offset="1" stop-color="#eef2f8"/>
+        </linearGradient>
+        <linearGradient id="red" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#f25159"/><stop offset="1" stop-color="#b0171f"/>
+        </linearGradient>
+        <linearGradient id="card" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#dde5f0"/>
+        </linearGradient>
+        <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#e6c97a"/><stop offset="1" stop-color="#b98f3a"/>
+        </linearGradient>
+        <filter id="soft" x="-25%" y="-25%" width="150%" height="150%">
+            <feDropShadow dx="0" dy="1.3" stdDeviation="1.3" flood-color="#0f1c3a" flood-opacity=".3"/>
+        </filter>
+    </defs>
+</svg>
 {{-- ─── HERO ─── --}}
 <section class="hero-section">
     <div class="hero-slider" aria-hidden="true">
@@ -99,7 +128,7 @@
                 </a>
             @endforeach
             <a href="{{ route('services.show', 'reparation-telecommande-voiture') }}" class="key-type-card">
-                <span class="key-type-icon"><svg viewBox="0 0 48 48" fill="none" stroke="#1a2f5e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="13" y="3" width="22" height="26" rx="7"/><path d="M18 36l6-6 6 6M24 30v15" stroke="#d6262e"/><circle cx="24" cy="12" r="2.5"/></svg></span>
+                <span class="key-type-icon"><svg viewBox="0 0 64 64" fill="none"><g filter="url(#soft)"><g transform="translate(3.5 0) rotate(32 50 48)"><rect x="47.5" y="33" width="5" height="15" rx="1.8" fill="url(#metal)" stroke="#4a5a76" stroke-opacity=".55" stroke-width="1.2"/><rect x="45" y="46" width="10" height="11" rx="3.2" fill="url(#red)" stroke="#7d0f15" stroke-opacity=".6" stroke-width="1.2"/><path d="M48 49.5h4" stroke="#fff" stroke-opacity=".5" stroke-width="1.2" stroke-linecap="round"/></g><rect x="14.5" y="5" width="34" height="41" rx="10" fill="url(#plastic)" stroke="#0b1322" stroke-opacity=".6" stroke-width="1.4"/><rect x="18" y="8.5" width="27" height="34" rx="7" fill="none" stroke="#fff" stroke-opacity=".12" stroke-width="1.4"/><circle cx="32" cy="10.5" r="2.6" fill="#0b1322" stroke="url(#chrome)" stroke-width="1.8"/><circle cx="23" cy="13" r="1.4" fill="#e2493f"/><rect x="21" y="18" width="17" height="6.6" rx="3.3" fill="#0b1526" stroke="#fff" stroke-opacity=".14"/><rect x="21" y="26.5" width="17" height="6.6" rx="3.3" fill="#0b1526" stroke="#fff" stroke-opacity=".14"/><path d="M45.5 8l-5.5 9 4.5 6.5-6 8 3 10" stroke="#e2493f" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M46.3 8.4l-5.5 9 4.5 6.5-6 8 3 10" stroke="#fff" stroke-opacity=".22" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></g></svg></span>
                 <b>Réparation de coque</b>
                 <small>Coque cassée, boutons usés, pile</small>
                 <span class="key-type-price">Dès {{ \App\Support\Money::fcfa(15000) }}</span>
@@ -116,7 +145,7 @@
     <div class="step-tab step-future" data-tab="4"><span class="sn">4</span><span class="sl">Envoyé</span></div>
 </nav>
 
-<form method="POST" action="{{ route('orders.store') }}" id="order-form" data-start-step="{{ $startStep }}" novalidate>
+<form method="POST" action="{{ route('orders.store') }}" id="order-form" data-start-step="{{ $startStep }}" data-track-form="order" novalidate>
     @csrf
     <div class="page-wrap" id="form-area">
         <div class="form-col">
@@ -335,7 +364,7 @@
                 </div>
                 <label class="terms-box" id="terms-box">
                     <input type="checkbox" name="accept_terms" value="1" id="accept_terms" @checked($v('accept_terms'))>
-                    <span>J’accepte les <a href=\"{{ route('terms') }}\" target=\"_blank\">conditions générales d’intervention</a>.</span>
+                    <span>J’accepte les <a href="{{ route('terms') }}" target="_blank">conditions générales d’intervention</a>.</span>
                 </label>
                 <button type="button" class="btn-cta" id="btn-next">Étape suivante : l’adresse →</button>
                 <button type="button" class="btn-back" id="btn-back" hidden>← Retour</button>
@@ -600,5 +629,5 @@
         window.PRICING = @json($pricing);
     </script>
     <script src="{{ asset('js/lightbox.js') }}?v=1"></script>
-    <script src="{{ asset('js/configurator.js') }}?v=3"></script>
+    <script src="{{ asset('js/configurator.js') }}?v=4"></script>
 @endpush

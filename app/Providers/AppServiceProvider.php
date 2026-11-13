@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Models\Brand;
 use App\Models\ContactMessage;
+use App\Models\JobApplication;
 use App\Models\Order;
 use App\Models\Service;
 use App\Models\Setting;
@@ -36,6 +37,7 @@ class AppServiceProvider extends ServiceProvider
             $view->with([
                 'pendingOrders' => Order::where('status', 'pending')->count(),
                 'unreadMessages' => ContactMessage::whereNull('read_at')->count(),
+                'newApplications' => JobApplication::whereNull('read_at')->count(),
             ]);
         });
 

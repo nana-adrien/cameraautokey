@@ -23,6 +23,10 @@ class Order extends Model
         'notes', 'estimated_price', 'status', 'technician_id', 'completed_at',
     ];
 
+    // Le statut est aussi défini côté base, mais l'instance créée en mémoire doit
+    // le connaître immédiatement (PDF et notification envoyés juste après create()).
+    protected $attributes = ['status' => 'pending'];
+
     protected function casts(): array
     {
         return [
@@ -49,7 +53,7 @@ class Order extends Model
 
     public function statusLabel(): string
     {
-        return self::STATUSES[$this->status] ?? $this->status;
+        return self::STATUSES[$this->status] ?? $this->status ?? 'En attente';
     }
 
     public function label(string $field): string
