@@ -174,7 +174,7 @@ class DatabaseSeeder extends Seeder
                 'quantity' => $qty, 'warranty_extension' => $warranty, 'emergency' => $emergency,
             ];
 
-            Order::create($data + [
+            Order::firstOrCreate(['customer_email' => 'client'.($i + 1).'@example.com'], $data + [
                 'plate' => 'LT '.(100 + $i * 37).' '.['AB', 'MC', 'JS', 'ND', 'CE', 'KL'][$i],
                 'brand_model' => $model,
                 'year' => 2012 + $i * 2,

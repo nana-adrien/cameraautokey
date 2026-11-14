@@ -20,7 +20,18 @@ if [ "$DB_CONNECTION" = "sqlite" ]; then
     touch "$DB_DATABASE"
     php artisan migrate --force --seed --no-interaction
 else
-    php artisan migrate --force --no-interaction
+    # Plusieurs conteneurs peuvent démarrer en même temps sur la même base : celui qui
+    # perd la course échoue (« relation already exists »). Les migrations PostgreSQL étant
+    # transactionnelles, on réessaie : l'autre conteneur aura alors tout enregistré.
+    attempt=1
+    until php artisan migrate --force --no-interaction; do
+        if [ "$attempt" -ge 5 ]; then
+            echo "Migrations impossibles après $attempt essais." >&2
+            exit 1
+        fi
+        attempt=$((attempt + 1))
+        sleep 3
+    done
     if [ "$SEED_ON_BOOT" = "true" ]; then
         php artisan db:seed --force --no-interaction
     fi
